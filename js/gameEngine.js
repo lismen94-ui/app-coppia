@@ -136,6 +136,10 @@ let evening = createNewEvening();
 let currentCard = null;
 let currentCardKind = null;
 
+// Da dove arriva la carta sullo schermo:
+// "evening" = pescata durante la serata, "skipped" = riaperta dalle domande in sospeso
+let currentCardSource = "evening";
+
 /**
  * Crea i dati di una serata nuova, tutti a zero.
  * La usiamo all'avvio e ogni volta che si inizia una serata.
@@ -159,6 +163,7 @@ function startNewEvening() {
   evening = createNewEvening();
   currentCard = null;
   currentCardKind = null;
+  currentCardSource = "evening";
 }
 
 // =========================================================
@@ -354,13 +359,23 @@ function keepGentlestCards(cards) {
 }
 
 /**
- * Pesca una carta di riscaldamento che non sia già uscita stasera.
+ * Pesca una carta di riscaldamento che non sia uscita stasera
+ * né nelle ultime serate (recentWarmupIds sta in storage.js).
  * @returns {object}
  */
 function drawWarmupCard() {
   let available = deck.warmups.filter(function (card) {
-    return !evening.usedWarmupIds.includes(card.id);
+    const usedTonight = evening.usedWarmupIds.includes(card.id);
+    const usedRecently = recentWarmupIds.includes(card.id);
+    return !usedTonight && !usedRecently;
   });
+
+  // Se sono finite, rinunciamo alla regola "non recenti" (ma non a quella "non stasera")
+  if (available.length === 0) {
+    available = deck.warmups.filter(function (card) {
+      return !evening.usedWarmupIds.includes(card.id);
+    });
+  }
 
   // Caso estremo: le abbiamo usate tutte stasera → si ricomincia dal mazzo intero
   if (available.length === 0) {
@@ -507,6 +522,7 @@ function markCurrentCardAsUsed() {
   if (currentCardKind === "warmup") {
     evening.usedWarmupIds.push(currentCard.id);
     evening.warmupsDone = evening.warmupsDone + 1;
+    rememberWarmup(currentCard.id); // sta in storage.js
     return;
   }
 
@@ -515,6 +531,56 @@ function markCurrentCardAsUsed() {
   }
   evening.questionsDone = evening.questionsDone + 1;
   questionsInCurrentLevel = questionsInCurrentLevel + 1;
+}
+
+/**
+ * Una domanda in sospeso a cui avete risposto: diventa "giocata"
+ * e sparisce dall'elenco delle domande in sospeso.
+ * Non conta per la serata: la si può riaprire anche dalla home.
+ * @param {string} cardId
+ */
+function answerSkippedCard(cardId) {
+  removeFromSkipped(cardId);
+  if (!usedCardIds.includes(cardId)) {
+    usedCardIds.push(cardId);
+  }
+}
+
+/**
+ * Toglie una carta dall'elenco delle domande in sospeso.
+ * splice(posizione, 1) toglie 1 elemento dall'array in quella posizione.
+ * @param {string} cardId
+ */
+function removeFromSkipped(cardId) {
+  const position = skippedCardIds.indexOf(cardId);
+  if (position !== -1) {
+    skippedCardIds.splice(position, 1);
+  }
+}
+
+/**
+ * Cerca una domanda nel mazzo partendo dal suo codice.
+ * @param {string} cardId - es. "Q017"
+ * @returns {object|undefined}
+ */
+function findQuestionById(cardId) {
+  return deck.questions.find(function (card) {
+    return card.id === cardId;
+  });
+}
+
+/**
+ * Quante domande avete giocato sul totale (la carta finale non conta).
+ * @returns {object} es. { played: 23, total: 149 }
+ */
+function getJourneyProgress() {
+  const playableQuestions = deck.questions.filter(function (card) {
+    return !card.isFinal;
+  });
+  const played = playableQuestions.filter(function (card) {
+    return usedCardIds.includes(card.id);
+  });
+  return { played: played.length, total: playableQuestions.length };
 }
 
 /**
@@ -528,7 +594,7 @@ function skipCurrentCard() {
 
   if (currentCardKind === "warmup") {
     evening.usedWarmupIds.push(currentCard.id);
-  } else {
+  } else if (!skippedCardIds.includes(currentCard.id)) {
     skippedCardIds.push(currentCard.id);
   }
 }

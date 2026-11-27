@@ -84,19 +84,22 @@ Anche "Chiudi la serata" a metà porta al rituale di chiusura.
 - Dopo una ●●● l'app propone una carta bonus 🌙 Calma (fase 6).
 
 ## 9. Domande in sospeso
-- Una carta saltata finisce in una cartella **condivisa** "In sospeso".
-- Si può riaprire quando si vuole; quando si risponde diventa "usata".
-- Dopo una carta saltata l'app propone una carta bonus ☀️ Respiro.
+- Una carta saltata finisce nell'elenco **condiviso** "In sospeso" (dalla home).
+- Ogni carta ha "Rispondiamo adesso": si apre come una carta normale. **Fatto** → diventa giocata ed esce dall'elenco; **Lasciala in sospeso** → resta lì.
+- Dopo una carta saltata l'app propone una carta bonus ☀️ Respiro (fase 6).
 
 ## 10. Preferite
-- Ogni carta ha due cuori, uno per colore.
-- Filtri: le mie, le sue, entrambi.
+- Ogni domanda ha due cuori, uno per colore: ognuno tocca il proprio.
+- Pagina "Preferite" con tre filtri: il primo colore, il secondo colore, entrambi.
 
 ## 11. Memoria e ripresa
-- Salvataggio automatico sul telefono: coppia, livello, carte usate, in sospeso, preferite.
+- Salvataggio automatico sul telefono (localStorage), a ogni carta: colori, livello, carte giocate, in sospeso, preferite, patto accettato.
+- Riaprendo l'app, i colori sono già scelti e il viaggio riprende dal livello in cui eravate. Ogni apertura è comunque una **nuova serata** (riparte dal riscaldamento).
 - **Nessuna domanda si ripete** finché il mazzo non è finito.
-- Le carte di riscaldamento possono ripetersi, ma non nella stessa serata e (dalla fase 5) non nelle ultime serate.
-- A fine mazzo: schermata "Avete completato il viaggio", carta finale, carte preferite da entrambi, possibilità di ricominciare.
+- Le carte di riscaldamento non si ripetono nella stessa serata né nelle ultime 5 serate.
+- Sulla home: "Siete in [livello] · N domande su 149".
+- "Ricomincia da zero" (con conferma) cancella tutto.
+- A fine mazzo: "Avete completato il viaggio" → si può ricominciare (le preferite e le carte in sospeso restano).
 
 ## 12. Grafica
 - Sfondo **scuro** (blu notte / grafite).

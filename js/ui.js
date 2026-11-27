@@ -5,6 +5,11 @@
 
 // Le scritte per ogni modalità di risposta.
 // La chiave (self, together, guessOther) è quella scritta nei file JSON.
+// I cuori. Il carattere invisibile \uFE0E dice al telefono: "disegnalo come testo,
+// non come emoji". Senza, alcuni Android lo mostrano sempre rosso, ignorando il colore.
+const HEART_FULL = "♥\uFE0E";
+const HEART_EMPTY = "♡\uFE0E";
+
 const MODE_LABELS = {
   self: "🎯 Tocca a te",
   together: "🤝 Rispondete insieme",
@@ -68,6 +73,35 @@ function renderCard(card, kind) {
   // Le carte intense arrivano coperte, con l'avvertimento
   const isIntense = showsIntensity && card.intensity === 3;
   setCardCovered(isIntense);
+
+  // I cuori ci sono solo sulle domande (non sul riscaldamento)
+  document.getElementById("cardHearts").hidden = kind !== "question";
+  updateHearts(card);
+}
+
+/**
+ * Disegna i due cuori della carta: pieno (♥) se è tra le preferite
+ * di quel giocatore, vuoto (♡) se no. Ognuno nel colore del suo giocatore.
+ * @param {object} card
+ */
+function updateHearts(card) {
+  drawHeart("heartFirst", card.id, "first");
+  drawHeart("heartSecond", card.id, "second");
+}
+
+/**
+ * Disegna un singolo cuore.
+ * @param {string} buttonId
+ * @param {string} cardId
+ * @param {string} playerKey - "first" o "second"
+ */
+function drawHeart(buttonId, cardId, playerKey) {
+  const heartButton = document.getElementById(buttonId);
+  const playerColor = findColorById(players[playerKey]); // sta in script.js
+
+  heartButton.textContent = isFavorite(cardId, playerKey) ? HEART_FULL : HEART_EMPTY;
+  heartButton.style.color = playerColor.hex;
+  heartButton.setAttribute("aria-label", "Preferita di " + playerColor.name);
 }
 
 /**
@@ -126,4 +160,136 @@ function showPrompt(options) {
 function updateGoDeeperButton() {
   const isQuestion = currentCardKind === "question";
   document.getElementById("buttonGoDeeper").hidden = !(isQuestion && canGoDeeper());
+}
+
+// =========================================================
+// ELENCHI
+// =========================================================
+
+/**
+ * Crea il riquadro di una carta per gli elenchi.
+ * @param {object} card
+ * @returns {HTMLElement} l'elemento pronto da inserire nella pagina
+ */
+function createListItem(card) {
+  const item = document.createElement("article");
+  item.className = "listItem";
+
+  const meta = document.createElement("p");
+  meta.className = "listItemMeta";
+  meta.textContent = LEVEL_NAMES[card.level] + " · " + formatIntensity(card.intensity);
+
+  const text = document.createElement("p");
+  text.className = "listItemText";
+  text.textContent = card.text;
+
+  item.appendChild(meta);
+  item.appendChild(text);
+  return item;
+}
+
+/**
+ * Mostra un messaggio al posto dell'elenco, quando è vuoto.
+ * @param {HTMLElement} container
+ * @param {string} message
+ */
+function showEmptyMessage(container, message) {
+  const emptyMessage = document.createElement("p");
+  emptyMessage.className = "emptyListMessage";
+  emptyMessage.textContent = message;
+  container.appendChild(emptyMessage);
+}
+
+/**
+ * Disegna l'elenco delle domande in sospeso.
+ * @param {Function} onOpenCard - cosa fare quando si sceglie una carta (riceve la carta)
+ */
+function renderSkippedList(onOpenCard) {
+  const container = document.getElementById("skippedList");
+  container.innerHTML = "";
+
+  if (skippedCardIds.length === 0) {
+    showEmptyMessage(container, "Nessuna domanda in sospeso.");
+    return;
+  }
+
+  skippedCardIds.forEach(function (cardId) {
+    const card = findQuestionById(cardId);
+    if (card === undefined) {
+      return; // per sicurezza: codice sconosciuto, lo saltiamo
+    }
+
+    const item = createListItem(card);
+
+    const openButton = document.createElement("button");
+    openButton.className = "button button--outline listItemAction";
+    openButton.textContent = "Rispondiamo adesso";
+    openButton.addEventListener("click", function () {
+      onOpenCard(card);
+    });
+
+    item.appendChild(openButton);
+    container.appendChild(item);
+  });
+}
+
+/**
+ * Disegna l'elenco delle preferite, secondo il filtro scelto.
+ * @param {string} filter - "first", "second" o "both"
+ */
+function renderFavoritesList(filter) {
+  // Etichette dei filtri: i nomi dei colori dei giocatori
+  document.getElementById("filterFirst").textContent = HEART_FULL + " " + findColorById(players.first).name;
+  document.getElementById("filterSecond").textContent = HEART_FULL + " " + findColorById(players.second).name;
+
+  // Evidenziamo il filtro attivo
+  document.querySelectorAll(".filterButton").forEach(function (button) {
+    button.classList.toggle("filterButton--active", button.dataset.filter === filter);
+  });
+
+  const container = document.getElementById("favoritesList");
+  container.innerHTML = "";
+
+  const cards = getFavoriteCards(filter);
+
+  if (cards.length === 0) {
+    showEmptyMessage(container, "Ancora nessuna carta con il cuore qui.");
+    return;
+  }
+
+  cards.forEach(function (card) {
+    const item = createListItem(card);
+
+    // Sotto il testo, i cuori di chi l'ha scelta
+    const hearts = document.createElement("p");
+    hearts.className = "listItemMeta";
+    ["first", "second"].forEach(function (playerKey) {
+      if (isFavorite(card.id, playerKey)) {
+        const heart = document.createElement("span");
+        heart.textContent = HEART_FULL + " ";
+        heart.style.color = findColorById(players[playerKey]).hex;
+        hearts.appendChild(heart);
+      }
+    });
+
+    item.appendChild(hearts);
+    container.appendChild(item);
+  });
+}
+
+/**
+ * Scrive sulla home a che punto è il viaggio.
+ */
+function updateJourneyStatus() {
+  const label = document.getElementById("journeyStatus");
+
+  if (usedCardIds.length === 0) {
+    label.textContent = "";
+    return;
+  }
+
+  const progress = getJourneyProgress();
+  label.textContent =
+    "Siete in " + LEVEL_NAMES[currentLevel] +
+    " · " + progress.played + " domande su " + progress.total;
 }

@@ -360,3 +360,121 @@ h2 {
   color: var(--colorTextSoft);
   text-align: center;
 }
+
+/* =========================================================
+   CUORI (preferite)
+   ========================================================= */
+.cardHearts {
+  display: flex;
+  justify-content: center;
+  gap: 16px;
+}
+
+/* Il cuore vuoto è un contorno; quello pieno è colorato.
+   Il colore lo imposta il JavaScript (il colore del giocatore). */
+.heartButton {
+  width: 44px;
+  height: 44px;
+  border: none;
+  background: transparent;
+  font-size: 1.6rem;
+  line-height: 1;
+  cursor: pointer;
+  transition: transform 0.15s ease;
+}
+
+/* Piccolo "battito" quando si tocca */
+.heartButton:active {
+  transform: scale(1.25);
+}
+
+/* Mentre la carta intensa è coperta, i cuori non si vedono */
+.card--covered .cardHearts {
+  visibility: hidden;
+}
+
+/* =========================================================
+   ELENCHI (In sospeso, Preferite)
+   ========================================================= */
+
+/* Le schermate con elenchi partono dall'alto (non centrate) e possono scorrere */
+.screen--list {
+  justify-content: flex-start;
+}
+
+.listIntro {
+  margin: 0;
+  text-align: center;
+  color: var(--colorTextSoft);
+}
+
+.cardList {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  width: 100%;
+}
+
+.listItem {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  padding: 16px 18px;
+  border-radius: 16px;
+  background-color: var(--colorSurface);
+}
+
+.listItemMeta {
+  margin: 0;
+  font-size: 0.8rem;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  color: var(--colorTextSoft);
+}
+
+.listItemText {
+  margin: 0;
+}
+
+.listItemAction {
+  align-self: flex-start;
+  padding: 8px 14px;
+  font-size: 0.9rem;
+}
+
+.emptyListMessage {
+  margin: 24px 0;
+  text-align: center;
+  font-style: italic;
+  color: var(--colorTextSoft);
+}
+
+/* --- Filtri delle preferite --- */
+.filterRow {
+  display: flex;
+  gap: 8px;
+  width: 100%;
+}
+
+.filterButton {
+  flex: 1;
+  padding: 10px 8px;
+  border: 1px solid var(--colorTextSoft);
+  border-radius: var(--radiusPill);
+  background: transparent;
+  color: var(--colorText);
+  font-size: 0.9rem;
+  cursor: pointer;
+}
+
+.filterButton--active {
+  background-color: var(--colorSurface);
+  border-color: var(--colorText);
+  font-weight: 600;
+}
+
+/* Pulsante piccolo, per azioni secondarie (es. "Ricomincia da zero") */
+.button--small {
+  font-size: 0.85rem;
+  padding: 8px 14px;
+}

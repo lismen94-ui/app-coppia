@@ -27,6 +27,14 @@ function showScreen(screenId) {
 
   // 4. Solo a lei rimettiamo la classe "attiva"
   targetScreen.classList.add("screen--active");
+
+  // 5. Le schermate partono sempre dall'alto (utile per gli elenchi lunghi)
+  window.scrollTo(0, 0);
+
+  // 6. Ogni volta che si torna alla home, aggiorniamo "a che punto siete"
+  if (screenId === "screenHome") {
+    updateJourneyStatus(); // sta in ui.js
+  }
 }
 
 /**
@@ -180,6 +188,7 @@ function updateChosenColorLabel(playerKey, labelId) {
 function selectColor(playerKey, colorId) {
   players[playerKey] = colorId;
   renderColorPickers();
+  saveGame(); // sta in storage.js
 }
 
 // =========================================================
@@ -201,6 +210,9 @@ function showNextCard() {
   const levelBefore = currentLevel;
   const card = drawNextCard();
 
+  // Salviamo a ogni carta: se l'app si chiude adesso, non si perde niente
+  saveGame();
+
   // Il livello è cambiato da solo perché le carte del precedente sono finite
   if (currentLevel !== levelBefore) {
     showLevelIntro(currentLevel, function () {
@@ -219,6 +231,7 @@ function showNextCard() {
 function showCardWithRulesIfNeeded(card) {
   if (needsHeartRules(card)) {
     heartRulesShown = true;
+    saveGame();
     showPrompt({
       title: "Regole del cuore",
       text:
@@ -243,7 +256,28 @@ function showCardWithRulesIfNeeded(card) {
 function displayCard(card) {
   renderCard(card, currentCardKind);
   updateGoDeeperButton();
+  updateGameButtonsForSource();
   showScreen("screenGame");
+}
+
+/**
+ * I pulsanti di gioco cambiano un po' se la carta arriva dalle domande in sospeso:
+ * non si sta giocando una serata, si sta rispondendo a una carta rimasta indietro.
+ */
+function updateGameButtonsForSource() {
+  const fromSkipped = currentCardSource === "skipped";
+
+  document.getElementById("buttonNextTurn").textContent = fromSkipped ? "Fatto" : "Fatto, passa";
+  document.getElementById("buttonSkipCard").textContent = fromSkipped
+    ? "Lasciala in sospeso"
+    : "Metti in sospeso";
+  document.getElementById("buttonCloseEvening").textContent = fromSkipped
+    ? "Torna all'elenco"
+    : "Chiudi la serata";
+
+  if (fromSkipped) {
+    document.getElementById("buttonGoDeeper").hidden = true;
+  }
 }
 
 /**
@@ -319,6 +353,7 @@ function showInitialPact() {
         style: "primary",
         onClick: function () {
           pactAccepted = true;
+          saveGame();
           // Prima di partire, la presentazione del primo livello
           showLevelIntro(currentLevel, beginEvening);
         },
@@ -367,6 +402,14 @@ function askEveningMood() {
  * 2. la domanda "volete andare più a fondo?"
  */
 function goToNextTurn() {
+  // Carta riaperta dalle domande in sospeso: è fatta, si torna all'elenco
+  if (currentCardSource === "skipped") {
+    answerSkippedCard(currentCard.id);
+    saveGame();
+    openSkippedScreen();
+    return;
+  }
+
   // La carta finale chiude il viaggio
   if (currentCard.isFinal) {
     markCurrentCardAsUsed();
@@ -394,6 +437,12 @@ function goToNextTurn() {
  * riceve un'altra carta (il turno non passa).
  */
 function skipCardAndDrawAgain() {
+  // Dalle domande in sospeso: la carta resta lì, si torna all'elenco
+  if (currentCardSource === "skipped") {
+    openSkippedScreen();
+    return;
+  }
+
   skipCurrentCard();
   showNextCard();
 }
@@ -462,6 +511,7 @@ function askConsentToGoDeeper() {
         style: "ghost",
         onClick: function () {
           stayAtCurrentLevel();
+          saveGame();
           // Se la carta sullo schermo non è stata giocata, la ritroviamo lì
           displayCard(currentCard);
         },
@@ -524,6 +574,11 @@ function showClosingRitual() {
  * "Chiudi la serata": se avete già giocato qualche carta, prima il rituale di chiusura.
  */
 function closeEvening() {
+  if (currentCardSource === "skipped") {
+    openSkippedScreen();
+    return;
+  }
+
   if (getEveningCardCount() > 0) {
     showClosingRitual();
   } else {
@@ -555,6 +610,60 @@ function askToRestartJourney() {
 }
 
 // =========================================================
+// DOMANDE IN SOSPESO E PREFERITE
+// =========================================================
+
+/**
+ * Apre l'elenco delle domande in sospeso.
+ */
+function openSkippedScreen() {
+  // Passiamo a renderSkippedList la funzione da usare quando si sceglie una carta
+  renderSkippedList(openSkippedCard);
+  showScreen("screenSkipped");
+}
+
+/**
+ * Riapre una domanda in sospeso e la mostra come una carta normale.
+ * @param {object} card
+ */
+function openSkippedCard(card) {
+  currentCard = card;
+  currentCardKind = "question";
+  currentCardSource = "skipped";
+
+  applyTurnColors();
+  displayCard(card);
+}
+
+// Il filtro scelto nella pagina delle preferite (si ricorda finché la pagina è aperta)
+let currentFavoritesFilter = "both";
+
+/**
+ * Apre la pagina delle preferite con il filtro attuale.
+ */
+function openFavoritesScreen() {
+  renderFavoritesList(currentFavoritesFilter);
+  showScreen("screenFavorites");
+}
+
+/**
+ * Tocca il cuore di un giocatore sulla carta attuale.
+ * @param {string} playerKey - "first" o "second"
+ */
+function onHeartClick(playerKey) {
+  toggleFavorite(currentCard.id, playerKey); // sta in storage.js (e salva)
+  updateHearts(currentCard);                 // sta in ui.js
+}
+
+/**
+ * Le pagine "In sospeso" e "Preferite" hanno senso solo se i colori sono già stati scelti.
+ * @returns {boolean}
+ */
+function arePlayersChosen() {
+  return players.first !== null && players.second !== null;
+}
+
+// =========================================================
 // AVVIO
 // Grazie a "defer" nell'HTML, quando arriviamo qui la pagina è già pronta.
 // =========================================================
@@ -571,6 +680,7 @@ async function prepareDeck() {
   if (loadedOk) {
     const totalCards = deck.questions.length + deck.warmups.length + deck.bonuses.length;
     statusLabel.textContent = totalCards + " carte pronte";
+    updateJourneyStatus(); // ora che le carte ci sono, possiamo dire a che punto siete
 
     // Controllo dei dati: ci aspettiamo 50 domande per livello
     console.log(
@@ -585,6 +695,9 @@ async function prepareDeck() {
   }
 }
 
+// Prima di tutto, rileggiamo i dati salvati sul telefono (storage.js)
+loadGame();
+
 setupNavigationButtons();
 renderColorPickers();
 prepareDeck();
@@ -596,5 +709,48 @@ document.getElementById("buttonRevealCard").addEventListener("click", revealCard
 document.getElementById("buttonSkipCovered").addEventListener("click", skipCardAndDrawAgain);
 document.getElementById("buttonGoDeeper").addEventListener("click", goDeeperFromButton);
 document.getElementById("buttonCloseEvening").addEventListener("click", closeEvening);
+
+// Cuori sulla carta
+document.getElementById("heartFirst").addEventListener("click", function () {
+  onHeartClick("first");
+});
+document.getElementById("heartSecond").addEventListener("click", function () {
+  onHeartClick("second");
+});
+
+// Home: "In sospeso" e "Preferite". Se i colori non sono ancora scelti,
+// portiamo prima alla scelta dei colori.
+document.getElementById("buttonOpenSkipped").addEventListener("click", function () {
+  if (arePlayersChosen()) {
+    openSkippedScreen();
+  } else {
+    showScreen("screenSetup");
+  }
+});
+document.getElementById("buttonOpenFavorites").addEventListener("click", function () {
+  if (arePlayersChosen()) {
+    openFavoritesScreen();
+  } else {
+    showScreen("screenSetup");
+  }
+});
+
+// Filtri delle preferite
+document.querySelectorAll(".filterButton").forEach(function (button) {
+  button.addEventListener("click", function () {
+    currentFavoritesFilter = button.dataset.filter;
+    renderFavoritesList(currentFavoritesFilter);
+  });
+});
+
+// "Ricomincia da zero": chiediamo conferma, perché si perde tutto
+document.getElementById("buttonEraseData").addEventListener("click", function () {
+  const confirmed = confirm(
+    "Vuoi davvero cancellare tutto? Colori, carte giocate, in sospeso e preferite verranno eliminati."
+  );
+  if (confirmed) {
+    eraseAllData();
+  }
+});
 
 console.log("app-coppia avviata ✨");

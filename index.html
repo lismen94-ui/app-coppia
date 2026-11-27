@@ -24,13 +24,17 @@
     <p class="subtitle">Un gioco per ritrovarsi</p>
     <!-- Messaggio sullo stato delle carte: lo scrive il JavaScript dopo il caricamento -->
     <p id="deckStatus" class="deckStatus">Sto preparando le carte…</p>
+    <!-- A che punto del viaggio siete: lo scrive il JavaScript -->
+    <p id="journeyStatus" class="deckStatus"></p>
 
     <div class="buttonGroup">
       <!-- data-target dice a quale schermata porta il pulsante -->
       <button class="button button--primary" data-target="screenSetup">Nuova serata</button>
-      <button class="button" data-target="screenSkipped">In sospeso</button>
-      <button class="button" data-target="screenFavorites">Preferite</button>
+      <button id="buttonOpenSkipped" class="button">In sospeso</button>
+      <button id="buttonOpenFavorites" class="button">Preferite</button>
     </div>
+
+    <button id="buttonEraseData" class="button button--ghost button--small">Ricomincia da zero</button>
   </section>
 
   <!-- SCHERMATA 2: Scelta dei colori -->
@@ -67,6 +71,12 @@
       </div>
       <p id="cardText" class="cardText"></p>
       <p id="cardMode" class="cardMode"></p>
+
+      <!-- I due cuori: uno per giocatore, ognuno nel proprio colore -->
+      <div id="cardHearts" class="cardHearts">
+        <button id="heartFirst" class="heartButton" aria-label="Preferita (primo colore)"></button>
+        <button id="heartSecond" class="heartButton" aria-label="Preferita (secondo colore)"></button>
+      </div>
 
       <!-- Copertura delle carte intense (●●●): si vede solo quando la carta ha la classe "card--covered" -->
       <div class="cardCover">
@@ -107,16 +117,24 @@
   </section>
 
   <!-- SCHERMATA 4: Domande in sospeso -->
-  <section id="screenSkipped" class="screen">
+  <section id="screenSkipped" class="screen screen--list">
     <h2>In sospeso</h2>
-    <p class="placeholder">Qui troverete le carte saltate (fase 5).</p>
+    <p class="listIntro">Le domande che avete messo da parte. Riapritele quando vi sentite pronti.</p>
+    <!-- L'elenco viene creato dal JavaScript (renderSkippedList in ui.js) -->
+    <div id="skippedList" class="cardList"></div>
     <button class="button button--ghost" data-target="screenHome">Indietro</button>
   </section>
 
   <!-- SCHERMATA 5: Preferite -->
-  <section id="screenFavorites" class="screen">
+  <section id="screenFavorites" class="screen screen--list">
     <h2>Preferite</h2>
-    <p class="placeholder">Qui troverete le carte con il cuore (fase 5).</p>
+    <!-- I filtri: i cuori di un colore, dell'altro, o di entrambi -->
+    <div class="filterRow">
+      <button id="filterFirst" class="filterButton" data-filter="first"></button>
+      <button id="filterSecond" class="filterButton" data-filter="second"></button>
+      <button id="filterBoth" class="filterButton" data-filter="both">Entrambi</button>
+    </div>
+    <div id="favoritesList" class="cardList"></div>
     <button class="button button--ghost" data-target="screenHome">Indietro</button>
   </section>
 
@@ -125,9 +143,11 @@
     Così quando il JavaScript cerca i pulsanti, i pulsanti esistono già.
   -->
   <!-- L'ordine conta: prima gameEngine.js (le carte e le regole),
-       poi ui.js (come si disegnano), infine script.js (che usa entrambi).
+       poi storage.js (il salvataggio), ui.js (come si disegnano),
+       infine script.js (che usa tutti gli altri).
        Con "defer" vengono eseguiti esattamente in questo ordine. -->
   <script src="js/gameEngine.js" defer></script>
+  <script src="js/storage.js" defer></script>
   <script src="js/ui.js" defer></script>
   <script src="js/script.js" defer></script>
 </body>
