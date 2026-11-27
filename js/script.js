@@ -771,8 +771,25 @@ async function prepareDeck() {
   }
 }
 
+/**
+ * Registra il service worker, il file che fa funzionare l'app offline.
+ * Il browser lo accetta solo su siti sicuri (https) o su "localhost":
+ * con l'indirizzo 192.168… di Live Server non parte, ed è normale.
+ */
+function registerServiceWorker() {
+  // "serviceWorker" in navigator → il browser sa cosa sono i service worker?
+  if (!("serviceWorker" in navigator)) {
+    return;
+  }
+
+  navigator.serviceWorker.register("serviceWorker.js").catch(function (error) {
+    console.info("Service worker non attivo (normale in locale):", error.message);
+  });
+}
+
 // Prima di tutto, rileggiamo i dati salvati sul telefono (storage.js)
 loadGame();
+registerServiceWorker();
 
 setupNavigationButtons();
 renderColorPickers();
