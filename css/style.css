@@ -478,3 +478,18 @@ h2 {
   font-size: 0.85rem;
   padding: 8px 14px;
 }
+
+/* =========================================================
+   CARTE BONUS
+   Un bordo tratteggiato e un testo più raccolto:
+   si capisce subito che è una pausa, non una domanda.
+   ========================================================= */
+.card--bonus {
+  border-style: dashed;
+  box-shadow: none;
+}
+
+.card--bonus .cardText {
+  font-size: 1.25rem;
+  font-style: italic;
+}

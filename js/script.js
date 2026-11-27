@@ -256,27 +256,35 @@ function showCardWithRulesIfNeeded(card) {
 function displayCard(card) {
   renderCard(card, currentCardKind);
   updateGoDeeperButton();
-  updateGameButtonsForSource();
+  updateGameButtons();
   showScreen("screenGame");
 }
 
 /**
- * I pulsanti di gioco cambiano un po' se la carta arriva dalle domande in sospeso:
- * non si sta giocando una serata, si sta rispondendo a una carta rimasta indietro.
+ * Le scritte dei pulsanti di gioco cambiano un po' secondo il tipo di carta:
+ * - carta bonus: è una pausa → "Fatto" / "Salta"
+ * - carta riaperta dalle domande in sospeso → "Fatto" / "Lasciala in sospeso"
+ * - carta normale della serata → "Fatto, passa" / "Metti in sospeso"
  */
-function updateGameButtonsForSource() {
-  const fromSkipped = currentCardSource === "skipped";
+function updateGameButtons() {
+  const nextButton = document.getElementById("buttonNextTurn");
+  const skipButton = document.getElementById("buttonSkipCard");
+  const closeButton = document.getElementById("buttonCloseEvening");
 
-  document.getElementById("buttonNextTurn").textContent = fromSkipped ? "Fatto" : "Fatto, passa";
-  document.getElementById("buttonSkipCard").textContent = fromSkipped
-    ? "Lasciala in sospeso"
-    : "Metti in sospeso";
-  document.getElementById("buttonCloseEvening").textContent = fromSkipped
-    ? "Torna all'elenco"
-    : "Chiudi la serata";
-
-  if (fromSkipped) {
+  if (currentCardKind === "bonus") {
+    nextButton.textContent = "Fatto";
+    skipButton.textContent = "Salta";
+    closeButton.textContent = "Chiudi la serata";
     document.getElementById("buttonGoDeeper").hidden = true;
+  } else if (currentCardSource === "skipped") {
+    nextButton.textContent = "Fatto";
+    skipButton.textContent = "Lasciala in sospeso";
+    closeButton.textContent = "Torna all'elenco";
+    document.getElementById("buttonGoDeeper").hidden = true;
+  } else {
+    nextButton.textContent = "Fatto, passa";
+    skipButton.textContent = "Metti in sospeso";
+    closeButton.textContent = "Chiudi la serata";
   }
 }
 
@@ -410,6 +418,12 @@ function goToNextTurn() {
     return;
   }
 
+  // Carta bonus finita: si riprende la serata da dove era rimasta
+  if (currentCardKind === "bonus") {
+    continueAfterBonus();
+    return;
+  }
+
   // La carta finale chiude il viaggio
   if (currentCard.isFinal) {
     markCurrentCardAsUsed();
@@ -417,12 +431,29 @@ function goToNextTurn() {
     return;
   }
 
+  // Ce lo chiediamo PRIMA di segnarla, mentre currentCard è ancora lei
+  const wasIntense = isCurrentCardIntense();
+
   markCurrentCardAsUsed();
 
   // Operatore ternario: "se è first, diventa second; altrimenti diventa first"
   currentPlayer = currentPlayer === "first" ? "second" : "first";
   applyTurnColors();
 
+  // Dopo una carta intensa: una pausa di calma, poi si prosegue
+  if (wasIntense) {
+    showBonusCard("calm", continueEveningAfterTurn);
+    return;
+  }
+
+  continueEveningAfterTurn();
+}
+
+/**
+ * Dopo una carta giocata: è il momento di una pausa (fine serata, "più a fondo?")
+ * o si pesca la carta successiva?
+ */
+function continueEveningAfterTurn() {
   if (isEveningLimitReached()) {
     askToEndEvening();
   } else if (shouldAskToGoDeeper()) {
@@ -432,18 +463,63 @@ function goToNextTurn() {
   }
 }
 
+// ---------------------------------------------------------
+// Carte bonus
+// ---------------------------------------------------------
+
+// Cosa fare quando la carta bonus è finita (una funzione, decisa da chi mostra la bonus)
+let afterBonusAction = null;
+
+/**
+ * Mostra una carta bonus e ricorda cosa fare dopo.
+ * @param {string} type - "calm" o "breath"
+ * @param {Function} thenDo - la funzione da eseguire quando la bonus è finita
+ */
+function showBonusCard(type, thenDo) {
+  afterBonusAction = thenDo;
+  const bonusCard = drawBonusCard(type); // sta in gameEngine.js
+  saveGame();
+  displayCard(bonusCard);
+}
+
+/**
+ * La carta bonus è finita (fatta o saltata): eseguiamo l'azione rimasta in attesa.
+ */
+function continueAfterBonus() {
+  const action = afterBonusAction;
+  afterBonusAction = null;
+  action();
+}
+
 /**
  * "Metti in sospeso": la carta va da parte e la STESSA persona
  * riceve un'altra carta (il turno non passa).
  */
 function skipCardAndDrawAgain() {
+  // Carta bonus: "Salta" vuol dire semplicemente riprendere la serata
+  if (currentCardKind === "bonus") {
+    continueAfterBonus();
+    return;
+  }
+
   // Dalle domande in sospeso: la carta resta lì, si torna all'elenco
   if (currentCardSource === "skipped") {
     openSkippedScreen();
     return;
   }
 
+  // Ce lo chiediamo PRIMA di metterla in sospeso
+  const wasQuestion = currentCardKind === "question";
+
   skipCurrentCard();
+
+  // Dopo una domanda saltata: un respiro per sciogliere la tensione, poi si prosegue.
+  // (Per il riscaldamento non serve: si pesca semplicemente un'altra carta.)
+  if (wasQuestion) {
+    showBonusCard("breath", showNextCard);
+    return;
+  }
+
   showNextCard();
 }
 

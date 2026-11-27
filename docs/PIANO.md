@@ -9,8 +9,8 @@ Ogni fase si chiude così: **si scrive il codice → si prova → si fa il commi
 | 2 | Dati: le 250 carte nei file JSON, lette dall'app | In console si vede il numero di carte caricate | ✅ fatta |
 | 3 | Gioco base: scelta colori, pesca, carta colorata per turno | Si gioca una partita semplice | ✅ fatta |
 | 4 | Serata e livelli: curva, limite 12, "più a fondo?", avvertimento ●●●, regole del cuore | Una serata completa segue la curva | ✅ fatta |
-| 5 | Memoria: ripresa, niente ripetizioni, in sospeso, preferite | Chiudo e riapro: riprende dal punto giusto | 🔄 in corso |
-| 6 | Carte bonus: calma dopo ●●●, respiro dopo un salto | Le bonus compaiono al momento giusto | ⏳ |
+| 5 | Memoria: ripresa, niente ripetizioni, in sospeso, preferite | Chiudo e riapro: riprende dal punto giusto | ✅ fatta |
+| 6 | Carte bonus: calma dopo ●●●, respiro dopo un salto | Le bonus compaiono al momento giusto | 🔄 in corso |
 | 7 | Android: GitHub Pages + installazione come app (PWA) | L'app si installa sul telefono e va offline | ⏳ |
 | 8 | Rifinitura e spiegazione del codice file per file | Tutto chiaro 🙂 | ⏳ |
 

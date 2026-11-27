@@ -43,7 +43,7 @@ Ogni carta domanda ha:
 
 Altri mazzi:
 - **Riscaldamento** (R01–R50): carte leggere e riutilizzabili per aprire la serata.
-- **Bonus** (B01–B50): attività. Tipo 🌙 *Calma* (dopo una ●●●) o ☀️ *Respiro* (dopo una carta saltata). Si possono saltare liberamente.
+- **Bonus** (B01–B50): attività. Tipo 🌙 *Calma* (dopo una ●●●) o ☀️ *Respiro* (dopo una carta saltata). Hanno il bordo tratteggiato, si possono saltare liberamente, non contano nel limite della serata e non si ripetono finché non sono uscite le altre (memoria delle ultime 20).
 - **Carta finale** (Q150): compare solo quando il mazzo è finito.
 
 ## 6. Il viaggio e la serata
@@ -81,12 +81,12 @@ Anche "Chiudi la serata" a metà porta al rituale di chiusura.
 ## 8. Carte intense (●●●)
 - Prima della prima carta di Radici compare la schermata **"Regole del cuore"**: ascolta senza difenderti · non esiste una risposta giusta · ogni carta si può mettere in sospeso · quello che viene detto qui, resta qui.
 - Ogni carta ●●● compare **coperta**, con "Carta intensa — siete pronti a scoprirla?" e due pulsanti: **Scopri** / **Mettila in sospeso**.
-- Dopo una ●●● l'app propone una carta bonus 🌙 Calma (fase 6).
+- Dopo una ●●● a cui avete risposto arriva una carta bonus **🌙 Un momento di calma**, per chi ha ascoltato (il telefono è già passato).
 
 ## 9. Domande in sospeso
 - Una carta saltata finisce nell'elenco **condiviso** "In sospeso" (dalla home).
 - Ogni carta ha "Rispondiamo adesso": si apre come una carta normale. **Fatto** → diventa giocata ed esce dall'elenco; **Lasciala in sospeso** → resta lì.
-- Dopo una carta saltata l'app propone una carta bonus ☀️ Respiro (fase 6).
+- Dopo una domanda saltata (durante la serata) arriva una carta bonus **☀️ Un respiro**, per sciogliere la tensione.
 
 ## 10. Preferite
 - Ogni domanda ha due cuori, uno per colore: ognuno tocca il proprio.

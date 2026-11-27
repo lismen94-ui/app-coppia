@@ -132,7 +132,7 @@ let pactAccepted = false;
 // Un oggetto che raccoglie tutto ciò che riguarda la serata in corso
 let evening = createNewEvening();
 
-// La carta sullo schermo in questo momento, e di che tipo è: "warmup" o "question"
+// La carta sullo schermo in questo momento, e di che tipo è: "warmup", "question" o "bonus"
 let currentCard = null;
 let currentCardKind = null;
 
@@ -153,6 +153,7 @@ function createNewEvening() {
     segmentStart: 0,       // da quale domanda è ripartito il conteggio (dopo "continuiamo")
     isContinuation: false, // true se la coppia ha scelto di continuare dopo il limite
     mood: null,            // l'intensità scelta per stasera: "light", "normal", "deep" (null = non ancora scelta)
+    usedBonusIds: [],      // carte bonus già uscite stasera
   };
 }
 
@@ -508,6 +509,50 @@ function drawNextCard() {
 }
 
 // =========================================================
+// CARTE BONUS
+// =========================================================
+
+/**
+ * Pesca una carta bonus del tipo richiesto, evitando quelle già uscite
+ * stasera e nelle ultime serate (recentBonusIds sta in storage.js).
+ * @param {string} type - "calm" (dopo una carta intensa) o "breath" (dopo una carta saltata)
+ * @returns {object}
+ */
+function drawBonusCard(type) {
+  const cardsOfType = deck.bonuses.filter(function (card) {
+    return card.type === type;
+  });
+
+  let available = cardsOfType.filter(function (card) {
+    const usedTonight = evening.usedBonusIds.includes(card.id);
+    const usedRecently = recentBonusIds.includes(card.id);
+    return !usedTonight && !usedRecently;
+  });
+
+  // Se sono finite, ripartiamo da tutte quelle del tipo giusto
+  if (available.length === 0) {
+    available = cardsOfType;
+  }
+
+  currentCard = pickRandom(available);
+  currentCardKind = "bonus";
+  evening.usedBonusIds.push(currentCard.id);
+  rememberBonus(currentCard.id); // sta in storage.js
+
+  return currentCard;
+}
+
+/**
+ * La carta appena giocata era intensa? (Serve per decidere se proporre una pausa di calma.)
+ * @returns {boolean}
+ */
+function isCurrentCardIntense() {
+  return currentCardKind === "question"
+    && !currentCard.isFinal
+    && currentCard.intensity === 3;
+}
+
+// =========================================================
 // DOPO LA CARTA: giocata o messa in sospeso
 // =========================================================
 
@@ -515,7 +560,8 @@ function drawNextCard() {
  * "Fatto, passa": segna la carta come giocata e aggiorna i conteggi.
  */
 function markCurrentCardAsUsed() {
-  if (currentCard === null) {
+  // Le carte bonus non contano: sono già state segnate quando sono uscite
+  if (currentCard === null || currentCardKind === "bonus") {
     return;
   }
 

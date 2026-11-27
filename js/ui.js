@@ -38,6 +38,9 @@ function getCardHeaderLabel(card, kind) {
   if (kind === "warmup") {
     return "Riscaldamento";
   }
+  if (kind === "bonus") {
+    return card.type === "calm" ? "🌙 Un momento di calma" : "☀️ Un respiro";
+  }
   if (card.isFinal) {
     return "✨ Carta finale";
   }
@@ -69,6 +72,9 @@ function renderCard(card, kind) {
   // classList.toggle(classe, condizione) aggiunge la classe se la condizione è vera,
   // e la toglie se è falsa: una riga invece di un if/else.
   cardElement.classList.toggle("card--together", card.mode === "together");
+
+  // Le carte bonus hanno un aspetto un po' diverso: sono una pausa, non una domanda
+  cardElement.classList.toggle("card--bonus", kind === "bonus");
 
   // Le carte intense arrivano coperte, con l'avvertimento
   const isIntense = showsIntensity && card.intensity === 3;

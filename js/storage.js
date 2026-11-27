@@ -22,6 +22,12 @@ let favorites = {};
 // I riscaldamenti usciti nelle ultime serate
 let recentWarmupIds = [];
 
+// Le carte bonus uscite di recente (per non ripeterle subito)
+let recentBonusIds = [];
+
+// Quante carte bonus ricordare: 10 per tipo, cioè circa metà di ciascun mazzetto
+const RECENT_BONUSES_TO_REMEMBER = 20;
+
 /**
  * Raccoglie tutto lo stato del gioco in un unico oggetto e lo salva.
  * localStorage accetta solo testo: JSON.stringify trasforma l'oggetto in testo.
@@ -38,6 +44,7 @@ function saveGame() {
     pactAccepted: pactAccepted,
     favorites: favorites,
     recentWarmupIds: recentWarmupIds,
+    recentBonusIds: recentBonusIds,
   };
 
   // try/catch: in rari casi (es. memoria piena, navigazione privata)
@@ -81,6 +88,7 @@ function loadGame() {
   pactAccepted = savedData.pactAccepted ?? false;
   favorites = savedData.favorites ?? {};
   recentWarmupIds = savedData.recentWarmupIds ?? [];
+  recentBonusIds = savedData.recentBonusIds ?? [];
 
   // usedCardIds e skippedCardIds sono "const": non possiamo sostituirli,
   // ma possiamo svuotarli e riempirli di nuovo.
@@ -124,6 +132,17 @@ function rememberWarmup(warmupId) {
   // slice(-15) restituisce gli ultimi 15 elementi.
   if (recentWarmupIds.length > RECENT_WARMUPS_TO_REMEMBER) {
     recentWarmupIds = recentWarmupIds.slice(-RECENT_WARMUPS_TO_REMEMBER);
+  }
+}
+
+/**
+ * Ricorda una carta bonus appena uscita, tenendo solo le ultime 20.
+ * @param {string} bonusId
+ */
+function rememberBonus(bonusId) {
+  recentBonusIds.push(bonusId);
+  if (recentBonusIds.length > RECENT_BONUSES_TO_REMEMBER) {
+    recentBonusIds = recentBonusIds.slice(-RECENT_BONUSES_TO_REMEMBER);
   }
 }
 
