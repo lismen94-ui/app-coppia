@@ -5,7 +5,7 @@
   <!-- Dice al telefono di usare la larghezza reale dello schermo (senza questo, su mobile tutto apparirebbe minuscolo) -->
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <!-- Colore della barra del browser su Android: lo stesso dello sfondo, così l'app sembra "a tutto schermo" -->
-  <meta name="theme-color" content="#121626">
+  <meta name="theme-color" content="#0e1238">
   <title>Luna</title>
 
   <!-- PWA: il "biglietto da visita" dell'app (nome, icone, colori) per installarla sul telefono -->
@@ -28,8 +28,12 @@
 
   <!-- SCHERMATA 1: Home -->
   <section id="screenHome" class="screen screen--active">
+    <!-- alt="" perché il logo è decorativo: il nome è già scritto subito sotto -->
+    <img class="homeLogo" src="icons/logo.svg" alt="">
     <h1 class="appTitle">Luna</h1>
     <p class="subtitle">Un gioco per ritrovarsi</p>
+    <!-- Etichetta "work in progress": quando l'app sarà finita, basta cancellare questa riga -->
+    <p class="wipBadge">✦ Work in progress</p>
     <!-- Messaggio sullo stato delle carte: lo scrive il JavaScript dopo il caricamento -->
     <p id="deckStatus" class="deckStatus">Sto preparando le carte…</p>
     <!-- A che punto del viaggio siete: lo scrive il JavaScript -->

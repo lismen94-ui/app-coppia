@@ -5,19 +5,28 @@
    Se un giorno vogliamo cambiare un colore, basta farlo qui.
    ========================================================= */
 :root {
-  /* Sfondo scuro: blu notte */
-  --colorBackground: #121626;
-  --colorSurface: #1c2238;      /* un po' più chiaro, per le carte */
-  --colorText: #ece8f0;         /* testo quasi bianco, ma morbido */
-  --colorTextSoft: #9a9bb3;     /* testo secondario */
+  /* Cielo di notte: gli stessi blu dell'icona */
+  --colorBackground: #0e1238;
+  --colorSky: #1b1f5c;          /* il blu più chiaro, al centro del cielo */
+  --colorSkyEdge: #05071a;      /* il blu più scuro, ai bordi */
+  --colorSurface: #151a48;      /* le carte e i riquadri */
+  --cardTop: #1b2160;           /* sfumatura delle carte: sopra… */
+  --cardBottom: #11153d;        /* …e sotto */
+  --colorText: #f3efff;         /* testo quasi bianco, con un velo di lilla */
+  --colorTextSoft: #a3a6d6;     /* testo secondario: grigio lavanda */
+
+  /* I colori neon dell'icona */
+  --neonAzure: #6fd0ff;
+  --neonIndigo: #7d7bff;
+  --neonLilac: #a08cff;
 
   /* Colore del giocatore di turno.
-     Prima della scelta è un lilla neutro; poi il JavaScript lo sostituisce
-     con il colore di chi deve rispondere (funzione applyPlayerColor in script.js).
-     La palette dei pastelli sta in script.js, nella costante PASTEL_COLORS. */
-  --colorCurrentPlayer: #c7b8e0;
+     Prima della scelta è il lilla dell'icona; poi il JavaScript lo sostituisce
+     con il colore di chi deve rispondere (funzione applyTurnColors in script.js).
+     La palette dei giocatori sta in script.js, nella costante PASTEL_COLORS. */
+  --colorCurrentPlayer: #a08cff;
   /* Colore dell'altra persona: serve per le carte "Rispondete insieme" */
-  --colorOtherPlayer: #c7b8e0;
+  --colorOtherPlayer: #a08cff;
 
   --radiusLarge: 24px;
   --radiusPill: 999px;
@@ -44,15 +53,73 @@ body {
   min-height: 100vh;
   background-color: var(--colorBackground);
   color: var(--colorText);
+  /* Serve perché il cielo (::before) e le stelle (::after) stiano DIETRO a tutto */
+  position: relative;
+  isolation: isolate;
   /* Font di sistema: niente da scaricare, quindi funziona anche offline */
   font-family: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
   line-height: 1.5;
 }
 
+/* =========================================================
+   IL CIELO DI NOTTE
+   ::before e ::after sono due "livelli" extra che il CSS aggiunge al body,
+   senza scrivere nulla nell'HTML. position: fixed li tiene fermi
+   mentre la pagina scorre; z-index: -1 li mette dietro al contenuto.
+   ========================================================= */
+
+/* Livello 1: la luce diffusa, come sul muro dell'icona */
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  background:
+    radial-gradient(circle at 50% 38%, rgba(59, 47, 158, 0.55) 0%, transparent 45%),
+    radial-gradient(ellipse at 50% 40%, var(--colorSky) 0%, var(--colorBackground) 55%, var(--colorSkyEdge) 100%);
+}
+
+/* Livello 2: le stelle. Ogni radial-gradient è un puntino di luce. */
+body::after {
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  background:
+    radial-gradient(1.5px 1.5px at 12% 14%, #e9eeff, transparent),
+    radial-gradient(1px 1px at 82% 10%, #e9eeff, transparent),
+    radial-gradient(1.8px 1.8px at 88% 30%, #e9eeff, transparent),
+    radial-gradient(1px 1px at 8% 58%, #e9eeff, transparent),
+    radial-gradient(1.4px 1.4px at 90% 78%, #e9eeff, transparent),
+    radial-gradient(1.7px 1.7px at 20% 86%, #e9eeff, transparent),
+    radial-gradient(1px 1px at 70% 92%, #e9eeff, transparent),
+    radial-gradient(1.2px 1.2px at 40% 6%, #e9eeff, transparent),
+    radial-gradient(1px 1px at 55% 70%, #c9d4ff, transparent);
+  /* Le stelle "respirano" piano: si accendono e si attenuano */
+  animation: twinkle 6s ease-in-out infinite alternate;
+}
+
+@keyframes twinkle {
+  from { opacity: 0.55; }
+  to   { opacity: 1; }
+}
+
+/* Chi ha chiesto al telefono di ridurre le animazioni non le vede */
+@media (prefers-reduced-motion: reduce) {
+  body::after {
+    animation: none;
+  }
+}
+
 h1,
 h2 {
-  font-weight: 600;
+  font-weight: 500;
   text-align: center;
+}
+
+/* I titoli delle schermate hanno un leggero bagliore lilla */
+h2 {
+  text-shadow: 0 0 18px rgba(160, 140, 255, 0.45);
 }
 
 /* =========================================================
@@ -76,14 +143,44 @@ h2 {
   display: flex;
 }
 
+/* Il logo al neon sulla home */
+.homeLogo {
+  width: 150px;
+  height: auto;
+  margin-bottom: -8px;
+}
+
+/* Il nome "Luna", come un'insegna al neon:
+   più text-shadow sovrapposti = più strati di luce */
 .appTitle {
-  font-size: 2.2rem;
   margin: 0;
+  font-size: 2.8rem;
+  font-weight: 300;
+  letter-spacing: 0.14em;
+  color: #f6f1ff;
+  text-shadow:
+    0 0 6px rgba(246, 241, 255, 0.8),
+    0 0 18px var(--neonLilac),
+    0 0 38px var(--neonIndigo),
+    0 0 70px rgba(111, 208, 255, 0.45);
 }
 
 .subtitle {
   color: var(--colorTextSoft);
   margin: 0;
+}
+
+/* Etichetta "Work in progress": una piccola pillola con il bordo al neon */
+.wipBadge {
+  margin: 0;
+  padding: 4px 14px;
+  border: 1px solid var(--neonAzure);
+  border-radius: var(--radiusPill);
+  font-size: 0.75rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--neonAzure);
+  box-shadow: 0 0 12px -3px var(--neonAzure);
 }
 
 .deckStatus {
@@ -126,21 +223,25 @@ h2 {
 
 .button {
   padding: 14px 20px;
-  border: 1px solid var(--colorTextSoft);
+  border: 1px solid rgba(163, 166, 214, 0.45);
   border-radius: var(--radiusPill);
   background: transparent;
   color: var(--colorText);
   font-size: 1rem;
   cursor: pointer;
   /* Transizione: il cambio di colore al tocco avviene in modo morbido */
-  transition: background-color 0.2s ease;
+  transition: background-color 0.2s ease, box-shadow 0.4s ease;
 }
 
+/* Il pulsante principale è un "tubo" acceso: pieno del colore di turno, con l'alone */
 .button--primary {
   background-color: var(--colorCurrentPlayer);
   border-color: var(--colorCurrentPlayer);
   color: var(--colorBackground);
   font-weight: 600;
+  box-shadow:
+    0 0 14px -2px var(--colorCurrentPlayer),
+    0 0 36px -10px var(--colorCurrentPlayer);
 }
 
 /* Effetti al passaggio del mouse: solo sui dispositivi che hanno un mouse.
@@ -165,8 +266,9 @@ h2 {
 /* Pulsante "a scelta": bordo sottile, per quando le opzioni hanno tutte lo stesso peso
    (es. "Come vi sentite stasera?") */
 .button--outline {
-  border-color: var(--colorTextSoft);
+  border-color: rgba(160, 140, 255, 0.5);
   text-align: left;
+  background-color: rgba(21, 26, 72, 0.6);
 }
 
 /* Pulsante disattivato: più trasparente, e il cursore fa capire che non si può cliccare */
@@ -213,10 +315,11 @@ h2 {
   transform: scale(1.08);
 }
 
-/* Pallino scelto: anello chiaro intorno e leggermente più grande */
+/* Pallino scelto: anello chiaro, più grande e "acceso" */
 .swatch--selected {
   border-color: var(--colorText);
   transform: scale(1.12);
+  box-shadow: 0 0 18px 2px rgba(246, 241, 255, 0.35);
 }
 
 /* Pallino già preso dall'altra persona: sbiadito e non cliccabile */
@@ -243,13 +346,16 @@ h2 {
   justify-content: space-between;
   padding: 28px;
   border-radius: var(--radiusLarge);
-  background-color: var(--colorSurface);
+  /* Sfondo della carta: una sfumatura di blu, più chiara in alto */
+  background: linear-gradient(160deg, var(--cardTop), var(--cardBottom));
   /* Quando cambia il turno, bordo e alone cambiano colore con dolcezza */
   transition: border-color 0.4s ease, box-shadow 0.4s ease;
-  /* Il bordo prende il colore di chi deve rispondere */
+  /* Il bordo è un tubo al neon nel colore di chi deve rispondere */
   border: 2px solid var(--colorCurrentPlayer);
-  /* Un leggero alone colorato, come una luce soffusa */
-  box-shadow: 0 0 40px -12px var(--colorCurrentPlayer);
+  /* Due aloni: uno stretto e intenso, uno largo e soffuso (come nell'icona) */
+  box-shadow:
+    0 0 16px -2px var(--colorCurrentPlayer),
+    0 0 60px -16px var(--colorCurrentPlayer);
 }
 
 /* Carta "Rispondete insieme": il bordo è una sfumatura tra i due colori.
@@ -259,11 +365,11 @@ h2 {
 .card--together {
   border-color: transparent;
   background:
-    linear-gradient(var(--colorSurface), var(--colorSurface)) padding-box,
+    linear-gradient(160deg, var(--cardTop), var(--cardBottom)) padding-box,
     linear-gradient(135deg, var(--colorCurrentPlayer), var(--colorOtherPlayer)) border-box;
   box-shadow:
-    -20px 0 40px -20px var(--colorCurrentPlayer),
-    20px 0 40px -20px var(--colorOtherPlayer);
+    -14px 0 36px -14px var(--colorCurrentPlayer),
+    14px 0 36px -14px var(--colorOtherPlayer);
 }
 
 /* --- Carta intensa coperta --- */
@@ -305,6 +411,7 @@ h2 {
   font-size: 1.4rem;
   letter-spacing: 6px;
   color: var(--colorCurrentPlayer);
+  text-shadow: 0 0 12px var(--colorCurrentPlayer);
 }
 
 .cardCoverTitle {
@@ -345,6 +452,7 @@ h2 {
   margin: 0;
   color: var(--colorCurrentPlayer);
   letter-spacing: 4px;
+  text-shadow: 0 0 10px var(--colorCurrentPlayer);
 }
 
 .cardText {
@@ -421,7 +529,8 @@ h2 {
   gap: 8px;
   padding: 16px 18px;
   border-radius: 16px;
-  background-color: var(--colorSurface);
+  background: linear-gradient(160deg, var(--cardTop), var(--cardBottom));
+  border: 1px solid rgba(160, 140, 255, 0.2);
 }
 
 .listItemMeta {
@@ -469,8 +578,9 @@ h2 {
 
 .filterButton--active {
   background-color: var(--colorSurface);
-  border-color: var(--colorText);
+  border-color: var(--neonLilac);
   font-weight: 600;
+  box-shadow: 0 0 14px -2px var(--neonLilac);
 }
 
 /* Pulsante piccolo, per azioni secondarie (es. "Ricomincia da zero") */
