@@ -17,7 +17,7 @@
 
 // Il nome della "scatola" dove teniamo le copie.
 // Se un giorno serve buttare via tutte le copie vecchie, basta cambiare v1 in v2.
-const CACHE_NAME = "app-coppia-v1";
+const CACHE_NAME = "app-coppia-v2"; // v2: icona nuova
 
 // I file indispensabili: li salviamo subito, alla prima apertura,
 // così l'app funziona offline anche se non avete ancora visitato ogni schermata.
@@ -36,6 +36,8 @@ const FILES_TO_CACHE = [
   "./icons/icon-192.png",
   "./icons/icon-512.png",
   "./icons/favicon-32.png",
+  "./icons/icon-maskable-512.png",
+  "./icons/apple-touch-icon.png",
 ];
 
 // "install": succede la prima volta che il service worker viene registrato.
