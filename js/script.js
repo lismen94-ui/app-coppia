@@ -846,4 +846,4 @@ document.getElementById("buttonEraseData").addEventListener("click", function ()
   }
 });
 
-console.log("app-coppia avviata ✨");
+console.log("Luna avviata 🌙");

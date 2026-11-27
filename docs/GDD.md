@@ -1,6 +1,6 @@
-# Game Design Document — app-coppia
+# Game Design Document — Luna
 
-> Nome definitivo dell'app: da scegliere (fase 7).
+> Nome dell'app: **Luna**. (La cartella e il repository restano "app-coppia".)
 > Ispirazione: il gioco di carte "io sono te – per chi si ama". Le meccaniche sono riprese e modificate; tutte le carte sono testi originali scritti per questo progetto.
 
 ## 1. Concept
@@ -110,4 +110,4 @@ Anche "Chiudi la serata" a metà porta al rituale di chiusura.
 Punteggi, vincitori, timer, account online, diario delle risposte scritte.
 
 ## 14. Idee aperte (non decise)
-- Nome definitivo dell'app.
+- Nessuna al momento.

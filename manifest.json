@@ -1,7 +1,7 @@
 {
-  "name": "app-coppia",
-  "short_name": "app-coppia",
-  "description": "Un gioco di carte per ritrovarsi in coppia.",
+  "name": "Luna",
+  "short_name": "Luna",
+  "description": "Luna — un gioco di carte per ritrovarsi in coppia.",
   "lang": "it",
   "start_url": "./",
   "scope": "./",

@@ -1,4 +1,4 @@
-# Regole del progetto "app-coppia"
+# Regole del progetto "Luna" (cartella app-coppia)
 
 Queste regole valgono per qualsiasi agente che lavora in questa cartella (Antigravity, Claude o altri).
 

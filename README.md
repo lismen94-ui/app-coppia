@@ -1,4 +1,4 @@
-# app-coppia
+# Luna 🌙
 
 Un gioco di carte per ritrovarsi in coppia: domande profonde, su un solo telefono, passato di mano in mano.
 

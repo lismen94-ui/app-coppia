@@ -1,4 +1,4 @@
-# Piano di sviluppo — app-coppia
+# Piano di sviluppo — Luna
 
 Ogni fase si chiude così: **si scrive il codice → si prova → si fa il commit su GitHub → si spiega cosa è stato fatto.**
 
@@ -10,9 +10,9 @@ Ogni fase si chiude così: **si scrive il codice → si prova → si fa il commi
 | 3 | Gioco base: scelta colori, pesca, carta colorata per turno | Si gioca una partita semplice | ✅ fatta |
 | 4 | Serata e livelli: curva, limite 12, "più a fondo?", avvertimento ●●●, regole del cuore | Una serata completa segue la curva | ✅ fatta |
 | 5 | Memoria: ripresa, niente ripetizioni, in sospeso, preferite | Chiudo e riapro: riprende dal punto giusto | ✅ fatta |
-| 6 | Carte bonus: calma dopo ●●●, respiro dopo un salto | Le bonus compaiono al momento giusto | 🔄 in corso |
-| 7 | Android: GitHub Pages + installazione come app (PWA) | L'app si installa sul telefono e va offline | ⏳ |
-| 8 | Rifinitura e spiegazione del codice file per file | Tutto chiaro 🙂 | ⏳ |
+| 6 | Carte bonus: calma dopo ●●●, respiro dopo un salto | Le bonus compaiono al momento giusto | ✅ fatta |
+| 7 | Android: GitHub Pages + installazione come app (PWA) | L'app si installa sul telefono e va offline | ✅ fatta |
+| 8 | Rifinitura e spiegazione del codice file per file | Tutto chiaro 🙂 | 🔄 in corso |
 
 ## Struttura finale prevista
 ```
