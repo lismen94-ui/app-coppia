@@ -33,6 +33,12 @@
   box-sizing: border-box;
 }
 
+/* L'attributo HTML "hidden" deve nascondere SEMPRE l'elemento,
+   anche se altrove gli abbiamo dato display: flex. */
+[hidden] {
+  display: none !important;
+}
+
 body {
   margin: 0;
   min-height: 100vh;
@@ -156,6 +162,13 @@ h2 {
   color: var(--colorTextSoft);
 }
 
+/* Pulsante "a scelta": bordo sottile, per quando le opzioni hanno tutte lo stesso peso
+   (es. "Come vi sentite stasera?") */
+.button--outline {
+  border-color: var(--colorTextSoft);
+  text-align: left;
+}
+
 /* Pulsante disattivato: più trasparente, e il cursore fa capire che non si può cliccare */
 .button:disabled {
   opacity: 0.35;
@@ -251,6 +264,67 @@ h2 {
   box-shadow:
     -20px 0 40px -20px var(--colorCurrentPlayer),
     20px 0 40px -20px var(--colorOtherPlayer);
+}
+
+/* --- Carta intensa coperta --- */
+
+/* La carta deve essere "position: relative" perché la copertura
+   (position: absolute) si posizioni rispetto a lei e non alla pagina. */
+.card {
+  position: relative;
+}
+
+/* Di base la copertura non si vede */
+.cardCover {
+  display: none;
+}
+
+/* Quando la carta è coperta: nascondiamo il contenuto
+   (visibility: hidden lo nasconde ma lascia lo spazio, così la carta non cambia misura)… */
+.card--covered .cardHeader,
+.card--covered .cardText,
+.card--covered .cardMode {
+  visibility: hidden;
+}
+
+/* …e mostriamo la copertura sopra, a tutta carta */
+.card--covered .cardCover {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  position: absolute;
+  inset: 0;               /* inset: 0 = top, right, bottom, left tutti a 0: copre tutta la carta */
+  padding: 28px;
+  text-align: center;
+}
+
+.cardCoverIntensity {
+  margin: 0;
+  font-size: 1.4rem;
+  letter-spacing: 6px;
+  color: var(--colorCurrentPlayer);
+}
+
+.cardCoverTitle {
+  margin: 0;
+  font-size: 1.3rem;
+  font-weight: 600;
+}
+
+.cardCoverText {
+  margin: 0 0 12px;
+  color: var(--colorTextSoft);
+}
+
+/* --- Testo della schermata dei messaggi --- */
+.promptText {
+  margin: 0;
+  text-align: center;
+  color: var(--colorTextSoft);
+  /* pre-line: rispetta gli "a capo" (\n) scritti nel testo dal JavaScript */
+  white-space: pre-line;
 }
 
 .cardHeader {

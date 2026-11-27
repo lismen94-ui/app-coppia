@@ -46,31 +46,42 @@ Altri mazzi:
 - **Bonus** (B01–B50): attività. Tipo 🌙 *Calma* (dopo una ●●●) o ☀️ *Respiro* (dopo una carta saltata). Si possono saltare liberamente.
 - **Carta finale** (Q150): compare solo quando il mazzo è finito.
 
-## 6. La serata (core loop)
+## 6. Il viaggio e la serata
+Ci sono due tempi diversi:
+- **Il viaggio** (settimane): Specchio → Radici → Rifugio. Si avanza da una serata all'altra.
+- **La serata** (un'ora): ha sempre un inizio dolce, un momento intenso e una chiusura. Si gioca dentro il livello in cui si è.
+
+### Patto iniziale (una volta sola, all'inizio del viaggio)
+Una schermata da leggere e discutere insieme: perché fare questo viaggio adesso, come sta la coppia, quali argomenti lasciare fuori, cosa fare se una domanda fa male. Ricorda che il gioco non sostituisce un terapeuta di coppia. Pulsanti: "Siamo pronti" / "Ne riparliamo un'altra volta".
+
+### La curva della serata
 Ogni volta che si apre l'app inizia una **nuova serata**, anche se si era chiuso 10 minuti prima.
+1. **Riscaldamento**: 3 carte dal mazzo riscaldamento (check-in: "come arrivi stasera?")
+2. **"Come vi sentite stasera?"**: la coppia sceglie insieme l'intensità
+   - 🌙 *Leggeri*: niente carte ●●●
+   - 🌗 *Come viene*: ogni tanto una ●●● (circa 1 su 3, se disponibili)
+   - 🌕 *Pronti ad andare a fondo*: spesso una ●●● (circa 3 su 4, se disponibili)
+3. **Salita**: 3 domande, le più leggere disponibili nel livello
+4. **Cuore**: 5 domande, con l'intensità scelta
+5. **Discesa**: 2 domande morbide
+6. **"Per stasera può bastare"** → "Chiudiamo qui" oppure "Continuiamo" (altre 5 di cuore + 2 di discesa)
+7. **Rituale di chiusura**: "Ognuno dica all'altro una cosa che ha apprezzato di lui o di lei stasera."
 
-La serata segue una **curva di intensità**:
-1. **Riscaldamento** — 2–3 carte dal mazzo riscaldamento
-2. **Salita** — carte ●○○ / ●●○ del livello corrente
-3. **Cuore** — possono uscire le ●●●
-4. **Discesa** — una carta morbida per chiudere
+Turno: si pesca → si risponde (o si mette in sospeso) → si passa il telefono.
+Anche "Chiudi la serata" a metà porta al rituale di chiusura.
 
-Turno:
-1. Si pesca una carta (scelta dall'app secondo la curva)
-2. Si risponde, oppure si salta
-3. Si passa il telefono → si ricomincia
-
-**Limite morbido**: dopo circa 12 carte l'app propone "Per stasera può bastare. Volete chiudere qui o continuare?". Si può continuare.
-
-## 7. Progressione tra i livelli
-- Si parte da Specchio.
-- Dopo qualche carta l'app chiede: "Volete andare più a fondo?" — la coppia sceglie se avanzare o restare.
-- Se le carte di un livello finiscono, l'app accompagna al livello successivo.
+## 7. Scendere di livello (sempre insieme)
+- Ogni livello ha una **presentazione** quando ci si entra.
+- Ogni 5 domande giocate nel livello, all'inizio del "cuore", l'app chiede: "Volete andare più a fondo?"
+- In più, durante le domande c'è sempre il pulsante **"Più a fondo ↓"**: se una sera vi sentite pronti, potete scendere quando volete.
+- Prima di scendere: presentazione del livello + "Parlatene: vi sentite pronti tutti e due? Se anche uno solo ha dei dubbi, si resta. Non è una gara."
+- Se le carte di un livello finiscono, si passa al successivo (con la sua presentazione).
+- Prima della carta finale l'app ripesca le domande rimaste indietro nei livelli precedenti: nessuna va persa.
 
 ## 8. Carte intense (●●●)
-- Prima di entrare in Radici compare la schermata **"Regole del cuore"** (es. "ascolta senza difenderti", "si può sempre saltare").
-- Ogni carta ●●● compare **coperta**, con "Carta intensa: siete pronti?" e due pulsanti: **Scopri** / **Mettila in sospeso**.
-- Dopo una ●●● l'app propone una carta bonus 🌙 Calma.
+- Prima della prima carta di Radici compare la schermata **"Regole del cuore"**: ascolta senza difenderti · non esiste una risposta giusta · ogni carta si può mettere in sospeso · quello che viene detto qui, resta qui.
+- Ogni carta ●●● compare **coperta**, con "Carta intensa — siete pronti a scoprirla?" e due pulsanti: **Scopri** / **Mettila in sospeso**.
+- Dopo una ●●● l'app propone una carta bonus 🌙 Calma (fase 6).
 
 ## 9. Domande in sospeso
 - Una carta saltata finisce in una cartella **condivisa** "In sospeso".
@@ -84,7 +95,7 @@ Turno:
 ## 11. Memoria e ripresa
 - Salvataggio automatico sul telefono: coppia, livello, carte usate, in sospeso, preferite.
 - **Nessuna domanda si ripete** finché il mazzo non è finito.
-- Le carte di riscaldamento possono ripetersi, ma non nella stessa serata e non nelle ultime serate.
+- Le carte di riscaldamento possono ripetersi, ma non nella stessa serata e (dalla fase 5) non nelle ultime serate.
 - A fine mazzo: schermata "Avete completato il viaggio", carta finale, carte preferite da entrambi, possibilità di ricominciare.
 
 ## 12. Grafica
@@ -96,5 +107,4 @@ Turno:
 Punteggi, vincitori, timer, account online, diario delle risposte scritte.
 
 ## 14. Idee aperte (non decise)
-- La carta R10 ("leggerezza, profondità o vicinanza?") potrebbe guidare la serata: con "leggerezza" niente ●●●.
 - Nome definitivo dell'app.

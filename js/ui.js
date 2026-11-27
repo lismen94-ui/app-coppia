@@ -24,20 +24,36 @@ function formatIntensity(intensity) {
 }
 
 /**
- * Mostra una carta domanda sullo schermo.
- * @param {object} card - una carta presa da deck.questions
+ * Sceglie la scritta in alto a sinistra sulla carta.
+ * @param {object} card
+ * @param {string} kind - "warmup" o "question"
+ * @returns {string}
  */
-function renderCard(card) {
+function getCardHeaderLabel(card, kind) {
+  if (kind === "warmup") {
+    return "Riscaldamento";
+  }
+  if (card.isFinal) {
+    return "✨ Carta finale";
+  }
+  return LEVEL_NAMES[card.level];
+}
+
+/**
+ * Mostra una carta sullo schermo.
+ * @param {object} card - una carta domanda o di riscaldamento
+ * @param {string} kind - "warmup" o "question"
+ */
+function renderCard(card, kind) {
   const cardElement = document.getElementById("card");
 
-  // La carta finale non ha un livello da mostrare: ha un titolo speciale
-  if (card.isFinal) {
-    document.getElementById("cardLevel").textContent = "✨ Carta finale";
-    document.getElementById("cardIntensity").textContent = "";
-  } else {
-    document.getElementById("cardLevel").textContent = LEVEL_NAMES[card.level];
-    document.getElementById("cardIntensity").textContent = formatIntensity(card.intensity);
-  }
+  document.getElementById("cardLevel").textContent = getCardHeaderLabel(card, kind);
+
+  // Le carte di riscaldamento e la carta finale non mostrano i pallini
+  const showsIntensity = kind === "question" && !card.isFinal;
+  document.getElementById("cardIntensity").textContent = showsIntensity
+    ? formatIntensity(card.intensity)
+    : "";
 
   // textContent (e non innerHTML) inserisce il testo così com'è:
   // è più sicuro, perché non interpreta eventuali simboli come codice HTML.
@@ -48,4 +64,66 @@ function renderCard(card) {
   // classList.toggle(classe, condizione) aggiunge la classe se la condizione è vera,
   // e la toglie se è falsa: una riga invece di un if/else.
   cardElement.classList.toggle("card--together", card.mode === "together");
+
+  // Le carte intense arrivano coperte, con l'avvertimento
+  const isIntense = showsIntensity && card.intensity === 3;
+  setCardCovered(isIntense);
+}
+
+/**
+ * Copre o scopre la carta.
+ * Quando è coperta, nascondiamo anche i pulsanti di gioco:
+ * prima si sceglie "Scopri" o "Mettila in sospeso".
+ * @param {boolean} isCovered
+ */
+function setCardCovered(isCovered) {
+  document.getElementById("card").classList.toggle("card--covered", isCovered);
+  document.getElementById("gameActions").hidden = isCovered;
+}
+
+/**
+ * Mostra la schermata dei messaggi con titolo, testo e uno o più pulsanti.
+ *
+ * Riceve un oggetto con le "istruzioni", per esempio:
+ * {
+ *   title: "Volete andare più a fondo?",
+ *   text: "…",
+ *   buttons: [
+ *     { label: "Sì", style: "primary", onClick: function () { … } },
+ *     { label: "No", style: "ghost",   onClick: function () { … } },
+ *   ],
+ * }
+ * onClick è una funzione: la eseguiamo quando si preme quel pulsante.
+ * style può essere "primary" (pieno, colorato) o "ghost" (solo testo).
+ *
+ * @param {object} options
+ */
+function showPrompt(options) {
+  document.getElementById("promptTitle").textContent = options.title;
+  document.getElementById("promptText").textContent = options.text;
+
+  const buttonsContainer = document.getElementById("promptButtons");
+
+  // Svuotiamo i pulsanti del messaggio precedente
+  buttonsContainer.innerHTML = "";
+
+  // E creiamo quelli nuovi, uno per ogni elemento dell'array "buttons"
+  options.buttons.forEach(function (buttonInfo) {
+    const button = document.createElement("button");
+    button.className = "button button--" + buttonInfo.style;
+    button.textContent = buttonInfo.label;
+    button.addEventListener("click", buttonInfo.onClick);
+    buttonsContainer.appendChild(button);
+  });
+
+  showScreen("screenPrompt");
+}
+
+/**
+ * Mostra il pulsante "Più a fondo ↓" solo quando ha senso:
+ * durante le domande (non nel riscaldamento) e se esiste un livello più profondo.
+ */
+function updateGoDeeperButton() {
+  const isQuestion = currentCardKind === "question";
+  document.getElementById("buttonGoDeeper").hidden = !(isQuestion && canGoDeeper());
 }

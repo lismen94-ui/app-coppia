@@ -67,14 +67,43 @@
       </div>
       <p id="cardText" class="cardText"></p>
       <p id="cardMode" class="cardMode"></p>
+
+      <!-- Copertura delle carte intense (●●●): si vede solo quando la carta ha la classe "card--covered" -->
+      <div class="cardCover">
+        <p class="cardCoverIntensity">●●●</p>
+        <p class="cardCoverTitle">Carta intensa</p>
+        <p class="cardCoverText">Siete pronti a scoprirla?</p>
+        <div class="buttonGroup">
+          <button id="buttonRevealCard" class="button button--primary">Scopri</button>
+          <button id="buttonSkipCovered" class="button button--ghost">Mettila in sospeso</button>
+        </div>
+      </div>
     </article>
 
-    <div class="buttonGroup buttonGroup--row">
+    <!-- I pulsanti di gioco: nascosti mentre una carta intensa è ancora coperta -->
+    <div id="gameActions" class="buttonGroup buttonGroup--row">
       <button id="buttonSkipCard" class="button button--ghost">Metti in sospeso</button>
       <button id="buttonNextTurn" class="button button--primary">Fatto, passa</button>
     </div>
 
-    <button class="button button--ghost" data-target="screenHome">Chiudi la serata</button>
+    <!-- Pulsanti secondari: scendere di livello quando ci si sente pronti, o chiudere la serata -->
+    <div class="buttonGroup buttonGroup--row">
+      <button id="buttonGoDeeper" class="button button--ghost">Più a fondo ↓</button>
+      <button id="buttonCloseEvening" class="button button--ghost">Chiudi la serata</button>
+    </div>
+  </section>
+
+  <!--
+    SCHERMATA DEI MESSAGGI
+    Una sola schermata riutilizzata per tutti i momenti "di pausa":
+    "volete andare più a fondo?", "per stasera può bastare", "regole del cuore".
+    Titolo, testo e pulsanti li riempie la funzione showPrompt() in js/ui.js.
+    I pulsanti vengono creati dal JavaScript (possono essere 1, 2 o 3).
+  -->
+  <section id="screenPrompt" class="screen">
+    <h2 id="promptTitle"></h2>
+    <p id="promptText" class="promptText"></p>
+    <div id="promptButtons" class="buttonGroup"></div>
   </section>
 
   <!-- SCHERMATA 4: Domande in sospeso -->

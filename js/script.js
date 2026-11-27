@@ -183,20 +183,91 @@ function selectColor(playerKey, colorId) {
 }
 
 // =========================================================
-// TURNI
+// TURNI E FLUSSO DELLA SERATA
 // =========================================================
 
 /**
- * Pesca una nuova carta e la mostra.
- * drawNextQuestion() sta in gameEngine.js, renderCard() in ui.js.
+ * Pesca la prossima carta e la mostra, con le eventuali "pause" prima:
+ * - se dopo il riscaldamento non avete ancora scelto l'intensità → "Come vi sentite stasera?"
+ * - se la carta è di un livello nuovo (perché il precedente è finito) → presentazione del livello
+ * - se è la prima carta di Radici → "Regole del cuore"
  */
 function showNextCard() {
-  const card = drawNextQuestion();
-  renderCard(card);
+  if (needsMoodChoice()) {
+    askEveningMood();
+    return;
+  }
+
+  const levelBefore = currentLevel;
+  const card = drawNextCard();
+
+  // Il livello è cambiato da solo perché le carte del precedente sono finite
+  if (currentLevel !== levelBefore) {
+    showLevelIntro(currentLevel, function () {
+      showCardWithRulesIfNeeded(card);
+    });
+    return;
+  }
+
+  showCardWithRulesIfNeeded(card);
 }
 
 /**
- * Inizia la serata: tocca al primo giocatore, con il suo colore e la prima carta.
+ * Mostra la carta; se è la prima volta in Radici, prima le regole del cuore.
+ * @param {object} card
+ */
+function showCardWithRulesIfNeeded(card) {
+  if (needsHeartRules(card)) {
+    heartRulesShown = true;
+    showPrompt({
+      title: "Regole del cuore",
+      text:
+        "Ascolta senza difenderti.\n" +
+        "Non esiste una risposta giusta.\n" +
+        "Ogni carta si può mettere in sospeso.\n" +
+        "Quello che viene detto qui, resta qui.",
+      buttons: [
+        { label: "Siamo pronti", style: "primary", onClick: function () { displayCard(card); } },
+      ],
+    });
+    return;
+  }
+
+  displayCard(card);
+}
+
+/**
+ * Disegna la carta e mostra la schermata di gioco.
+ * @param {object} card
+ */
+function displayCard(card) {
+  renderCard(card, currentCardKind);
+  updateGoDeeperButton();
+  showScreen("screenGame");
+}
+
+/**
+ * Presentazione di un livello (con un solo pulsante per proseguire).
+ * @param {number} level
+ * @param {Function} onContinue - cosa fare dopo
+ */
+function showLevelIntro(level, onContinue) {
+  showPrompt({
+    title: LEVEL_NAMES[level],
+    text: LEVEL_DESCRIPTIONS[level],
+    buttons: [
+      { label: "Entriamo", style: "primary", onClick: onContinue },
+    ],
+  });
+}
+
+// ---------------------------------------------------------
+// Inizio della serata e del viaggio
+// ---------------------------------------------------------
+
+/**
+ * "Iniziamo": prima del primo viaggio c'è il patto iniziale;
+ * se il viaggio è finito si chiede se ricominciare; altrimenti si parte.
  */
 function startEvening() {
   // Sicurezza: se le carte non sono state caricate, non si può giocare
@@ -205,33 +276,282 @@ function startEvening() {
     return;
   }
 
-  currentPlayer = "first";
-  applyTurnColors();
-  showNextCard();
-  showScreen("screenGame");
+  if (!pactAccepted) {
+    showInitialPact();
+    return;
+  }
+
+  if (isJourneyComplete()) {
+    askToRestartJourney();
+    return;
+  }
+
+  beginEvening();
 }
 
 /**
- * "Fatto, passa": la carta è giocata, il telefono passa all'altra persona
- * e arriva una nuova carta nel suo colore.
+ * Azzera la serata e mostra la prima carta, con il colore del primo giocatore.
+ */
+function beginEvening() {
+  startNewEvening();
+  currentPlayer = "first";
+  applyTurnColors();
+  showNextCard();
+}
+
+/**
+ * Il patto iniziale: da leggere e discutere insieme, una volta sola.
+ */
+function showInitialPact() {
+  showPrompt({
+    title: "Prima di iniziare, parlatene insieme",
+    text:
+      "Perché avete voglia di fare questo viaggio, proprio adesso?\n\n" +
+      "Come sta la vostra coppia in questo periodo: serena, stanca, in difficoltà?\n\n" +
+      "C'è un argomento che per ora preferite lasciare fuori dal gioco?\n\n" +
+      "Cosa farete se una domanda fa male? (fermarvi, abbracciarvi, riprendere un'altra sera…)\n\n" +
+      "Questo gioco può aiutarvi a parlarvi, ma non sostituisce un terapeuta di coppia. " +
+      "Se state attraversando un momento molto difficile, può essere il momento " +
+      "di farsi accompagnare da un professionista.",
+    buttons: [
+      {
+        label: "Siamo pronti",
+        style: "primary",
+        onClick: function () {
+          pactAccepted = true;
+          // Prima di partire, la presentazione del primo livello
+          showLevelIntro(currentLevel, beginEvening);
+        },
+      },
+      {
+        label: "Ne riparliamo un'altra volta",
+        style: "ghost",
+        onClick: function () { showScreen("screenHome"); },
+      },
+    ],
+  });
+}
+
+/**
+ * "Come vi sentite stasera?": la coppia sceglie insieme l'intensità della serata.
+ */
+function askEveningMood() {
+  // Una piccola funzione "fabbrica": crea la funzione da eseguire per ogni scelta,
+  // così non dobbiamo scrivere tre volte lo stesso codice.
+  function chooseMood(mood) {
+    return function () {
+      setEveningMood(mood);
+      showNextCard();
+    };
+  }
+
+  showPrompt({
+    title: "Come vi sentite stasera?",
+    text: "Parlatene un attimo, e scegliete insieme.",
+    buttons: [
+      { label: "🌙 Leggeri — niente carte intense", style: "outline", onClick: chooseMood("light") },
+      { label: "🌗 Come viene — il ritmo normale", style: "outline", onClick: chooseMood("normal") },
+      { label: "🌕 Pronti ad andare a fondo", style: "outline", onClick: chooseMood("deep") },
+    ],
+  });
+}
+
+// ---------------------------------------------------------
+// Durante la serata
+// ---------------------------------------------------------
+
+/**
+ * "Fatto, passa": la carta è giocata e il telefono passa all'altra persona.
+ * Prima della carta successiva, controlliamo se è il momento di una pausa:
+ * 1. la fine della serata ("per stasera può bastare")
+ * 2. la domanda "volete andare più a fondo?"
  */
 function goToNextTurn() {
+  // La carta finale chiude il viaggio
+  if (currentCard.isFinal) {
+    markCurrentCardAsUsed();
+    askToRestartJourney();
+    return;
+  }
+
   markCurrentCardAsUsed();
 
   // Operatore ternario: "se è first, diventa second; altrimenti diventa first"
   currentPlayer = currentPlayer === "first" ? "second" : "first";
-
   applyTurnColors();
-  showNextCard();
+
+  if (isEveningLimitReached()) {
+    askToEndEvening();
+  } else if (shouldAskToGoDeeper()) {
+    askToGoDeeper();
+  } else {
+    showNextCard();
+  }
 }
 
 /**
  * "Metti in sospeso": la carta va da parte e la STESSA persona
- * riceve un'altra domanda (il turno non passa).
+ * riceve un'altra carta (il turno non passa).
  */
 function skipCardAndDrawAgain() {
   skipCurrentCard();
   showNextCard();
+}
+
+/**
+ * "Scopri": toglie la copertura alla carta intensa.
+ */
+function revealCard() {
+  setCardCovered(false);
+}
+
+// ---------------------------------------------------------
+// Scendere di livello (sempre insieme)
+// ---------------------------------------------------------
+
+/**
+ * La domanda che arriva da sola ogni tanto, durante la serata.
+ */
+function askToGoDeeper() {
+  const thisLevelName = LEVEL_NAMES[currentLevel];
+  const nextLevelName = LEVEL_NAMES[currentLevel + 1];
+
+  showPrompt({
+    title: "Volete andare più a fondo?",
+    text: "Siete in " + thisLevelName + ". Il prossimo livello è " + nextLevelName + ".",
+    buttons: [
+      { label: "Parliamone", style: "primary", onClick: askConsentToGoDeeper },
+      {
+        label: "Restiamo in " + thisLevelName,
+        style: "ghost",
+        onClick: function () {
+          stayAtCurrentLevel();
+          showNextCard();
+        },
+      },
+    ],
+  });
+}
+
+/**
+ * Prima di scendere: la presentazione del livello e il consenso di entrambi.
+ * Si arriva qui dalla domanda automatica oppure dal pulsante "Più a fondo ↓".
+ */
+function askConsentToGoDeeper() {
+  const thisLevelName = LEVEL_NAMES[currentLevel];
+  const nextLevel = currentLevel + 1;
+  const nextLevelName = LEVEL_NAMES[nextLevel];
+
+  showPrompt({
+    title: "Prima di scendere in " + nextLevelName,
+    text:
+      LEVEL_DESCRIPTIONS[nextLevel] + "\n\n" +
+      "Parlatene: vi sentite pronti tutti e due?\n" +
+      "Se anche uno solo ha dei dubbi, si resta. Non è una gara.",
+    buttons: [
+      {
+        label: "Siamo pronti tutti e due",
+        style: "primary",
+        onClick: function () {
+          goDeeper();
+          showNextCard();
+        },
+      },
+      {
+        label: "Restiamo in " + thisLevelName,
+        style: "ghost",
+        onClick: function () {
+          stayAtCurrentLevel();
+          // Se la carta sullo schermo non è stata giocata, la ritroviamo lì
+          displayCard(currentCard);
+        },
+      },
+    ],
+  });
+}
+
+/**
+ * Il pulsante "Più a fondo ↓": la carta sullo schermo non viene giocata
+ * (resta disponibile per un'altra volta) e si passa al consenso.
+ */
+function goDeeperFromButton() {
+  askConsentToGoDeeper();
+}
+
+// ---------------------------------------------------------
+// Fine della serata e del viaggio
+// ---------------------------------------------------------
+
+/**
+ * "Per stasera può bastare": chiudere o continuare?
+ */
+function askToEndEvening() {
+  showPrompt({
+    title: "Per stasera può bastare",
+    text:
+      "Avete fatto " + getEveningCardCount() + " carte.\n" +
+      "Potete chiudere qui e riprendere un'altra sera, oppure continuare ancora un po'.",
+    buttons: [
+      { label: "Chiudiamo qui", style: "primary", onClick: showClosingRitual },
+      {
+        label: "Continuiamo",
+        style: "ghost",
+        onClick: function () {
+          continueEvening();
+          showNextCard();
+        },
+      },
+    ],
+  });
+}
+
+/**
+ * Il rituale di chiusura: si va a dormire più vicini, non più scossi.
+ */
+function showClosingRitual() {
+  showPrompt({
+    title: "Prima di salutarvi",
+    text:
+      "Ognuno dica all'altro una cosa che ha apprezzato di lui o di lei stasera.\n\n" +
+      "Poi, se vi va, un abbraccio.",
+    buttons: [
+      { label: "Buonanotte 🌙", style: "primary", onClick: function () { showScreen("screenHome"); } },
+    ],
+  });
+}
+
+/**
+ * "Chiudi la serata": se avete già giocato qualche carta, prima il rituale di chiusura.
+ */
+function closeEvening() {
+  if (getEveningCardCount() > 0) {
+    showClosingRitual();
+  } else {
+    showScreen("screenHome");
+  }
+}
+
+/**
+ * Il mazzo è finito: ricominciare da capo o tornare alla home?
+ */
+function askToRestartJourney() {
+  showPrompt({
+    title: "Avete completato il viaggio ✨",
+    text:
+      "Avete attraversato tutte le domande.\n" +
+      "Potete ricominciare da capo: le stesse domande, tra qualche mese, possono avere risposte nuove.",
+    buttons: [
+      {
+        label: "Ricominciamo",
+        style: "primary",
+        onClick: function () {
+          restartJourney();
+          showLevelIntro(currentLevel, beginEvening);
+        },
+      },
+      { label: "Torna alla home", style: "ghost", onClick: function () { showScreen("screenHome"); } },
+    ],
+  });
 }
 
 // =========================================================
@@ -272,5 +592,9 @@ prepareDeck();
 document.getElementById("buttonStartEvening").addEventListener("click", startEvening);
 document.getElementById("buttonNextTurn").addEventListener("click", goToNextTurn);
 document.getElementById("buttonSkipCard").addEventListener("click", skipCardAndDrawAgain);
+document.getElementById("buttonRevealCard").addEventListener("click", revealCard);
+document.getElementById("buttonSkipCovered").addEventListener("click", skipCardAndDrawAgain);
+document.getElementById("buttonGoDeeper").addEventListener("click", goDeeperFromButton);
+document.getElementById("buttonCloseEvening").addEventListener("click", closeEvening);
 
 console.log("app-coppia avviata ✨");
