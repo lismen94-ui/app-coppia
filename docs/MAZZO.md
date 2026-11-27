@@ -7,7 +7,7 @@ Testi originali. Legenda:
 
 ---
 
-## Livello 1 — Incontrarsi
+## Livello 1 — Specchio
 
 1. ●○○ 🎯 Qual è la prima cosa che hai notato di me, e cosa ne pensi oggi?
 2. ●○○ 🎯 Quale mio piccolo gesto quotidiano noti ancora, anche se non me lo dici?
@@ -60,7 +60,7 @@ Testi originali. Legenda:
 49. ●●○ 🤝 Cosa vi siete detti, nel tempo, senza bisogno di parole?
 50. ●●○ 🎯 Guardandomi adesso, cosa vedi che dieci anni fa non avresti saputo vedere?
 
-## Livello 2 — Esporsi
+## Livello 2 — Radici
 
 51. ●●○ 🎯 Qual è un sogno che hai messo da parte negli anni, e perché?
 52. ●●○ 🎯 Cosa ti fa più paura, oggi, pensando al nostro futuro?
@@ -113,7 +113,7 @@ Testi originali. Legenda:
 99. ●●○ 🔮 In cosa ho più bisogno di te, anche se non lo ammetterei mai?
 100. ●●● 🎯 Se questa fosse l'ultima conversazione sincera per molto tempo, cosa vorresti assolutamente dirmi?
 
-## Livello 3 — Accogliersi
+## Livello 3 — Rifugio
 
 101. ●●○ 🎯 Cosa ti fa sentire al sicuro con me, anche nei giorni peggiori?
 102. ●●● 🎯 Quando mi allontano emotivamente, cosa provi e cosa vorresti fare?

@@ -1,5 +1,5 @@
 // =========================================================
-// app.js — avvio dell'app e cambio delle schermate
+// script.js — avvio dell'app e cambio delle schermate
 // =========================================================
 
 /**
@@ -80,8 +80,8 @@ let currentPlayer = "first";
 
 /**
  * Cerca un colore nella palette partendo dal suo id.
- * @param {string} colorId - es. "rose"
- * @returns {object} l'oggetto colore, es. { id: "rose", name: "Rosa cipria", hex: "#e8b4bc" }
+ * @param {string} colorId - es. "coral"
+ * @returns {object} l'oggetto colore, es. { id: "coral", name: "Corallo", hex: "#ef8f84" }
  */
 function findColorById(colorId) {
   return PASTEL_COLORS.find(function (color) {
@@ -90,13 +90,20 @@ function findColorById(colorId) {
 }
 
 /**
- * Cambia il colore "del turno" in tutta l'app.
- * Modifica la variabile CSS --colorCurrentPlayer: tutto ciò che la usa
+ * Applica i colori del turno a tutta l'app.
+ * Modifica due variabili CSS: tutto ciò che le usa
  * (bordo della carta, alone, pulsante principale) si aggiorna da solo.
- * @param {string} hex - il colore, es. "#e8b4bc"
+ * --colorCurrentPlayer → chi ha il telefono adesso
+ * --colorOtherPlayer   → l'altra persona (serve per le carte "insieme")
  */
-function applyPlayerColor(hex) {
-  document.documentElement.style.setProperty("--colorCurrentPlayer", hex);
+function applyTurnColors() {
+  const otherPlayer = currentPlayer === "first" ? "second" : "first";
+
+  const currentHex = findColorById(players[currentPlayer]).hex;
+  const otherHex = findColorById(players[otherPlayer]).hex;
+
+  document.documentElement.style.setProperty("--colorCurrentPlayer", currentHex);
+  document.documentElement.style.setProperty("--colorOtherPlayer", otherHex);
 }
 
 /**
@@ -180,34 +187,90 @@ function selectColor(playerKey, colorId) {
 // =========================================================
 
 /**
- * Inizia la serata: tocca al primo giocatore, quindi usiamo il suo colore.
+ * Pesca una nuova carta e la mostra.
+ * drawNextQuestion() sta in gameEngine.js, renderCard() in ui.js.
+ */
+function showNextCard() {
+  const card = drawNextQuestion();
+  renderCard(card);
+}
+
+/**
+ * Inizia la serata: tocca al primo giocatore, con il suo colore e la prima carta.
  */
 function startEvening() {
+  // Sicurezza: se le carte non sono state caricate, non si può giocare
+  if (deck.questions.length === 0) {
+    alert("Le carte non sono ancora pronte. Riprova tra un attimo.");
+    return;
+  }
+
   currentPlayer = "first";
-  applyPlayerColor(findColorById(players.first).hex);
+  applyTurnColors();
+  showNextCard();
   showScreen("screenGame");
 }
 
 /**
- * Passa il turno all'altra persona e cambia il colore.
- * (Nella fase 3 qui verrà anche pescata la carta successiva.)
+ * "Fatto, passa": la carta è giocata, il telefono passa all'altra persona
+ * e arriva una nuova carta nel suo colore.
  */
 function goToNextTurn() {
+  markCurrentCardAsUsed();
+
   // Operatore ternario: "se è first, diventa second; altrimenti diventa first"
   currentPlayer = currentPlayer === "first" ? "second" : "first";
 
-  const colorId = players[currentPlayer];
-  applyPlayerColor(findColorById(colorId).hex);
+  applyTurnColors();
+  showNextCard();
+}
+
+/**
+ * "Metti in sospeso": la carta va da parte e la STESSA persona
+ * riceve un'altra domanda (il turno non passa).
+ */
+function skipCardAndDrawAgain() {
+  skipCurrentCard();
+  showNextCard();
 }
 
 // =========================================================
 // AVVIO
 // Grazie a "defer" nell'HTML, quando arriviamo qui la pagina è già pronta.
 // =========================================================
+
+/**
+ * Carica le carte e scrive sulla home se è andato tutto bene.
+ */
+async function prepareDeck() {
+  const statusLabel = document.getElementById("deckStatus");
+
+  // loadAllCards() sta in gameEngine.js
+  const loadedOk = await loadAllCards();
+
+  if (loadedOk) {
+    const totalCards = deck.questions.length + deck.warmups.length + deck.bonuses.length;
+    statusLabel.textContent = totalCards + " carte pronte";
+
+    // Controllo dei dati: ci aspettiamo 50 domande per livello
+    console.log(
+      "Domande per livello →",
+      LEVEL_NAMES[1] + ":", countQuestionsByLevel(1),
+      "| " + LEVEL_NAMES[2] + ":", countQuestionsByLevel(2),
+      "| " + LEVEL_NAMES[3] + ":", countQuestionsByLevel(3)
+    );
+  } else {
+    statusLabel.textContent = "Non riesco a caricare le carte. L'app è aperta con Live Server?";
+    statusLabel.classList.add("deckStatus--error");
+  }
+}
+
 setupNavigationButtons();
 renderColorPickers();
+prepareDeck();
 
 document.getElementById("buttonStartEvening").addEventListener("click", startEvening);
 document.getElementById("buttonNextTurn").addEventListener("click", goToNextTurn);
+document.getElementById("buttonSkipCard").addEventListener("click", skipCardAndDrawAgain);
 
 console.log("app-coppia avviata ✨");

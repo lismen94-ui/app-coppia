@@ -25,9 +25,9 @@ L'app nasce già predisposta per più categorie: aggiungerne una significa solo 
 ## 4. Livelli
 | Livello | Nome | Focus principale |
 |---|---|---|
-| 1 | Incontrarsi | Lo sguardo dell'altro: come mi vedi |
-| 2 | Esporsi | Il mondo interiore: sogni, paure, rinunce |
-| 3 | Accogliersi | Bisogni e sicurezza emotiva, riparazione, futuro |
+| 1 | Specchio | Lo sguardo dell'altro: come mi vedi |
+| 2 | Radici | Il mondo interiore: sogni, paure, rinunce |
+| 3 | Rifugio | Bisogni e sicurezza emotiva, riparazione, futuro |
 
 Ogni livello ha 50 domande e mescola un po' tutti e tre gli aspetti.
 
@@ -63,12 +63,12 @@ Turno:
 **Limite morbido**: dopo circa 12 carte l'app propone "Per stasera può bastare. Volete chiudere qui o continuare?". Si può continuare.
 
 ## 7. Progressione tra i livelli
-- Si parte da Incontrarsi.
+- Si parte da Specchio.
 - Dopo qualche carta l'app chiede: "Volete andare più a fondo?" — la coppia sceglie se avanzare o restare.
 - Se le carte di un livello finiscono, l'app accompagna al livello successivo.
 
 ## 8. Carte intense (●●●)
-- Prima di entrare in Esporsi compare la schermata **"Regole del cuore"** (es. "ascolta senza difenderti", "si può sempre saltare").
+- Prima di entrare in Radici compare la schermata **"Regole del cuore"** (es. "ascolta senza difenderti", "si può sempre saltare").
 - Ogni carta ●●● compare **coperta**, con "Carta intensa: siete pronti?" e due pulsanti: **Scopri** / **Mettila in sospeso**.
 - Dopo una ●●● l'app propone una carta bonus 🌙 Calma.
 

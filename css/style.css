@@ -16,6 +16,8 @@
      con il colore di chi deve rispondere (funzione applyPlayerColor in script.js).
      La palette dei pastelli sta in script.js, nella costante PASTEL_COLORS. */
   --colorCurrentPlayer: #c7b8e0;
+  /* Colore dell'altra persona: serve per le carte "Rispondete insieme" */
+  --colorOtherPlayer: #c7b8e0;
 
   --radiusLarge: 24px;
   --radiusPill: 999px;
@@ -78,6 +80,17 @@ h2 {
   margin: 0;
 }
 
+.deckStatus {
+  margin: 0;
+  font-size: 0.85rem;
+  color: var(--colorTextSoft);
+}
+
+/* Se le carte non si caricano, il messaggio diventa corallo per farsi notare */
+.deckStatus--error {
+  color: #ef8f84;
+}
+
 .placeholder {
   color: var(--colorTextSoft);
   font-style: italic;
@@ -98,8 +111,14 @@ h2 {
   flex-direction: row;
 }
 
-.button {
+/* Solo dentro una riga i pulsanti si dividono lo spazio in parti uguali.
+   (Se lo mettessimo su tutti i pulsanti, quelli "sciolti" nella schermata
+   si allungherebbero in altezza, perché la schermata è una colonna flex.) */
+.buttonGroup--row .button {
   flex: 1;
+}
+
+.button {
   padding: 14px 20px;
   border: 1px solid var(--colorTextSoft);
   border-radius: var(--radiusPill);
@@ -111,10 +130,6 @@ h2 {
   transition: background-color 0.2s ease;
 }
 
-.button:hover {
-  background-color: var(--colorSurface);
-}
-
 .button--primary {
   background-color: var(--colorCurrentPlayer);
   border-color: var(--colorCurrentPlayer);
@@ -122,10 +137,18 @@ h2 {
   font-weight: 600;
 }
 
-.button--primary:hover {
-  /* filter: brightness scurisce o schiarisce il colore senza doverne scrivere un altro */
-  filter: brightness(1.08);
-  background-color: var(--colorCurrentPlayer);
+/* Effetti al passaggio del mouse: solo sui dispositivi che hanno un mouse.
+   Sul telefono l'effetto "hover" resterebbe incollato dopo il tocco. */
+@media (hover: hover) {
+  .button:hover {
+    background-color: var(--colorSurface);
+  }
+
+  .button--primary:hover {
+    /* filter: brightness schiarisce il colore senza doverne scrivere un altro */
+    filter: brightness(1.08);
+    background-color: var(--colorCurrentPlayer);
+  }
 }
 
 .button--ghost {
@@ -216,6 +239,34 @@ h2 {
   box-shadow: 0 0 40px -12px var(--colorCurrentPlayer);
 }
 
+/* Carta "Rispondete insieme": il bordo è una sfumatura tra i due colori.
+   Trucco: due sfondi sovrapposti. Il primo (tinta unita) riempie l'interno
+   fino al bordo escluso (padding-box); il secondo (sfumatura) si vede
+   solo nello spazio del bordo trasparente (border-box). */
+.card--together {
+  border-color: transparent;
+  background:
+    linear-gradient(var(--colorSurface), var(--colorSurface)) padding-box,
+    linear-gradient(135deg, var(--colorCurrentPlayer), var(--colorOtherPlayer)) border-box;
+  box-shadow:
+    -20px 0 40px -20px var(--colorCurrentPlayer),
+    20px 0 40px -20px var(--colorOtherPlayer);
+}
+
+.cardHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.cardLevel {
+  margin: 0;
+  font-size: 0.85rem;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  color: var(--colorTextSoft);
+}
+
 .cardIntensity {
   margin: 0;
   color: var(--colorCurrentPlayer);
@@ -226,6 +277,8 @@ h2 {
   margin: 0;
   font-size: 1.4rem;
   text-align: center;
+  /* Le domande lunghe vanno a capo in modo più armonioso */
+  text-wrap: balance;
 }
 
 .cardMode {

@@ -15,13 +15,15 @@
     L'app è una sola pagina con più "schermate".
     Ogni schermata è una <section> con la classe "screen".
     In ogni momento solo UNA è visibile: quella con la classe "screen--active".
-    Il cambio di schermata lo fa la funzione showScreen() in js/app.js.
+    Il cambio di schermata lo fa la funzione showScreen() in js/script.js.
   -->
 
   <!-- SCHERMATA 1: Home -->
   <section id="screenHome" class="screen screen--active">
     <h1 class="appTitle">app-coppia</h1>
     <p class="subtitle">Un gioco per ritrovarsi</p>
+    <!-- Messaggio sullo stato delle carte: lo scrive il JavaScript dopo il caricamento -->
+    <p id="deckStatus" class="deckStatus">Sto preparando le carte…</p>
 
     <div class="buttonGroup">
       <!-- data-target dice a quale schermata porta il pulsante -->
@@ -35,7 +37,7 @@
   <section id="screenSetup" class="screen">
     <h2>Scegliete i vostri colori</h2>
 
-    <!-- I pallini colorati vengono creati dal JavaScript (funzione renderColorPickers in app.js) -->
+    <!-- I pallini colorati vengono creati dal JavaScript (funzione renderColorPickers in script.js) -->
     <div class="colorPicker">
       <p class="colorPickerLabel">Tu</p>
       <div id="colorPickerFirst" class="swatchRow"></div>
@@ -57,15 +59,18 @@
 
   <!-- SCHERMATA 3: Gioco -->
   <section id="screenGame" class="screen">
-    <!-- La carta: per ora è solo un esempio fisso, nella fase 3 il testo arriverà dai dati -->
-    <article class="card">
-      <p class="cardIntensity">●○○</p>
-      <p class="cardText">Qui comparirà la domanda.</p>
-      <p class="cardMode">🎯 Tocca a te</p>
+    <!-- La carta: i testi vengono riempiti dalla funzione renderCard() in js/ui.js -->
+    <article id="card" class="card">
+      <div class="cardHeader">
+        <p id="cardLevel" class="cardLevel"></p>
+        <p id="cardIntensity" class="cardIntensity"></p>
+      </div>
+      <p id="cardText" class="cardText"></p>
+      <p id="cardMode" class="cardMode"></p>
     </article>
 
     <div class="buttonGroup buttonGroup--row">
-      <button class="button button--ghost">Metti in sospeso</button>
+      <button id="buttonSkipCard" class="button button--ghost">Metti in sospeso</button>
       <button id="buttonNextTurn" class="button button--primary">Fatto, passa</button>
     </div>
 
@@ -90,6 +95,11 @@
     "defer" vuol dire: carica lo script, ma eseguilo solo quando tutta la pagina HTML è pronta.
     Così quando il JavaScript cerca i pulsanti, i pulsanti esistono già.
   -->
-  <script src="js/app.js" defer></script>
+  <!-- L'ordine conta: prima gameEngine.js (le carte e le regole),
+       poi ui.js (come si disegnano), infine script.js (che usa entrambi).
+       Con "defer" vengono eseguiti esattamente in questo ordine. -->
+  <script src="js/gameEngine.js" defer></script>
+  <script src="js/ui.js" defer></script>
+  <script src="js/script.js" defer></script>
 </body>
 </html>

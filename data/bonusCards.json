@@ -1,0 +1,302 @@
+[
+  {
+    "id": "B01",
+    "type": "calm",
+    "mode": "together",
+    "text": "Guardatevi negli occhi in silenzio per un minuto."
+  },
+  {
+    "id": "B02",
+    "type": "calm",
+    "mode": "together",
+    "text": "Restate in silenzio per trenta secondi, tenendovi per mano."
+  },
+  {
+    "id": "B03",
+    "type": "calm",
+    "mode": "together",
+    "text": "Cinque respiri lenti insieme, cercando lo stesso ritmo."
+  },
+  {
+    "id": "B04",
+    "type": "calm",
+    "mode": "self",
+    "text": "Chiudi gli occhi: l'altro ti accarezza la mano finché non li riapri."
+  },
+  {
+    "id": "B05",
+    "type": "calm",
+    "mode": "together",
+    "text": "Fronte contro fronte, per qualche respiro."
+  },
+  {
+    "id": "B06",
+    "type": "calm",
+    "mode": "together",
+    "text": "Abbracciatevi per venti secondi, senza parlare."
+  },
+  {
+    "id": "B07",
+    "type": "calm",
+    "mode": "self",
+    "text": "Appoggia la mano sul cuore dell'altro e ascolta il battito per un po'."
+  },
+  {
+    "id": "B08",
+    "type": "calm",
+    "mode": "together",
+    "text": "Sedetevi schiena contro schiena e respirate insieme per un minuto."
+  },
+  {
+    "id": "B09",
+    "type": "calm",
+    "mode": "self",
+    "text": "Massaggia per un minuto le spalle dell'altro."
+  },
+  {
+    "id": "B10",
+    "type": "calm",
+    "mode": "together",
+    "text": "Intrecciate le mani e restate così fino alla prossima carta."
+  },
+  {
+    "id": "B11",
+    "type": "calm",
+    "mode": "self",
+    "text": "Scrivi tre parole che descrivono l'altro e mostragliele."
+  },
+  {
+    "id": "B12",
+    "type": "calm",
+    "mode": "self",
+    "text": "Di' all'altro una cosa che ammiri di come ha appena risposto."
+  },
+  {
+    "id": "B13",
+    "type": "calm",
+    "mode": "together",
+    "text": "Ognuno dica all'altro: «Grazie per avermelo detto»."
+  },
+  {
+    "id": "B14",
+    "type": "calm",
+    "mode": "self",
+    "text": "Completa la frase: «In questo momento sento per te…»"
+  },
+  {
+    "id": "B15",
+    "type": "calm",
+    "mode": "self",
+    "text": "Di' all'altro una cosa di cui sei certo, o certa, su di voi."
+  },
+  {
+    "id": "B16",
+    "type": "calm",
+    "mode": "self",
+    "text": "Sussurra all'orecchio dell'altro una cosa che ti piace di lui o di lei."
+  },
+  {
+    "id": "B17",
+    "type": "calm",
+    "mode": "self",
+    "text": "Chiedi all'altro «Di cosa hai bisogno adesso?» e ascolta senza commentare."
+  },
+  {
+    "id": "B18",
+    "type": "calm",
+    "mode": "together",
+    "text": "Una mano ciascuno sul petto: notate come respirate dopo questa domanda."
+  },
+  {
+    "id": "B19",
+    "type": "calm",
+    "mode": "self",
+    "text": "Rassicura l'altro con una frase che inizia con «Io resto…»"
+  },
+  {
+    "id": "B20",
+    "type": "calm",
+    "mode": "together",
+    "text": "Ognuno dica: «La cosa che ho sentito di più da te è…»"
+  },
+  {
+    "id": "B21",
+    "type": "calm",
+    "mode": "self",
+    "text": "Ripeti con parole tue quello che l'altro ha appena detto. L'altro ti dice se hai capito bene."
+  },
+  {
+    "id": "B22",
+    "type": "calm",
+    "mode": "self",
+    "text": "Di' all'altro: «Non devi spiegarmi niente adesso. Sono qui»."
+  },
+  {
+    "id": "B23",
+    "type": "calm",
+    "mode": "together",
+    "text": "Se una risposta vi ha toccato, ditevelo con un gesto invece che con le parole."
+  },
+  {
+    "id": "B24",
+    "type": "calm",
+    "mode": "together",
+    "text": "Scegliete una parola \"rifugio\" da usare nei momenti difficili."
+  },
+  {
+    "id": "B25",
+    "type": "calm",
+    "mode": "self",
+    "text": "Prometti all'altro un piccolo gesto concreto per domani."
+  },
+  {
+    "id": "B26",
+    "type": "breath",
+    "mode": "together",
+    "text": "Raccontatevi la volta in cui avete riso di più insieme."
+  },
+  {
+    "id": "B27",
+    "type": "breath",
+    "mode": "self",
+    "text": "Imita l'altro mentre fa una cosa tipica sua. Con affetto."
+  },
+  {
+    "id": "B28",
+    "type": "breath",
+    "mode": "together",
+    "text": "Fatevi una foto insieme, adesso, così come siete."
+  },
+  {
+    "id": "B29",
+    "type": "breath",
+    "mode": "together",
+    "text": "Scegliete una canzone e ascoltatela insieme dall'inizio alla fine."
+  },
+  {
+    "id": "B30",
+    "type": "breath",
+    "mode": "self",
+    "text": "Fai una smorfia all'altro finché non sorride."
+  },
+  {
+    "id": "B31",
+    "type": "breath",
+    "mode": "together",
+    "text": "Dite ad alta voce un posto dove vorreste scappare domani."
+  },
+  {
+    "id": "B32",
+    "type": "breath",
+    "mode": "self",
+    "text": "Racconta un episodio della tua infanzia che farebbe ridere l'altro."
+  },
+  {
+    "id": "B33",
+    "type": "breath",
+    "mode": "self",
+    "text": "Prepara qualcosa da bere per l'altro, poi tornate a giocare."
+  },
+  {
+    "id": "B34",
+    "type": "breath",
+    "mode": "together",
+    "text": "Alzatevi, sgranchitevi e tornate a sedervi più vicini."
+  },
+  {
+    "id": "B35",
+    "type": "breath",
+    "mode": "together",
+    "text": "Un minuto di pausa: un sorso d'acqua, poi si riparte."
+  },
+  {
+    "id": "B36",
+    "type": "breath",
+    "mode": "together",
+    "text": "Ognuno dica una cosa per cui oggi è grato all'altro."
+  },
+  {
+    "id": "B37",
+    "type": "breath",
+    "mode": "self",
+    "text": "Ringrazia l'altro per una cosa che ha fatto questa settimana."
+  },
+  {
+    "id": "B38",
+    "type": "breath",
+    "mode": "together",
+    "text": "Ognuno dica un momento di questa serata che vuole ricordare."
+  },
+  {
+    "id": "B39",
+    "type": "breath",
+    "mode": "together",
+    "text": "Scegliete una cosa da fare insieme entro la fine del mese."
+  },
+  {
+    "id": "B40",
+    "type": "breath",
+    "mode": "self",
+    "text": "Scrivi un biglietto di una riga e nascondilo dove l'altro lo troverà domani."
+  },
+  {
+    "id": "B41",
+    "type": "breath",
+    "mode": "together",
+    "text": "Decidete quando giocherete la prossima volta."
+  },
+  {
+    "id": "B42",
+    "type": "breath",
+    "mode": "self",
+    "text": "Scrivi adesso all'altro un messaggio da leggere domani mattina."
+  },
+  {
+    "id": "B43",
+    "type": "breath",
+    "mode": "self",
+    "text": "Disegna l'altro in trenta secondi, senza guardare il foglio."
+  },
+  {
+    "id": "B44",
+    "type": "breath",
+    "mode": "together",
+    "text": "Inventate insieme un nome segreto per la vostra coppia."
+  },
+  {
+    "id": "B45",
+    "type": "breath",
+    "mode": "self",
+    "text": "Descrivi l'altro come se fosse un paesaggio."
+  },
+  {
+    "id": "B46",
+    "type": "breath",
+    "mode": "together",
+    "text": "Ognuno scelga un oggetto nella stanza che rappresenta l'altro e spieghi perché."
+  },
+  {
+    "id": "B47",
+    "type": "breath",
+    "mode": "together",
+    "text": "Al tre, ditevi insieme la prima parola che vi viene in mente sull'altro."
+  },
+  {
+    "id": "B48",
+    "type": "breath",
+    "mode": "self",
+    "text": "Racconta all'altro come vi descriveresti a un vostro amico."
+  },
+  {
+    "id": "B49",
+    "type": "breath",
+    "mode": "together",
+    "text": "Ognuno dica una qualità dell'altro che inizia con la propria iniziale."
+  },
+  {
+    "id": "B50",
+    "type": "breath",
+    "mode": "together",
+    "text": "Scrivete insieme una sola frase che racconta la vostra coppia oggi."
+  }
+]

@@ -1,0 +1,252 @@
+[
+  {
+    "id": "R01",
+    "mode": "self",
+    "text": "Cosa ti è rimasto addosso della giornata di oggi?"
+  },
+  {
+    "id": "R02",
+    "mode": "together",
+    "text": "Ognuno dica, in una parola, con che umore arriva a questa serata."
+  },
+  {
+    "id": "R03",
+    "mode": "self",
+    "text": "Qual è stata la cosa più bella, anche minuscola, di questa settimana?"
+  },
+  {
+    "id": "R04",
+    "mode": "guessOther",
+    "text": "Che voto darei alla mia giornata, da 1 a 10? Poi l'altro dice il suo voto vero."
+  },
+  {
+    "id": "R05",
+    "mode": "self",
+    "text": "C'è qualcosa che ti porti dietro stasera e che vorresti lasciare da parte prima di cominciare?"
+  },
+  {
+    "id": "R06",
+    "mode": "together",
+    "text": "Respirate insieme tre volte, lentamente, prima della prossima carta."
+  },
+  {
+    "id": "R07",
+    "mode": "self",
+    "text": "Oggi, quando hai pensato a me, a cosa stavi pensando?"
+  },
+  {
+    "id": "R08",
+    "mode": "self",
+    "text": "Quale suono, profumo o immagine ti ha colpito oggi?"
+  },
+  {
+    "id": "R09",
+    "mode": "together",
+    "text": "Se questa serata fosse un colore, quale sarebbe per ciascuno di voi?"
+  },
+  {
+    "id": "R10",
+    "mode": "self",
+    "text": "Di cosa hai bisogno stasera: leggerezza, profondità o solo vicinanza?"
+  },
+  {
+    "id": "R11",
+    "mode": "guessOther",
+    "text": "Cosa aspetto con più voglia nei prossimi giorni?"
+  },
+  {
+    "id": "R12",
+    "mode": "self",
+    "text": "Cosa hai fatto oggi solo per te?"
+  },
+  {
+    "id": "R13",
+    "mode": "together",
+    "text": "Ognuno racconti un piccolo momento della settimana che l'altro non conosce."
+  },
+  {
+    "id": "R14",
+    "mode": "self",
+    "text": "Come sta il tuo corpo in questo momento: stanco, teso, rilassato?"
+  },
+  {
+    "id": "R15",
+    "mode": "together",
+    "text": "Avvicinatevi un po'. Cosa cambia?"
+  },
+  {
+    "id": "R16",
+    "mode": "self",
+    "text": "Qual è la prima cosa che hai fatto stamattina, appena aperti gli occhi?"
+  },
+  {
+    "id": "R17",
+    "mode": "together",
+    "text": "Ognuno dica una cosa per cui oggi si sente grato."
+  },
+  {
+    "id": "R18",
+    "mode": "guessOther",
+    "text": "Se potessi scegliere qualsiasi cosa, cosa avrei voluto mangiare stasera?"
+  },
+  {
+    "id": "R19",
+    "mode": "self",
+    "text": "Quale pensiero ti ha accompagnato di più oggi?"
+  },
+  {
+    "id": "R20",
+    "mode": "together",
+    "text": "Raccontatevi una piccola figuraccia di questa settimana."
+  },
+  {
+    "id": "R21",
+    "mode": "self",
+    "text": "Se domani fosse un giorno libero, come lo inizieresti?"
+  },
+  {
+    "id": "R22",
+    "mode": "guessOther",
+    "text": "Quale canzone mi gira in testa in questo periodo?"
+  },
+  {
+    "id": "R23",
+    "mode": "self",
+    "text": "C'è una persona che oggi ti è tornata in mente all'improvviso?"
+  },
+  {
+    "id": "R24",
+    "mode": "together",
+    "text": "Ognuno dica una cosa che ha notato dell'altro oggi."
+  },
+  {
+    "id": "R25",
+    "mode": "self",
+    "text": "In questo momento preferiresti essere al mare, in montagna o esattamente qui?"
+  },
+  {
+    "id": "R26",
+    "mode": "guessOther",
+    "text": "Cosa mi ha dato più energia questa settimana, e cosa me l'ha tolta?"
+  },
+  {
+    "id": "R27",
+    "mode": "self",
+    "text": "Quale piccola cosa vorresti fare insieme questo fine settimana?"
+  },
+  {
+    "id": "R28",
+    "mode": "together",
+    "text": "Abbassate una luce, mettetevi comodi e dite insieme: «Ok, ci siamo»."
+  },
+  {
+    "id": "R29",
+    "mode": "self",
+    "text": "Cosa hai imparato di nuovo negli ultimi giorni, anche una cosa banale?"
+  },
+  {
+    "id": "R30",
+    "mode": "together",
+    "text": "Ognuno scelga una parola che vorrebbe portare in questa serata."
+  },
+  {
+    "id": "R31",
+    "mode": "self",
+    "text": "Cosa ti ha fatto perdere la pazienza oggi, anche solo per un attimo?"
+  },
+  {
+    "id": "R32",
+    "mode": "together",
+    "text": "Ognuno dica che tempo fa dentro di sé: sole, nuvole, pioggia o vento?"
+  },
+  {
+    "id": "R33",
+    "mode": "guessOther",
+    "text": "Cosa avrei voluto fare oggi e non ho fatto?"
+  },
+  {
+    "id": "R34",
+    "mode": "self",
+    "text": "Qual è l'ultimo messaggio che ti ha fatto piacere ricevere?"
+  },
+  {
+    "id": "R35",
+    "mode": "together",
+    "text": "Scegliete insieme una canzone di sottofondo per questa serata."
+  },
+  {
+    "id": "R36",
+    "mode": "self",
+    "text": "Se oggi avessi avuto un'ora in più, come l'avresti usata?"
+  },
+  {
+    "id": "R37",
+    "mode": "guessOther",
+    "text": "Quale piccola cosa mi metterebbe di buon umore domani mattina?"
+  },
+  {
+    "id": "R38",
+    "mode": "self",
+    "text": "Cosa hai visto o letto di recente che ti è rimasto in testa?"
+  },
+  {
+    "id": "R39",
+    "mode": "together",
+    "text": "Ognuno dica un desiderio piccolissimo per la settimana che viene."
+  },
+  {
+    "id": "R40",
+    "mode": "self",
+    "text": "Qual è stato il momento più tranquillo della tua giornata?"
+  },
+  {
+    "id": "R41",
+    "mode": "guessOther",
+    "text": "Di cosa avrei voglia di parlare stasera, secondo te?"
+  },
+  {
+    "id": "R42",
+    "mode": "self",
+    "text": "C'è qualcosa che hai rimandato oggi e che ti gira ancora in testa?"
+  },
+  {
+    "id": "R43",
+    "mode": "together",
+    "text": "Raccontatevi la cosa più strana che avete sentito dire questa settimana."
+  },
+  {
+    "id": "R44",
+    "mode": "self",
+    "text": "Che stagione ti senti, in questo periodo della tua vita?"
+  },
+  {
+    "id": "R45",
+    "mode": "guessOther",
+    "text": "Qual è l'ultimo sogno che ti ho raccontato?"
+  },
+  {
+    "id": "R46",
+    "mode": "self",
+    "text": "A quale momento di oggi vorresti tornare, se potessi?"
+  },
+  {
+    "id": "R47",
+    "mode": "together",
+    "text": "Ognuno dica una cosa che per stasera lascia fuori dalla porta."
+  },
+  {
+    "id": "R48",
+    "mode": "self",
+    "text": "C'è un odore o un sapore che oggi ti ha fatto pensare a casa?"
+  },
+  {
+    "id": "R49",
+    "mode": "guessOther",
+    "text": "Cosa mi ha fatto ridere di più negli ultimi giorni?"
+  },
+  {
+    "id": "R50",
+    "mode": "together",
+    "text": "Toglietevi le scarpe, mettetevi comodi e guardatevi un attimo prima di cominciare."
+  }
+]

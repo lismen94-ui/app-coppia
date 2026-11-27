@@ -1,0 +1,1352 @@
+[
+  {
+    "id": "Q001",
+    "category": "insiemeDaTempo",
+    "level": 1,
+    "intensity": 1,
+    "mode": "self",
+    "text": "Qual è la prima cosa che hai notato di me, e cosa ne pensi oggi?",
+    "isFinal": false
+  },
+  {
+    "id": "Q002",
+    "category": "insiemeDaTempo",
+    "level": 1,
+    "intensity": 1,
+    "mode": "self",
+    "text": "Quale mio piccolo gesto quotidiano noti ancora, anche se non me lo dici?",
+    "isFinal": false
+  },
+  {
+    "id": "Q003",
+    "category": "insiemeDaTempo",
+    "level": 1,
+    "intensity": 1,
+    "mode": "together",
+    "text": "Se doveste descrivere la vostra coppia a uno sconosciuto con tre parole, quali scegliereste?",
+    "isFinal": false
+  },
+  {
+    "id": "Q004",
+    "category": "insiemeDaTempo",
+    "level": 1,
+    "intensity": 1,
+    "mode": "self",
+    "text": "Da quando ci conosciamo, in cosa mi vedi cambiare che ti piace di più?",
+    "isFinal": false
+  },
+  {
+    "id": "Q005",
+    "category": "insiemeDaTempo",
+    "level": 1,
+    "intensity": 1,
+    "mode": "guessOther",
+    "text": "Qual è il mio modo preferito di passare una domenica senza impegni?",
+    "isFinal": false
+  },
+  {
+    "id": "Q006",
+    "category": "insiemeDaTempo",
+    "level": 1,
+    "intensity": 2,
+    "mode": "self",
+    "text": "Cosa pensi che gli altri vedano di me che io non riesco a vedere?",
+    "isFinal": false
+  },
+  {
+    "id": "Q007",
+    "category": "insiemeDaTempo",
+    "level": 1,
+    "intensity": 1,
+    "mode": "self",
+    "text": "Quando mi guardi senza che me ne accorga, cosa ti capita di pensare?",
+    "isFinal": false
+  },
+  {
+    "id": "Q008",
+    "category": "insiemeDaTempo",
+    "level": 1,
+    "intensity": 1,
+    "mode": "together",
+    "text": "Quale vostra abitudine all'inizio non c'era e ora non cambiereste per niente?",
+    "isFinal": false
+  },
+  {
+    "id": "Q009",
+    "category": "insiemeDaTempo",
+    "level": 1,
+    "intensity": 2,
+    "mode": "guessOther",
+    "text": "Tra le cose che ho fatto negli ultimi anni, quale mi dà più soddisfazione?",
+    "isFinal": false
+  },
+  {
+    "id": "Q010",
+    "category": "insiemeDaTempo",
+    "level": 1,
+    "intensity": 1,
+    "mode": "self",
+    "text": "Quale mia espressione o frase riconosceresti tra mille?",
+    "isFinal": false
+  },
+  {
+    "id": "Q011",
+    "category": "insiemeDaTempo",
+    "level": 1,
+    "intensity": 2,
+    "mode": "self",
+    "text": "C'è un lato di me che hai capito solo col tempo? Quale?",
+    "isFinal": false
+  },
+  {
+    "id": "Q012",
+    "category": "insiemeDaTempo",
+    "level": 1,
+    "intensity": 1,
+    "mode": "together",
+    "text": "In quale momento della giornata vi sentite più vicini, anche senza parlare?",
+    "isFinal": false
+  },
+  {
+    "id": "Q013",
+    "category": "insiemeDaTempo",
+    "level": 1,
+    "intensity": 1,
+    "mode": "guessOther",
+    "text": "Se avessi un giorno tutto per me, senza nessun dovere, cosa farei?",
+    "isFinal": false
+  },
+  {
+    "id": "Q014",
+    "category": "insiemeDaTempo",
+    "level": 1,
+    "intensity": 2,
+    "mode": "self",
+    "text": "Cosa ti fa capire, senza che io dica nulla, che qualcosa non va?",
+    "isFinal": false
+  },
+  {
+    "id": "Q015",
+    "category": "insiemeDaTempo",
+    "level": 1,
+    "intensity": 1,
+    "mode": "self",
+    "text": "Quale mia qualità vorresti avere anche tu?",
+    "isFinal": false
+  },
+  {
+    "id": "Q016",
+    "category": "insiemeDaTempo",
+    "level": 1,
+    "intensity": 2,
+    "mode": "self",
+    "text": "Quale tua prima impressione su di me si è rivelata sbagliata col tempo?",
+    "isFinal": false
+  },
+  {
+    "id": "Q017",
+    "category": "insiemeDaTempo",
+    "level": 1,
+    "intensity": 1,
+    "mode": "together",
+    "text": "Quale canzone, film o luogo vi riporta subito a un periodo preciso della vostra storia?",
+    "isFinal": false
+  },
+  {
+    "id": "Q018",
+    "category": "insiemeDaTempo",
+    "level": 1,
+    "intensity": 2,
+    "mode": "guessOther",
+    "text": "Dopo una giornata storta, di cosa ho bisogno di solito: parlare, silenzio, contatto o distrazione?",
+    "isFinal": false
+  },
+  {
+    "id": "Q019",
+    "category": "insiemeDaTempo",
+    "level": 1,
+    "intensity": 1,
+    "mode": "self",
+    "text": "In quale situazione, anche banale, mi trovi più attraente?",
+    "isFinal": false
+  },
+  {
+    "id": "Q020",
+    "category": "insiemeDaTempo",
+    "level": 1,
+    "intensity": 2,
+    "mode": "self",
+    "text": "Cosa fai per me che secondo te io non noto?",
+    "isFinal": false
+  },
+  {
+    "id": "Q021",
+    "category": "insiemeDaTempo",
+    "level": 1,
+    "intensity": 2,
+    "mode": "guessOther",
+    "text": "Quale sogno d'infanzia ti ho raccontato, e cosa ne è rimasto secondo te?",
+    "isFinal": false
+  },
+  {
+    "id": "Q022",
+    "category": "insiemeDaTempo",
+    "level": 1,
+    "intensity": 1,
+    "mode": "together",
+    "text": "Ognuno dica una cosa che ha imparato dall'altro senza accorgersene.",
+    "isFinal": false
+  },
+  {
+    "id": "Q023",
+    "category": "insiemeDaTempo",
+    "level": 1,
+    "intensity": 2,
+    "mode": "self",
+    "text": "Qual è stata l'ultima volta che hai pensato: «che bello stare con questa persona»?",
+    "isFinal": false
+  },
+  {
+    "id": "Q024",
+    "category": "insiemeDaTempo",
+    "level": 1,
+    "intensity": 2,
+    "mode": "guessOther",
+    "text": "In questo periodo, quale cosa della mia vita mi pesa di più?",
+    "isFinal": false
+  },
+  {
+    "id": "Q025",
+    "category": "insiemeDaTempo",
+    "level": 1,
+    "intensity": 2,
+    "mode": "self",
+    "text": "Quale cosa che di solito tieni per te, perché ti sembra piccola, vorresti dirmi?",
+    "isFinal": false
+  },
+  {
+    "id": "Q026",
+    "category": "insiemeDaTempo",
+    "level": 1,
+    "intensity": 2,
+    "mode": "self",
+    "text": "Quale mia paura credi di conoscere, anche se non te l'ho mai detta chiaramente?",
+    "isFinal": false
+  },
+  {
+    "id": "Q027",
+    "category": "insiemeDaTempo",
+    "level": 1,
+    "intensity": 2,
+    "mode": "guessOther",
+    "text": "Quando mi sento non all'altezza, cosa faccio di solito per nasconderlo?",
+    "isFinal": false
+  },
+  {
+    "id": "Q028",
+    "category": "insiemeDaTempo",
+    "level": 1,
+    "intensity": 2,
+    "mode": "self",
+    "text": "In quale momento della nostra storia mi hai vista o visto più vulnerabile, e cosa hai provato?",
+    "isFinal": false
+  },
+  {
+    "id": "Q029",
+    "category": "insiemeDaTempo",
+    "level": 1,
+    "intensity": 1,
+    "mode": "self",
+    "text": "Quale mio difetto hai imparato ad amare col tempo?",
+    "isFinal": false
+  },
+  {
+    "id": "Q030",
+    "category": "insiemeDaTempo",
+    "level": 1,
+    "intensity": 2,
+    "mode": "together",
+    "text": "Ognuno dica: quale ruolo ho preso nella coppia senza averlo davvero scelto?",
+    "isFinal": false
+  },
+  {
+    "id": "Q031",
+    "category": "insiemeDaTempo",
+    "level": 1,
+    "intensity": 2,
+    "mode": "self",
+    "text": "Cosa vedi in me quando sono con la mia famiglia che non vedi altrove?",
+    "isFinal": false
+  },
+  {
+    "id": "Q032",
+    "category": "insiemeDaTempo",
+    "level": 1,
+    "intensity": 2,
+    "mode": "guessOther",
+    "text": "Quale complimento mi fa più effetto ricevere, anche se faccio finta di niente?",
+    "isFinal": false
+  },
+  {
+    "id": "Q033",
+    "category": "insiemeDaTempo",
+    "level": 1,
+    "intensity": 2,
+    "mode": "self",
+    "text": "C'è qualcosa che faccio per sembrare forte e che con te potrei smettere di fare?",
+    "isFinal": false
+  },
+  {
+    "id": "Q034",
+    "category": "insiemeDaTempo",
+    "level": 1,
+    "intensity": 1,
+    "mode": "self",
+    "text": "Quale mia passione ti piace guardare, anche se non la condividi?",
+    "isFinal": false
+  },
+  {
+    "id": "Q035",
+    "category": "insiemeDaTempo",
+    "level": 1,
+    "intensity": 2,
+    "mode": "together",
+    "text": "Quale parte di voi avete perso un po' per strada da quando state insieme, e vi manca?",
+    "isFinal": false
+  },
+  {
+    "id": "Q036",
+    "category": "insiemeDaTempo",
+    "level": 1,
+    "intensity": 2,
+    "mode": "self",
+    "text": "Quando litighiamo, cosa credi che io pensi davvero di te?",
+    "isFinal": false
+  },
+  {
+    "id": "Q037",
+    "category": "insiemeDaTempo",
+    "level": 1,
+    "intensity": 2,
+    "mode": "guessOther",
+    "text": "Quale aspettativa della mia famiglia mi porto ancora addosso, secondo te?",
+    "isFinal": false
+  },
+  {
+    "id": "Q038",
+    "category": "insiemeDaTempo",
+    "level": 1,
+    "intensity": 2,
+    "mode": "self",
+    "text": "In cosa ti somiglio più di quanto vorrei ammettere?",
+    "isFinal": false
+  },
+  {
+    "id": "Q039",
+    "category": "insiemeDaTempo",
+    "level": 1,
+    "intensity": 1,
+    "mode": "self",
+    "text": "Qual è un mio talento che secondo te sottovaluto?",
+    "isFinal": false
+  },
+  {
+    "id": "Q040",
+    "category": "insiemeDaTempo",
+    "level": 1,
+    "intensity": 2,
+    "mode": "together",
+    "text": "Ognuno completi la frase: «Con te posso finalmente…»",
+    "isFinal": false
+  },
+  {
+    "id": "Q041",
+    "category": "insiemeDaTempo",
+    "level": 1,
+    "intensity": 2,
+    "mode": "self",
+    "text": "Quando parli di me agli altri, cosa racconti?",
+    "isFinal": false
+  },
+  {
+    "id": "Q042",
+    "category": "insiemeDaTempo",
+    "level": 1,
+    "intensity": 2,
+    "mode": "guessOther",
+    "text": "In quale situazione con altre persone mi sento a disagio, anche se non lo do a vedere?",
+    "isFinal": false
+  },
+  {
+    "id": "Q043",
+    "category": "insiemeDaTempo",
+    "level": 1,
+    "intensity": 2,
+    "mode": "self",
+    "text": "Se per un minuto potessi farmi vedere con i tuoi occhi, cosa vorresti che notassi?",
+    "isFinal": false
+  },
+  {
+    "id": "Q044",
+    "category": "insiemeDaTempo",
+    "level": 1,
+    "intensity": 2,
+    "mode": "self",
+    "text": "Quale mia reazione ti ha sorpreso di più in tutti questi anni?",
+    "isFinal": false
+  },
+  {
+    "id": "Q045",
+    "category": "insiemeDaTempo",
+    "level": 1,
+    "intensity": 1,
+    "mode": "together",
+    "text": "Quando avete pensato per la prima volta: «questa persona mi conosce davvero»?",
+    "isFinal": false
+  },
+  {
+    "id": "Q046",
+    "category": "insiemeDaTempo",
+    "level": 1,
+    "intensity": 2,
+    "mode": "guessOther",
+    "text": "Quale cambiamento interiore di questi anni sento più mio?",
+    "isFinal": false
+  },
+  {
+    "id": "Q047",
+    "category": "insiemeDaTempo",
+    "level": 1,
+    "intensity": 2,
+    "mode": "self",
+    "text": "Cosa vorresti che ti chiedessi più spesso?",
+    "isFinal": false
+  },
+  {
+    "id": "Q048",
+    "category": "insiemeDaTempo",
+    "level": 1,
+    "intensity": 2,
+    "mode": "self",
+    "text": "Cosa dico spesso di me stesso che secondo te non è vero?",
+    "isFinal": false
+  },
+  {
+    "id": "Q049",
+    "category": "insiemeDaTempo",
+    "level": 1,
+    "intensity": 2,
+    "mode": "together",
+    "text": "Cosa vi siete detti, nel tempo, senza bisogno di parole?",
+    "isFinal": false
+  },
+  {
+    "id": "Q050",
+    "category": "insiemeDaTempo",
+    "level": 1,
+    "intensity": 2,
+    "mode": "self",
+    "text": "Guardandomi adesso, cosa vedi che dieci anni fa non avresti saputo vedere?",
+    "isFinal": false
+  },
+  {
+    "id": "Q051",
+    "category": "insiemeDaTempo",
+    "level": 2,
+    "intensity": 2,
+    "mode": "self",
+    "text": "Qual è un sogno che hai messo da parte negli anni, e perché?",
+    "isFinal": false
+  },
+  {
+    "id": "Q052",
+    "category": "insiemeDaTempo",
+    "level": 2,
+    "intensity": 2,
+    "mode": "self",
+    "text": "Cosa ti fa più paura, oggi, pensando al nostro futuro?",
+    "isFinal": false
+  },
+  {
+    "id": "Q053",
+    "category": "insiemeDaTempo",
+    "level": 2,
+    "intensity": 3,
+    "mode": "self",
+    "text": "C'è una cosa che non mi hai detto per non ferirmi? Te la senti di dirla adesso?",
+    "isFinal": false
+  },
+  {
+    "id": "Q054",
+    "category": "insiemeDaTempo",
+    "level": 2,
+    "intensity": 2,
+    "mode": "guessOther",
+    "text": "Cosa mi spaventa di più dell'invecchiare?",
+    "isFinal": false
+  },
+  {
+    "id": "Q055",
+    "category": "insiemeDaTempo",
+    "level": 2,
+    "intensity": 2,
+    "mode": "together",
+    "text": "Cosa vi immaginavate della vita insieme, all'inizio, e cosa è andato diversamente?",
+    "isFinal": false
+  },
+  {
+    "id": "Q056",
+    "category": "insiemeDaTempo",
+    "level": 2,
+    "intensity": 3,
+    "mode": "self",
+    "text": "In quale momento recente hai provato solitudine, anche con me accanto?",
+    "isFinal": false
+  },
+  {
+    "id": "Q057",
+    "category": "insiemeDaTempo",
+    "level": 2,
+    "intensity": 2,
+    "mode": "self",
+    "text": "Cosa ti manca di com'eri prima di conoscermi?",
+    "isFinal": false
+  },
+  {
+    "id": "Q058",
+    "category": "insiemeDaTempo",
+    "level": 2,
+    "intensity": 3,
+    "mode": "self",
+    "text": "Quale ferita del passato ti porti ancora dietro, e come pesa sulla nostra coppia?",
+    "isFinal": false
+  },
+  {
+    "id": "Q059",
+    "category": "insiemeDaTempo",
+    "level": 2,
+    "intensity": 2,
+    "mode": "guessOther",
+    "text": "Cosa desidero di più per i prossimi cinque anni?",
+    "isFinal": false
+  },
+  {
+    "id": "Q060",
+    "category": "insiemeDaTempo",
+    "level": 2,
+    "intensity": 2,
+    "mode": "self",
+    "text": "Quale tuo desiderio non mi hai mai chiesto di aiutarti a realizzare?",
+    "isFinal": false
+  },
+  {
+    "id": "Q061",
+    "category": "insiemeDaTempo",
+    "level": 2,
+    "intensity": 2,
+    "mode": "self",
+    "text": "C'è una decisione presa insieme che non senti del tutto tua?",
+    "isFinal": false
+  },
+  {
+    "id": "Q062",
+    "category": "insiemeDaTempo",
+    "level": 2,
+    "intensity": 3,
+    "mode": "together",
+    "text": "Ognuno racconti un momento in cui ha avuto paura di perdere l'altro.",
+    "isFinal": false
+  },
+  {
+    "id": "Q063",
+    "category": "insiemeDaTempo",
+    "level": 2,
+    "intensity": 2,
+    "mode": "self",
+    "text": "Cosa ti fa sentire più fragile in questo periodo della vita?",
+    "isFinal": false
+  },
+  {
+    "id": "Q064",
+    "category": "insiemeDaTempo",
+    "level": 2,
+    "intensity": 3,
+    "mode": "self",
+    "text": "Quale parte di te tieni nascosta anche a me?",
+    "isFinal": false
+  },
+  {
+    "id": "Q065",
+    "category": "insiemeDaTempo",
+    "level": 2,
+    "intensity": 2,
+    "mode": "guessOther",
+    "text": "Su cosa vorrei che tu mi dessi più fiducia?",
+    "isFinal": false
+  },
+  {
+    "id": "Q066",
+    "category": "insiemeDaTempo",
+    "level": 2,
+    "intensity": 2,
+    "mode": "self",
+    "text": "Quale tuo traguardo vorresti che io festeggiassi di più?",
+    "isFinal": false
+  },
+  {
+    "id": "Q067",
+    "category": "insiemeDaTempo",
+    "level": 2,
+    "intensity": 2,
+    "mode": "self",
+    "text": "Se potessi cambiare una sola cosa della nostra vita quotidiana, quale sarebbe?",
+    "isFinal": false
+  },
+  {
+    "id": "Q068",
+    "category": "insiemeDaTempo",
+    "level": 2,
+    "intensity": 2,
+    "mode": "together",
+    "text": "Quale promessa dell'inizio vorreste rinnovare oggi?",
+    "isFinal": false
+  },
+  {
+    "id": "Q069",
+    "category": "insiemeDaTempo",
+    "level": 2,
+    "intensity": 3,
+    "mode": "self",
+    "text": "C'è una delusione che ti ho dato e di cui non abbiamo mai parlato?",
+    "isFinal": false
+  },
+  {
+    "id": "Q070",
+    "category": "insiemeDaTempo",
+    "level": 2,
+    "intensity": 2,
+    "mode": "guessOther",
+    "text": "Quale persona del mio passato ha influenzato di più il mio modo di amare?",
+    "isFinal": false
+  },
+  {
+    "id": "Q071",
+    "category": "insiemeDaTempo",
+    "level": 2,
+    "intensity": 2,
+    "mode": "self",
+    "text": "Cosa ti dice la voce più critica che hai dentro quando sbagli?",
+    "isFinal": false
+  },
+  {
+    "id": "Q072",
+    "category": "insiemeDaTempo",
+    "level": 2,
+    "intensity": 2,
+    "mode": "self",
+    "text": "Quale emozione fai più fatica a mostrarmi: tristezza, rabbia, paura o gioia?",
+    "isFinal": false
+  },
+  {
+    "id": "Q073",
+    "category": "insiemeDaTempo",
+    "level": 2,
+    "intensity": 2,
+    "mode": "together",
+    "text": "Se poteste rivivere un anno della vostra storia, quale scegliereste e perché?",
+    "isFinal": false
+  },
+  {
+    "id": "Q074",
+    "category": "insiemeDaTempo",
+    "level": 2,
+    "intensity": 3,
+    "mode": "self",
+    "text": "In cosa senti che stare con me ti ha cambiato, nel bene e nel male?",
+    "isFinal": false
+  },
+  {
+    "id": "Q075",
+    "category": "insiemeDaTempo",
+    "level": 2,
+    "intensity": 2,
+    "mode": "self",
+    "text": "Qual è un desiderio intimo, non per forza fisico, che non hai mai espresso?",
+    "isFinal": false
+  },
+  {
+    "id": "Q076",
+    "category": "insiemeDaTempo",
+    "level": 2,
+    "intensity": 3,
+    "mode": "self",
+    "text": "Qual è la cosa di cui ti vergogni di più e che non mi hai mai raccontato per intero?",
+    "isFinal": false
+  },
+  {
+    "id": "Q077",
+    "category": "insiemeDaTempo",
+    "level": 2,
+    "intensity": 3,
+    "mode": "self",
+    "text": "C'è stato un momento in cui hai pensato di lasciarmi? Cosa ti ha fatto restare?",
+    "isFinal": false
+  },
+  {
+    "id": "Q078",
+    "category": "insiemeDaTempo",
+    "level": 2,
+    "intensity": 2,
+    "mode": "guessOther",
+    "text": "Qual è il bisogno che chiedo meno, ma di cui ho più fame?",
+    "isFinal": false
+  },
+  {
+    "id": "Q079",
+    "category": "insiemeDaTempo",
+    "level": 2,
+    "intensity": 3,
+    "mode": "self",
+    "text": "Cosa temi che io scopra di te, se ti guardassi davvero fino in fondo?",
+    "isFinal": false
+  },
+  {
+    "id": "Q080",
+    "category": "insiemeDaTempo",
+    "level": 2,
+    "intensity": 3,
+    "mode": "together",
+    "text": "Ognuno dica una cosa che deve perdonare all'altro e una che vorrebbe farsi perdonare.",
+    "isFinal": false
+  },
+  {
+    "id": "Q081",
+    "category": "insiemeDaTempo",
+    "level": 2,
+    "intensity": 3,
+    "mode": "self",
+    "text": "Quando ti senti meno desiderabile, cosa ti passa per la testa?",
+    "isFinal": false
+  },
+  {
+    "id": "Q082",
+    "category": "insiemeDaTempo",
+    "level": 2,
+    "intensity": 3,
+    "mode": "self",
+    "text": "Quale parte della nostra intimità vorresti riscoprire?",
+    "isFinal": false
+  },
+  {
+    "id": "Q083",
+    "category": "insiemeDaTempo",
+    "level": 2,
+    "intensity": 2,
+    "mode": "guessOther",
+    "text": "Su cosa mi giudico più duramente?",
+    "isFinal": false
+  },
+  {
+    "id": "Q084",
+    "category": "insiemeDaTempo",
+    "level": 2,
+    "intensity": 3,
+    "mode": "self",
+    "text": "Cosa provi davvero quando ti chiedo scusa?",
+    "isFinal": false
+  },
+  {
+    "id": "Q085",
+    "category": "insiemeDaTempo",
+    "level": 2,
+    "intensity": 3,
+    "mode": "self",
+    "text": "Quale rinuncia hai fatto per noi che a volte ti pesa ancora?",
+    "isFinal": false
+  },
+  {
+    "id": "Q086",
+    "category": "insiemeDaTempo",
+    "level": 2,
+    "intensity": 2,
+    "mode": "together",
+    "text": "Quale argomento evitate da troppo tempo? Non affrontatelo adesso, ditelo soltanto ad alta voce.",
+    "isFinal": false
+  },
+  {
+    "id": "Q087",
+    "category": "insiemeDaTempo",
+    "level": 2,
+    "intensity": 3,
+    "mode": "self",
+    "text": "C'è qualcosa della tua infanzia che si ripete tra noi e ti fa paura?",
+    "isFinal": false
+  },
+  {
+    "id": "Q088",
+    "category": "insiemeDaTempo",
+    "level": 2,
+    "intensity": 2,
+    "mode": "guessOther",
+    "text": "Cosa ho bisogno di sentirmi dire quando dubito di me?",
+    "isFinal": false
+  },
+  {
+    "id": "Q089",
+    "category": "insiemeDaTempo",
+    "level": 2,
+    "intensity": 3,
+    "mode": "self",
+    "text": "Quando, nella nostra storia, hai avuto la sensazione di non essere una priorità per me?",
+    "isFinal": false
+  },
+  {
+    "id": "Q090",
+    "category": "insiemeDaTempo",
+    "level": 2,
+    "intensity": 3,
+    "mode": "self",
+    "text": "Cosa non hai mai avuto il coraggio di chiedermi?",
+    "isFinal": false
+  },
+  {
+    "id": "Q091",
+    "category": "insiemeDaTempo",
+    "level": 2,
+    "intensity": 3,
+    "mode": "self",
+    "text": "Quale tua gelosia, anche piccola, non mi hai mai confessato?",
+    "isFinal": false
+  },
+  {
+    "id": "Q092",
+    "category": "insiemeDaTempo",
+    "level": 2,
+    "intensity": 3,
+    "mode": "together",
+    "text": "Se oggi vi incontraste per la prima volta, vi scegliereste ancora? Rispondete con sincerità e dite perché.",
+    "isFinal": false
+  },
+  {
+    "id": "Q093",
+    "category": "insiemeDaTempo",
+    "level": 2,
+    "intensity": 3,
+    "mode": "self",
+    "text": "Quale tuo comportamento nella coppia vorresti cambiare, e non ci riesci ancora?",
+    "isFinal": false
+  },
+  {
+    "id": "Q094",
+    "category": "insiemeDaTempo",
+    "level": 2,
+    "intensity": 3,
+    "mode": "guessOther",
+    "text": "Cosa mi ferisce di più, anche se faccio finta che non sia niente?",
+    "isFinal": false
+  },
+  {
+    "id": "Q095",
+    "category": "insiemeDaTempo",
+    "level": 2,
+    "intensity": 3,
+    "mode": "self",
+    "text": "Cosa hai paura di diventare, invecchiando accanto a me?",
+    "isFinal": false
+  },
+  {
+    "id": "Q096",
+    "category": "insiemeDaTempo",
+    "level": 2,
+    "intensity": 2,
+    "mode": "self",
+    "text": "Che emozione provi più spesso quando torni a casa da me?",
+    "isFinal": false
+  },
+  {
+    "id": "Q097",
+    "category": "insiemeDaTempo",
+    "level": 2,
+    "intensity": 3,
+    "mode": "self",
+    "text": "C'è una cosa che ti ho promesso e che senti che non ho mantenuto?",
+    "isFinal": false
+  },
+  {
+    "id": "Q098",
+    "category": "insiemeDaTempo",
+    "level": 2,
+    "intensity": 3,
+    "mode": "together",
+    "text": "Ognuno dica la frase che ha più paura di sentirsi dire dall'altro. Poi rassicuratevi a vicenda.",
+    "isFinal": false
+  },
+  {
+    "id": "Q099",
+    "category": "insiemeDaTempo",
+    "level": 2,
+    "intensity": 2,
+    "mode": "guessOther",
+    "text": "In cosa ho più bisogno di te, anche se non lo ammetterei mai?",
+    "isFinal": false
+  },
+  {
+    "id": "Q100",
+    "category": "insiemeDaTempo",
+    "level": 2,
+    "intensity": 3,
+    "mode": "self",
+    "text": "Se questa fosse l'ultima conversazione sincera per molto tempo, cosa vorresti assolutamente dirmi?",
+    "isFinal": false
+  },
+  {
+    "id": "Q101",
+    "category": "insiemeDaTempo",
+    "level": 3,
+    "intensity": 2,
+    "mode": "self",
+    "text": "Cosa ti fa sentire al sicuro con me, anche nei giorni peggiori?",
+    "isFinal": false
+  },
+  {
+    "id": "Q102",
+    "category": "insiemeDaTempo",
+    "level": 3,
+    "intensity": 3,
+    "mode": "self",
+    "text": "Quando mi allontano emotivamente, cosa provi e cosa vorresti fare?",
+    "isFinal": false
+  },
+  {
+    "id": "Q103",
+    "category": "insiemeDaTempo",
+    "level": 3,
+    "intensity": 2,
+    "mode": "guessOther",
+    "text": "Quando litighiamo, cosa ho bisogno che tu faccia per primo: abbracciarmi, lasciarmi spazio o parlarne subito?",
+    "isFinal": false
+  },
+  {
+    "id": "Q104",
+    "category": "insiemeDaTempo",
+    "level": 3,
+    "intensity": 3,
+    "mode": "self",
+    "text": "Cosa hai bisogno di sentirti dire da me, che io non dico abbastanza?",
+    "isFinal": false
+  },
+  {
+    "id": "Q105",
+    "category": "insiemeDaTempo",
+    "level": 3,
+    "intensity": 2,
+    "mode": "together",
+    "text": "Qual è il vostro modo di fare pace? Funziona ancora per tutti e due?",
+    "isFinal": false
+  },
+  {
+    "id": "Q106",
+    "category": "insiemeDaTempo",
+    "level": 3,
+    "intensity": 3,
+    "mode": "self",
+    "text": "In quale momento hai avuto bisogno di me e io non c'ero, anche solo con la testa?",
+    "isFinal": false
+  },
+  {
+    "id": "Q107",
+    "category": "insiemeDaTempo",
+    "level": 3,
+    "intensity": 2,
+    "mode": "self",
+    "text": "Quale mio piccolo gesto ti fa sentire davvero importante?",
+    "isFinal": false
+  },
+  {
+    "id": "Q108",
+    "category": "insiemeDaTempo",
+    "level": 3,
+    "intensity": 3,
+    "mode": "guessOther",
+    "text": "Qual è la mia paura più grande nella nostra relazione?",
+    "isFinal": false
+  },
+  {
+    "id": "Q109",
+    "category": "insiemeDaTempo",
+    "level": 3,
+    "intensity": 3,
+    "mode": "self",
+    "text": "Cosa ti spaventa di più quando mi vedi soffrire?",
+    "isFinal": false
+  },
+  {
+    "id": "Q110",
+    "category": "insiemeDaTempo",
+    "level": 3,
+    "intensity": 2,
+    "mode": "together",
+    "text": "Ognuno dica una cosa che l'altro fa e che lo fa sentire a casa.",
+    "isFinal": false
+  },
+  {
+    "id": "Q111",
+    "category": "insiemeDaTempo",
+    "level": 3,
+    "intensity": 3,
+    "mode": "self",
+    "text": "C'è una parte di me che fai fatica ad accettare? Come possiamo conviverci?",
+    "isFinal": false
+  },
+  {
+    "id": "Q112",
+    "category": "insiemeDaTempo",
+    "level": 3,
+    "intensity": 2,
+    "mode": "self",
+    "text": "Quando ti senti fragile, come vorresti che mi comportassi?",
+    "isFinal": false
+  },
+  {
+    "id": "Q113",
+    "category": "insiemeDaTempo",
+    "level": 3,
+    "intensity": 3,
+    "mode": "together",
+    "text": "Ognuno dica all'altro una cosa che accetta completamente di lui o di lei, e una che sta ancora imparando ad accettare.",
+    "isFinal": false
+  },
+  {
+    "id": "Q114",
+    "category": "insiemeDaTempo",
+    "level": 3,
+    "intensity": 2,
+    "mode": "guessOther",
+    "text": "Cosa mi aiuta davvero a calmarmi quando sono in ansia?",
+    "isFinal": false
+  },
+  {
+    "id": "Q115",
+    "category": "insiemeDaTempo",
+    "level": 3,
+    "intensity": 3,
+    "mode": "self",
+    "text": "Quale bisogno hai smesso di chiedermi, perché pensavi che non l'avrei soddisfatto?",
+    "isFinal": false
+  },
+  {
+    "id": "Q116",
+    "category": "insiemeDaTempo",
+    "level": 3,
+    "intensity": 2,
+    "mode": "self",
+    "text": "Come ti accorgi che ti amo, anche quando non lo dico?",
+    "isFinal": false
+  },
+  {
+    "id": "Q117",
+    "category": "insiemeDaTempo",
+    "level": 3,
+    "intensity": 3,
+    "mode": "self",
+    "text": "In quale momento ho saputo accoglierti davvero, e cosa ha fatto la differenza?",
+    "isFinal": false
+  },
+  {
+    "id": "Q118",
+    "category": "insiemeDaTempo",
+    "level": 3,
+    "intensity": 2,
+    "mode": "together",
+    "text": "Cosa avete superato insieme che da soli non avreste superato?",
+    "isFinal": false
+  },
+  {
+    "id": "Q119",
+    "category": "insiemeDaTempo",
+    "level": 3,
+    "intensity": 2,
+    "mode": "self",
+    "text": "Se dovessimo separarci per un lungo periodo, cosa vorresti che portassi con me di te?",
+    "isFinal": false
+  },
+  {
+    "id": "Q120",
+    "category": "insiemeDaTempo",
+    "level": 3,
+    "intensity": 3,
+    "mode": "guessOther",
+    "text": "Cosa ho bisogno di sapere per smettere di avere paura di deluderti?",
+    "isFinal": false
+  },
+  {
+    "id": "Q121",
+    "category": "insiemeDaTempo",
+    "level": 3,
+    "intensity": 2,
+    "mode": "self",
+    "text": "Quale tuo limite vorresti che rispettassi di più?",
+    "isFinal": false
+  },
+  {
+    "id": "Q122",
+    "category": "insiemeDaTempo",
+    "level": 3,
+    "intensity": 3,
+    "mode": "together",
+    "text": "Prendetevi le mani. Ognuno dica una paura sulla coppia, e l'altro risponda solo: «Ti ascolto».",
+    "isFinal": false
+  },
+  {
+    "id": "Q123",
+    "category": "insiemeDaTempo",
+    "level": 3,
+    "intensity": 2,
+    "mode": "self",
+    "text": "Dove trovi libertà dentro la nostra relazione?",
+    "isFinal": false
+  },
+  {
+    "id": "Q124",
+    "category": "insiemeDaTempo",
+    "level": 3,
+    "intensity": 2,
+    "mode": "self",
+    "text": "Per cosa, secondo te, non ti ho mai ringraziato abbastanza?",
+    "isFinal": false
+  },
+  {
+    "id": "Q125",
+    "category": "insiemeDaTempo",
+    "level": 3,
+    "intensity": 3,
+    "mode": "self",
+    "text": "Cosa vuol dire per te, oggi, che io ti ami?",
+    "isFinal": false
+  },
+  {
+    "id": "Q126",
+    "category": "insiemeDaTempo",
+    "level": 3,
+    "intensity": 2,
+    "mode": "together",
+    "text": "Ognuno ringrazi l'altro per una cosa che non ha mai nominato.",
+    "isFinal": false
+  },
+  {
+    "id": "Q127",
+    "category": "insiemeDaTempo",
+    "level": 3,
+    "intensity": 3,
+    "mode": "self",
+    "text": "C'è qualcosa per cui vorresti chiedermi scusa da tempo? Fallo adesso, se te la senti.",
+    "isFinal": false
+  },
+  {
+    "id": "Q128",
+    "category": "insiemeDaTempo",
+    "level": 3,
+    "intensity": 2,
+    "mode": "guessOther",
+    "text": "Come immagino noi due tra dieci anni, in una giornata qualunque?",
+    "isFinal": false
+  },
+  {
+    "id": "Q129",
+    "category": "insiemeDaTempo",
+    "level": 3,
+    "intensity": 2,
+    "mode": "self",
+    "text": "Quale nostra tradizione vorresti creare da qui in avanti?",
+    "isFinal": false
+  },
+  {
+    "id": "Q130",
+    "category": "insiemeDaTempo",
+    "level": 3,
+    "intensity": 3,
+    "mode": "self",
+    "text": "Cosa vorresti riparare tra noi, e da dove potremmo cominciare?",
+    "isFinal": false
+  },
+  {
+    "id": "Q131",
+    "category": "insiemeDaTempo",
+    "level": 3,
+    "intensity": 2,
+    "mode": "together",
+    "text": "Scegliete insieme una piccola cosa da fare per voi due nei prossimi sette giorni.",
+    "isFinal": false
+  },
+  {
+    "id": "Q132",
+    "category": "insiemeDaTempo",
+    "level": 3,
+    "intensity": 2,
+    "mode": "self",
+    "text": "Cosa hai capito dell'amore grazie a noi?",
+    "isFinal": false
+  },
+  {
+    "id": "Q133",
+    "category": "insiemeDaTempo",
+    "level": 3,
+    "intensity": 3,
+    "mode": "self",
+    "text": "Se potessi tornare indietro, quale momento della nostra storia vivresti in modo diverso?",
+    "isFinal": false
+  },
+  {
+    "id": "Q134",
+    "category": "insiemeDaTempo",
+    "level": 3,
+    "intensity": 2,
+    "mode": "guessOther",
+    "text": "Quale sogno vorrei che realizzassimo insieme?",
+    "isFinal": false
+  },
+  {
+    "id": "Q135",
+    "category": "insiemeDaTempo",
+    "level": 3,
+    "intensity": 2,
+    "mode": "self",
+    "text": "Cosa vuoi continuare a scoprire di me?",
+    "isFinal": false
+  },
+  {
+    "id": "Q136",
+    "category": "insiemeDaTempo",
+    "level": 3,
+    "intensity": 3,
+    "mode": "together",
+    "text": "Ognuno dica una cosa che promette di proteggere della vostra coppia.",
+    "isFinal": false
+  },
+  {
+    "id": "Q137",
+    "category": "insiemeDaTempo",
+    "level": 3,
+    "intensity": 2,
+    "mode": "self",
+    "text": "Quale mia frase, detta in un momento difficile, porti ancora con te?",
+    "isFinal": false
+  },
+  {
+    "id": "Q138",
+    "category": "insiemeDaTempo",
+    "level": 3,
+    "intensity": 3,
+    "mode": "self",
+    "text": "Cosa ti aiuterebbe a fidarti ancora di più di me?",
+    "isFinal": false
+  },
+  {
+    "id": "Q139",
+    "category": "insiemeDaTempo",
+    "level": 3,
+    "intensity": 2,
+    "mode": "guessOther",
+    "text": "Tra le cose costruite insieme, quale mi rende più felice?",
+    "isFinal": false
+  },
+  {
+    "id": "Q140",
+    "category": "insiemeDaTempo",
+    "level": 3,
+    "intensity": 2,
+    "mode": "self",
+    "text": "Cosa vorresti che non cambiasse mai tra noi?",
+    "isFinal": false
+  },
+  {
+    "id": "Q141",
+    "category": "insiemeDaTempo",
+    "level": 3,
+    "intensity": 3,
+    "mode": "self",
+    "text": "Come vorresti che ti amassi nei momenti in cui non ti ami tu?",
+    "isFinal": false
+  },
+  {
+    "id": "Q142",
+    "category": "insiemeDaTempo",
+    "level": 3,
+    "intensity": 2,
+    "mode": "together",
+    "text": "Ognuno descriva il futuro della coppia con un'immagine, non con un concetto.",
+    "isFinal": false
+  },
+  {
+    "id": "Q143",
+    "category": "insiemeDaTempo",
+    "level": 3,
+    "intensity": 2,
+    "mode": "self",
+    "text": "Quale parte di me ti senti di accogliere oggi più di ieri?",
+    "isFinal": false
+  },
+  {
+    "id": "Q144",
+    "category": "insiemeDaTempo",
+    "level": 3,
+    "intensity": 3,
+    "mode": "guessOther",
+    "text": "Cosa ho bisogno di lasciar andare per vivere meglio la nostra storia?",
+    "isFinal": false
+  },
+  {
+    "id": "Q145",
+    "category": "insiemeDaTempo",
+    "level": 3,
+    "intensity": 2,
+    "mode": "self",
+    "text": "Cosa mi diresti, il giorno in cui ci siamo conosciuti, sapendo quello che sai oggi?",
+    "isFinal": false
+  },
+  {
+    "id": "Q146",
+    "category": "insiemeDaTempo",
+    "level": 3,
+    "intensity": 2,
+    "mode": "together",
+    "text": "Quale parola vorreste che descrivesse la vostra coppia da oggi in poi?",
+    "isFinal": false
+  },
+  {
+    "id": "Q147",
+    "category": "insiemeDaTempo",
+    "level": 3,
+    "intensity": 3,
+    "mode": "self",
+    "text": "Cosa significa per te scegliermi ogni giorno?",
+    "isFinal": false
+  },
+  {
+    "id": "Q148",
+    "category": "insiemeDaTempo",
+    "level": 3,
+    "intensity": 2,
+    "mode": "self",
+    "text": "Cosa ti porti via dalla conversazione di stasera?",
+    "isFinal": false
+  },
+  {
+    "id": "Q149",
+    "category": "insiemeDaTempo",
+    "level": 3,
+    "intensity": 3,
+    "mode": "together",
+    "text": "Guardatevi negli occhi. Ognuno completi la frase: «Mi riconosco in te quando…»",
+    "isFinal": false
+  },
+  {
+    "id": "Q150",
+    "category": "insiemeDaTempo",
+    "level": 3,
+    "intensity": 2,
+    "mode": "together",
+    "text": "Avete attraversato tutto il mazzo. Ognuno dica all'altro, senza fretta, cosa ha scoperto di nuovo su di lui o su di lei in questo viaggio.",
+    "isFinal": true
+  }
+]
