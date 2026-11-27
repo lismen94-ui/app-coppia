@@ -4,8 +4,8 @@ Ogni fase si chiude così: **si scrive il codice → si prova → si fa il commi
 
 | Fase | Cosa | Come si prova | Stato |
 |---|---|---|---|
-| 0 | Preparazione: cartella, documenti, regole agente, Git/GitHub | La cartella si apre in Antigravity e c'è il primo commit | 🔄 in corso |
-| 1 | Scheletro: pagina, stile scuro, schermate vuote | `index.html` si apre nel browser | ⏳ |
+| 0 | Preparazione: cartella, documenti, regole agente, Git/GitHub | La cartella si apre in Antigravity e c'è il primo commit | ✅ fatta |
+| 1 | Scheletro: pagina, stile scuro, schermate vuote | `index.html` si apre nel browser | 🔄 in corso |
 | 2 | Dati: le 250 carte nei file JSON, lette dall'app | In console si vede il numero di carte caricate | ⏳ |
 | 3 | Gioco base: scelta colori, pesca, carta colorata per turno | Si gioca una partita semplice | ⏳ |
 | 4 | Serata e livelli: curva, limite 12, "più a fondo?", avvertimento ●●●, regole del cuore | Una serata completa segue la curva | ⏳ |
@@ -25,7 +25,7 @@ app-coppia/
 ├── css/
 │   └── style.css
 ├── js/
-│   ├── app.js
+│   ├── script.js
 │   ├── gameEngine.js
 │   ├── storage.js
 │   └── ui.js

@@ -24,7 +24,7 @@ Queste regole valgono per qualsiasi agente che lavora in questa cartella (Antigr
 ## Struttura
 - `index.html` — la pagina dell'app
 - `css/style.css` — grafica
-- `js/app.js` — avvio e cambio schermate
+- `js/script.js` — avvio e cambio schermate
 - `js/gameEngine.js` — pesca delle carte, curva della serata, livelli
 - `js/storage.js` — salvataggio sul telefono
 - `js/ui.js` — disegno di carte e pulsanti

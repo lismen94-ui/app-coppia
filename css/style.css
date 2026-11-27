@@ -1,0 +1,235 @@
+/* =========================================================
+   VARIABILI
+   Le "custom properties" (--nome) sono come variabili del CSS:
+   le definiamo una volta qui e le riusiamo ovunque.
+   Se un giorno vogliamo cambiare un colore, basta farlo qui.
+   ========================================================= */
+:root {
+  /* Sfondo scuro: blu notte */
+  --colorBackground: #121626;
+  --colorSurface: #1c2238;      /* un po' più chiaro, per le carte */
+  --colorText: #ece8f0;         /* testo quasi bianco, ma morbido */
+  --colorTextSoft: #9a9bb3;     /* testo secondario */
+
+  /* Colore del giocatore di turno.
+     Prima della scelta è un lilla neutro; poi il JavaScript lo sostituisce
+     con il colore di chi deve rispondere (funzione applyPlayerColor in script.js).
+     La palette dei pastelli sta in script.js, nella costante PASTEL_COLORS. */
+  --colorCurrentPlayer: #c7b8e0;
+
+  --radiusLarge: 24px;
+  --radiusPill: 999px;
+}
+
+/* =========================================================
+   BASE
+   ========================================================= */
+
+/* box-sizing: border-box fa sì che padding e bordi siano inclusi nella larghezza.
+   Rende i calcoli delle misure molto più prevedibili. */
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  background-color: var(--colorBackground);
+  color: var(--colorText);
+  /* Font di sistema: niente da scaricare, quindi funziona anche offline */
+  font-family: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+  line-height: 1.5;
+}
+
+h1,
+h2 {
+  font-weight: 600;
+  text-align: center;
+}
+
+/* =========================================================
+   SCHERMATE
+   Tutte le schermate sono nascoste, tranne quella "attiva".
+   ========================================================= */
+.screen {
+  display: none;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 24px;
+  min-height: 100vh;
+  padding: 32px 24px;
+  /* Su schermi grandi l'app non si allarga troppo: resta "a misura di telefono" */
+  max-width: 480px;
+  margin: 0 auto;
+}
+
+.screen--active {
+  display: flex;
+}
+
+.appTitle {
+  font-size: 2.2rem;
+  margin: 0;
+}
+
+.subtitle {
+  color: var(--colorTextSoft);
+  margin: 0;
+}
+
+.placeholder {
+  color: var(--colorTextSoft);
+  font-style: italic;
+  text-align: center;
+}
+
+/* =========================================================
+   PULSANTI
+   ========================================================= */
+.buttonGroup {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  width: 100%;
+}
+
+.buttonGroup--row {
+  flex-direction: row;
+}
+
+.button {
+  flex: 1;
+  padding: 14px 20px;
+  border: 1px solid var(--colorTextSoft);
+  border-radius: var(--radiusPill);
+  background: transparent;
+  color: var(--colorText);
+  font-size: 1rem;
+  cursor: pointer;
+  /* Transizione: il cambio di colore al tocco avviene in modo morbido */
+  transition: background-color 0.2s ease;
+}
+
+.button:hover {
+  background-color: var(--colorSurface);
+}
+
+.button--primary {
+  background-color: var(--colorCurrentPlayer);
+  border-color: var(--colorCurrentPlayer);
+  color: var(--colorBackground);
+  font-weight: 600;
+}
+
+.button--primary:hover {
+  /* filter: brightness scurisce o schiarisce il colore senza doverne scrivere un altro */
+  filter: brightness(1.08);
+  background-color: var(--colorCurrentPlayer);
+}
+
+.button--ghost {
+  border-color: transparent;
+  color: var(--colorTextSoft);
+}
+
+/* Pulsante disattivato: più trasparente, e il cursore fa capire che non si può cliccare */
+.button:disabled {
+  opacity: 0.35;
+  cursor: not-allowed;
+}
+
+/* =========================================================
+   SCELTA DEI COLORI
+   ========================================================= */
+.colorPicker {
+  width: 100%;
+  text-align: center;
+}
+
+.colorPickerLabel {
+  margin: 0 0 10px;
+  color: var(--colorTextSoft);
+}
+
+.swatchRow {
+  display: flex;
+  flex-wrap: wrap;            /* se lo schermo è stretto, i pallini vanno a capo */
+  justify-content: center;
+  gap: 12px;
+  /* Larghezza pensata per 4 pallini per riga: 8 colori = 2 righe ordinate */
+  max-width: 240px;
+  margin: 0 auto;
+}
+
+/* Il singolo pallino colorato.
+   Il colore di sfondo non è qui: lo imposta il JavaScript, pallino per pallino. */
+.swatch {
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;         /* 50% trasforma il quadrato in un cerchio */
+  border: 3px solid transparent;
+  cursor: pointer;
+  transition: transform 0.2s ease;
+}
+
+.swatch:hover {
+  transform: scale(1.08);
+}
+
+/* Pallino scelto: anello chiaro intorno e leggermente più grande */
+.swatch--selected {
+  border-color: var(--colorText);
+  transform: scale(1.12);
+}
+
+/* Pallino già preso dall'altra persona: sbiadito e non cliccabile */
+.swatch:disabled {
+  opacity: 0.2;
+  cursor: not-allowed;
+  transform: none;
+}
+
+.chosenColorName {
+  margin: 8px 0 0;
+  font-size: 0.9rem;
+  color: var(--colorTextSoft);
+}
+
+/* =========================================================
+   CARTA
+   ========================================================= */
+.card {
+  width: 100%;
+  min-height: 320px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 28px;
+  border-radius: var(--radiusLarge);
+  background-color: var(--colorSurface);
+  /* Quando cambia il turno, bordo e alone cambiano colore con dolcezza */
+  transition: border-color 0.4s ease, box-shadow 0.4s ease;
+  /* Il bordo prende il colore di chi deve rispondere */
+  border: 2px solid var(--colorCurrentPlayer);
+  /* Un leggero alone colorato, come una luce soffusa */
+  box-shadow: 0 0 40px -12px var(--colorCurrentPlayer);
+}
+
+.cardIntensity {
+  margin: 0;
+  color: var(--colorCurrentPlayer);
+  letter-spacing: 4px;
+}
+
+.cardText {
+  margin: 0;
+  font-size: 1.4rem;
+  text-align: center;
+}
+
+.cardMode {
+  margin: 0;
+  color: var(--colorTextSoft);
+  text-align: center;
+}

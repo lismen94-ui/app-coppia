@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+  <meta charset="UTF-8">
+  <!-- Dice al telefono di usare la larghezza reale dello schermo (senza questo, su mobile tutto apparirebbe minuscolo) -->
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <!-- Colore della barra del browser su Android: lo stesso dello sfondo, così l'app sembra "a tutto schermo" -->
+  <meta name="theme-color" content="#121626">
+  <title>app-coppia</title>
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+  <!--
+    L'app è una sola pagina con più "schermate".
+    Ogni schermata è una <section> con la classe "screen".
+    In ogni momento solo UNA è visibile: quella con la classe "screen--active".
+    Il cambio di schermata lo fa la funzione showScreen() in js/app.js.
+  -->
+
+  <!-- SCHERMATA 1: Home -->
+  <section id="screenHome" class="screen screen--active">
+    <h1 class="appTitle">app-coppia</h1>
+    <p class="subtitle">Un gioco per ritrovarsi</p>
+
+    <div class="buttonGroup">
+      <!-- data-target dice a quale schermata porta il pulsante -->
+      <button class="button button--primary" data-target="screenSetup">Nuova serata</button>
+      <button class="button" data-target="screenSkipped">In sospeso</button>
+      <button class="button" data-target="screenFavorites">Preferite</button>
+    </div>
+  </section>
+
+  <!-- SCHERMATA 2: Scelta dei colori -->
+  <section id="screenSetup" class="screen">
+    <h2>Scegliete i vostri colori</h2>
+
+    <!-- I pallini colorati vengono creati dal JavaScript (funzione renderColorPickers in app.js) -->
+    <div class="colorPicker">
+      <p class="colorPickerLabel">Tu</p>
+      <div id="colorPickerFirst" class="swatchRow"></div>
+      <p id="chosenColorFirst" class="chosenColorName">Scegli un colore</p>
+    </div>
+
+    <div class="colorPicker">
+      <p class="colorPickerLabel">L'altra persona</p>
+      <div id="colorPickerSecond" class="swatchRow"></div>
+      <p id="chosenColorSecond" class="chosenColorName">Scegli un colore</p>
+    </div>
+
+    <div class="buttonGroup">
+      <!-- "disabled": il pulsante non si può premere finché non avete scelto entrambi -->
+      <button id="buttonStartEvening" class="button button--primary" disabled>Iniziamo</button>
+      <button class="button button--ghost" data-target="screenHome">Indietro</button>
+    </div>
+  </section>
+
+  <!-- SCHERMATA 3: Gioco -->
+  <section id="screenGame" class="screen">
+    <!-- La carta: per ora è solo un esempio fisso, nella fase 3 il testo arriverà dai dati -->
+    <article class="card">
+      <p class="cardIntensity">●○○</p>
+      <p class="cardText">Qui comparirà la domanda.</p>
+      <p class="cardMode">🎯 Tocca a te</p>
+    </article>
+
+    <div class="buttonGroup buttonGroup--row">
+      <button class="button button--ghost">Metti in sospeso</button>
+      <button id="buttonNextTurn" class="button button--primary">Fatto, passa</button>
+    </div>
+
+    <button class="button button--ghost" data-target="screenHome">Chiudi la serata</button>
+  </section>
+
+  <!-- SCHERMATA 4: Domande in sospeso -->
+  <section id="screenSkipped" class="screen">
+    <h2>In sospeso</h2>
+    <p class="placeholder">Qui troverete le carte saltate (fase 5).</p>
+    <button class="button button--ghost" data-target="screenHome">Indietro</button>
+  </section>
+
+  <!-- SCHERMATA 5: Preferite -->
+  <section id="screenFavorites" class="screen">
+    <h2>Preferite</h2>
+    <p class="placeholder">Qui troverete le carte con il cuore (fase 5).</p>
+    <button class="button button--ghost" data-target="screenHome">Indietro</button>
+  </section>
+
+  <!--
+    "defer" vuol dire: carica lo script, ma eseguilo solo quando tutta la pagina HTML è pronta.
+    Così quando il JavaScript cerca i pulsanti, i pulsanti esistono già.
+  -->
+  <script src="js/app.js" defer></script>
+</body>
+</html>
