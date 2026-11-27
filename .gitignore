@@ -1,0 +1,7 @@
+# File di sistema da non salvare su GitHub
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Impostazioni personali dell'editor
+.vscode/
