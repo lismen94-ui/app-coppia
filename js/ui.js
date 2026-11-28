@@ -358,6 +358,18 @@ const TUTORIAL_STEPS = [
       "Quando la carta è metà di un colore e metà dell'altro, rispondete a turno.",
   },
   {
+    title: "I tre pulsanti sotto la carta",
+    visual: "buttons",
+    text:
+      "Fatto, passa\nAvete finito di parlare? Toccatelo: il telefono passa all'altra persona, " +
+      "che legge la carta successiva.\n\n" +
+      "Metti in sospeso\nUna domanda vi mette a disagio, o non è la sera giusta? " +
+      "Mettetela da parte, senza rispondere. Non è persa: la ritrovate nella pagina «In sospeso» " +
+      "e la riaprite quando ve la sentite.\n\n" +
+      "⋯ Altro\nIl menu con tre cose: una pausa per respirare, " +
+      "scendere al livello successivo quando ve la sentite, chiudere la serata.",
+  },
+  {
     title: "Chi risponde",
     text:
       "Sotto ogni domanda è scritto chi risponde:\n\n" +
@@ -396,16 +408,12 @@ const TUTORIAL_STEPS = [
       "Si passa al livello successivo solo quando lo scegliete insieme.",
   },
   {
-    title: "I pulsanti",
+    title: "Gli altri comandi",
     text:
-      "Fatto, passa\nLa risposta è arrivata: il telefono passa all'altra persona, che ora legge a te.\n\n" +
-      "Metti in sospeso\nLa domanda è troppo difficile adesso? La ritrovate nella pagina \"In sospeso\".\n\n" +
       "♡\nIl cuore del tuo colore: la carta finisce tra le Preferite.\n\n" +
-      "⋯ Altro\nUna pausa quando serve, il passaggio al livello successivo quando ve la sentite, " +
-      "e la chiusura della serata.\n\n" +
-      "‹\nPer rivedere le carte già giocate stasera.\n\n" +
+      "‹ in alto a sinistra\nPer rivedere le carte già giocate stasera.\n\n" +
       "I puntini in alto\nQuante carte mancano alla fine della serata.\n\n" +
-      "?\nPer rileggere questa guida durante il gioco.\n\n" +
+      "? in alto a destra\nPer rileggere questa guida durante il gioco.\n\n" +
       "Un dubbio su una carta? Toccate le scritte (il livello, i pallini, l'etichetta): " +
       "compare una piccola spiegazione.",
   },
@@ -443,23 +451,44 @@ function createMiniCard(label, hex, otherHex) {
   return miniCard;
 }
 
-// Quante schede si vedono la prima volta: solo le prime 2, il minimo per partire.
-// Il resto lo spiegano i pop-up, nel momento in cui serve.
-const INTRO_STEP_COUNT = 2;
+/**
+ * Crea la copia finta dei pulsanti sotto la carta (solo da guardare, non si toccano).
+ * @returns {HTMLElement}
+ */
+function createFakeButtons() {
+  const box = document.createElement("div");
+  box.className = "fakeControls";
+  box.innerHTML =
+    '<div class="fakeControlsRow">' +
+    '<span class="button button--ghost">Metti in sospeso</span>' +
+    '<span class="button button--primary">Fatto, passa</span>' +
+    "</div>" +
+    '<span class="button button--ghost button--small">⋯ Altro</span>';
+  return box;
+}
+
+// Le schede che si vedono la prima volta, senza poterle saltare:
+// il benvenuto, chi legge e chi risponde, i tre pulsanti sotto la carta.
+const INTRO_STEP_COUNT = 3;
+
+// Il numero della scheda "I tre pulsanti" (si conta da 0)
+const BUTTONS_STEP_INDEX = 2;
 
 /**
  * Disegna una scheda della guida.
- * @param {number} stepIndex - quale scheda (0 = la prima)
- * @param {number} totalSteps - quante schede ha questa guida (2 all'inizio, 7 quella completa)
+ * @param {number} stepIndex - quale scheda di TUTORIAL_STEPS (0 = la prima)
+ * @param {number} position - a che punto della guida aperta siamo (0 = la prima)
+ * @param {number} totalSteps - quante schede ha la guida aperta
  * @param {string} lastButtonLabel - la scritta del pulsante nell'ultima scheda
+ * @param {boolean} canSkip - true = si vede "Salta la spiegazione"
  */
-function renderTutorialStep(stepIndex, totalSteps, lastButtonLabel) {
+function renderTutorialStep(stepIndex, position, totalSteps, lastButtonLabel, canSkip) {
   const step = TUTORIAL_STEPS[stepIndex];
-  const isFirst = stepIndex === 0;
-  const isLast = stepIndex === totalSteps - 1;
+  const isFirst = position === 0;
+  const isLast = position === totalSteps - 1;
 
   document.getElementById("tutorialCounter").textContent =
-    (stepIndex + 1) + " di " + totalSteps;
+    (position + 1) + " di " + totalSteps;
   document.getElementById("tutorialTitle").textContent = step.title;
   document.getElementById("tutorialText").textContent = step.text;
 
@@ -472,23 +501,28 @@ function renderTutorialStep(stepIndex, totalSteps, lastButtonLabel) {
     visual.appendChild(createMiniCard("Legge " + colors.second.name, colors.second.hex));
     visual.appendChild(createMiniCard("Insieme", colors.first.hex, colors.second.hex));
   }
+  // Nella scheda dei pulsanti: una copia finta dei pulsanti, uguali a quelli del gioco
+  if (step.visual === "buttons") {
+    visual.appendChild(createFakeButtons());
+  }
 
   // I puntini: uno per scheda, quello attuale acceso
   const dots = document.getElementById("tutorialDots");
   dots.innerHTML = "";
-  TUTORIAL_STEPS.slice(0, totalSteps).forEach(function (unusedStep, index) {
+  for (let index = 0; index < totalSteps; index = index + 1) {
     const dot = document.createElement("span");
     dot.className = "tutorialDot";
-    if (index === stepIndex) {
+    if (index === position) {
       dot.classList.add("tutorialDot--active");
     }
     dots.appendChild(dot);
-  });
+  }
 
   // "Indietro" non serve sulla prima scheda; "Salta" non serve sull'ultima.
   // visibility (e non hidden) per non far spostare l'altro pulsante.
   document.getElementById("tutorialBack").style.visibility = isFirst ? "hidden" : "visible";
-  document.getElementById("tutorialSkip").style.visibility = isLast ? "hidden" : "visible";
+  document.getElementById("tutorialSkip").style.visibility =
+    (isLast || !canSkip) ? "hidden" : "visible";
   document.getElementById("tutorialNext").textContent = isLast ? lastButtonLabel : "Avanti";
 }
 

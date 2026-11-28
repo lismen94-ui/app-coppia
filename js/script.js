@@ -833,19 +833,40 @@ function arePlayersChosen() {
 // GUIDA "COME SI GIOCA"
 // =========================================================
 
-// A che scheda siamo, quante schede ha la guida aperta, e dove tornare alla fine
+// Le schede della guida aperta (i loro numeri in TUTORIAL_STEPS),
+// a che punto siamo, dove tornare alla fine e se si può saltare
+let tutorialStepList = [];
 let tutorialStepIndex = 0;
-let tutorialTotalSteps = TUTORIAL_STEPS.length;
+let tutorialTotalSteps = 0;
 let tutorialReturnScreen = "screenHome";
+let tutorialCanSkip = true;
+
+// Cosa fare alla fine della guida, al posto di tornare a una schermata (di solito niente)
+let afterTutorialAction = null;
 
 /**
  * Apre la guida dalla prima scheda.
  * @param {string} returnScreen - la schermata da mostrare alla fine (es. "screenSetup")
- * @param {boolean} introOnly - true = solo le prime 2 schede (la primissima volta)
+ * @param {string} mode - "full" = tutta la guida (si può saltare)
+ *                        "intro" = le prime 3 schede, obbligatorie (la primissima volta)
+ *                        "buttons" = solo la scheda dei pulsanti, obbligatoria
  */
-function openTutorial(returnScreen, introOnly) {
+function openTutorial(returnScreen, mode) {
+  tutorialStepList = [];
+  if (mode === "intro") {
+    for (let index = 0; index < INTRO_STEP_COUNT; index = index + 1) {
+      tutorialStepList.push(index);
+    }
+  } else if (mode === "buttons") {
+    tutorialStepList.push(BUTTONS_STEP_INDEX);
+  } else {
+    for (let index = 0; index < TUTORIAL_STEPS.length; index = index + 1) {
+      tutorialStepList.push(index);
+    }
+  }
+  tutorialCanSkip = mode !== "intro" && mode !== "buttons";
   tutorialStepIndex = 0;
-  tutorialTotalSteps = introOnly ? INTRO_STEP_COUNT : TUTORIAL_STEPS.length;
+  tutorialTotalSteps = tutorialStepList.length;
   tutorialReturnScreen = returnScreen;
   showTutorialStep();
   showScreen("screenTutorial");
@@ -861,8 +882,15 @@ function showTutorialStep() {
     lastButtonLabel = "Scegliamo i colori";
   } else if (tutorialReturnScreen === "screenGame") {
     lastButtonLabel = "Torniamo a giocare";
+  } else if (afterTutorialAction !== null) {
+    lastButtonLabel = "Ho capito, iniziamo";
   }
-  renderTutorialStep(tutorialStepIndex, tutorialTotalSteps, lastButtonLabel); // sta in ui.js
+  const stepNumber = tutorialStepList[tutorialStepIndex];
+  // Chi ha visto la scheda dei pulsanti non la rivedrà più da sola
+  if (stepNumber === BUTTONS_STEP_INDEX) {
+    markHintAsSeen("buttonsGuide"); // sta in storage.js
+  }
+  renderTutorialStep(stepNumber, tutorialStepIndex, tutorialTotalSteps, lastButtonLabel, tutorialCanSkip); // sta in ui.js
 }
 
 /**
@@ -897,7 +925,24 @@ function previousTutorialStep() {
 function closeTutorial() {
   tutorialSeen = true;
   saveGame();
+
+  // C'è qualcosa da fare dopo la guida (per esempio iniziare la serata)?
+  if (afterTutorialAction !== null) {
+    const action = afterTutorialAction;
+    afterTutorialAction = null;
+    action();
+    return;
+  }
   showScreen(tutorialReturnScreen);
+}
+
+/**
+ * Esce dalla guida obbligatoria senza finirla (tasto "indietro" sulla prima scheda):
+ * si torna alla pagina iniziale, e la guida ricomparirà la prossima volta.
+ */
+function leaveTutorialWithoutFinishing() {
+  afterTutorialAction = null;
+  showScreen("screenHome");
 }
 
 /**
@@ -906,14 +951,25 @@ function closeTutorial() {
 function onNewEveningClick() {
   setSetupMode("evening");
 
+  // Avete già giocato, ma la scheda dei tre pulsanti non l'avete mai vista:
+  // ve la mostriamo una volta, poi parte la serata
+  const needsButtonsGuide = tutorialSeen && !seenHints.includes("buttonsGuide");
+
   // Colori già scelti: si parte subito (si cambiano dalle Impostazioni)
   if (tutorialSeen && arePlayersChosen()) {
+    if (needsButtonsGuide) {
+      afterTutorialAction = startEvening;
+      openTutorial("screenHome", "buttons");
+      return;
+    }
     startEvening();
     return;
   }
 
   if (!tutorialSeen) {
-    openTutorial("screenSetup", true); // la prima volta: solo le 2 schede essenziali
+    openTutorial("screenSetup", "intro"); // la prima volta: le 3 schede essenziali, obbligatorie
+  } else if (needsButtonsGuide) {
+    openTutorial("screenSetup", "buttons");
   } else {
     showScreen("screenSetup");
   }
@@ -1059,6 +1115,8 @@ function onBackButton() {
   } else if (activeScreen === "screenTutorial") {
     if (tutorialStepIndex > 0) {
       previousTutorialStep();
+    } else if (!tutorialCanSkip) {
+      leaveTutorialWithoutFinishing(); // la guida obbligatoria non si chiude col tasto indietro
     } else {
       closeTutorial();
     }
@@ -1431,17 +1489,17 @@ document.getElementById("buttonEndFromPause").addEventListener("click", endFromP
 // Impostazioni
 document.getElementById("settingsColors").addEventListener("click", openColorSettings);
 document.getElementById("settingsTutorial").addEventListener("click", function () {
-  openTutorial("screenSettings");
+  openTutorial("screenSettings", "full");
 });
 document.getElementById("settingsHints").addEventListener("click", resetHints);
 
 // Guida "Come si gioca"
 document.getElementById("buttonNewEvening").addEventListener("click", onNewEveningClick);
 document.getElementById("buttonOpenTutorial").addEventListener("click", function () {
-  openTutorial("screenHome");
+  openTutorial("screenHome", "full");
 });
 document.getElementById("buttonHelp").addEventListener("click", function () {
-  openTutorial("screenGame");
+  openTutorial("screenGame", "full");
 });
 document.getElementById("tutorialNext").addEventListener("click", nextTutorialStep);
 document.getElementById("tutorialBack").addEventListener("click", previousTutorialStep);
