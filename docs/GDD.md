@@ -10,8 +10,12 @@ Non ci sono punteggi, vincitori o timer.
 
 ## 2. Spiegazioni: poco all'inizio, il resto quando serve
 - **La prima volta** che si preme "Nuova serata": solo **2 schede** (cos'è Luna; uno chiede, l'altro risponde) → poi la scelta dei colori.
-- **Pop-up "la prima volta che…"**: compaiono una volta sola, in basso, con "Ho capito", nel momento in cui serve:
-  primo riscaldamento · prima domanda "leggila all'altro" · prima carta "insieme" · prima carta 🔮 · prima carta intensa coperta · prima carta bonus · i cuori delle preferite.
+- **Pop-up "la prima volta che…"**: compaiono una volta sola, nel momento in cui serve. Mentre spiegano, **la parte di cui parlano si illumina** con un contorno neon che pulsa e il resto si scurisce; il riquadro va in alto o in basso per non coprirla. Se ce ne sono più di uno di fila: "1 di 2", "Avanti", "Ho capito".
+  - Primo riscaldamento: l'etichetta "Riscaldamento · 1 di 3", poi il pulsante "Fatto, passa"
+  - Seconda carta: il "?" della guida
+  - Prima domanda: l'etichetta 🗣️/🤝/🔮, i pallini dell'intensità
+  - Dalla 2ª domanda: i cuori · dalla 3ª: "Metti in sospeso" · dalla 5ª: "Più a fondo ↓"
+  - Prima carta "insieme": tutta la carta · prima carta intensa: i pulsanti Scopri / Mettila in sospeso · prima pausa: la carta tratteggiata
 - **Guida completa (7 schede)**: pulsante "Come si gioca" sulla home e "?" durante il gioco (si torna alla stessa carta).
 - Sulle carte di riscaldamento: "Riscaldamento · 1 di 3".
 
@@ -19,6 +23,7 @@ Non ci sono punteggi, vincitori o timer.
 - Ognuno sceglie **un colore** da una palette di pastelli calmi (rosa cipria, azzurro polvere, salvia, lavanda, sabbia, pesca…). Due persone non possono avere lo stesso colore.
 - La coppia resta salvata sul telefono.
 - Il colore sostituisce il nome: la carta si illumina del colore di **chi tiene il telefono e legge**.
+- Sulla carta, l'istruzione (🗣️ / 🤝 / 🔮) sta **sopra** la domanda, come etichetta corta: chi legge sa subito come funziona prima di leggere.
 
 ## 3. Categorie
 | Categoria | Stato |
@@ -45,7 +50,7 @@ Ogni carta domanda ha:
 - **chi risponde**. Regola base: **chi tiene il telefono legge la carta ad alta voce all'altro** (le domande sono scritte in prima persona: "cosa hai notato *di me*?").
   - 🗣️ *Leggila all'altro* — risponde l'altra persona (nei dati: `self`)
   - 🤝 *Rispondete tutti e due* — chi legge e chi ascolta rispondono entrambi (`together`)
-  - 🔮 *Fallo indovinare* — l'altra persona indovina la risposta di chi legge, che poi dice se ci ha preso (`guessOther`)
+  - 🔮 *L'altro indovina la tua risposta* — l'altra persona indovina la risposta di chi legge, che poi dice se ci ha preso (`guessOther`)
   - Nelle carte **bonus** invece l'azione la fa chi tiene il telefono (🎯 Tocca a te / 🤝 Insieme).
 - **testo**
 

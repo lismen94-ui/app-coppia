@@ -522,7 +522,7 @@ function skipCardAndDrawAgain() {
   // Ce lo chiediamo PRIMA di metterla in sospeso
   const wasQuestion = currentCardKind === "question";
 
-  skipCurrentCard();
+  skipCurrentCard(currentPlayer); // ricordiamo chi la stava leggendo
 
   // Dopo una domanda saltata: un respiro per sciogliere la tensione, poi si prosegue.
   // (Per il riscaldamento non serve: si pesca semplicemente un'altra carta.)
@@ -718,12 +718,18 @@ function openSkippedCard(card) {
   currentCardKind = "question";
   currentCardSource = "skipped";
 
+  // La carta si riaccende del colore di chi l'aveva messa in sospeso:
+  // è lui o lei che la rilegge all'altro
+  if (skippedBy[card.id]) {
+    currentPlayer = skippedBy[card.id];
+  }
+
   applyTurnColors();
   displayCard(card);
 }
 
 // Il filtro scelto nella pagina delle preferite (si ricorda finché la pagina è aperta)
-let currentFavoritesFilter = "both";
+let currentFavoritesFilter = "all";
 
 /**
  * Apre la pagina delle preferite con il filtro attuale.

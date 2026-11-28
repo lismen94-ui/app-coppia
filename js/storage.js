@@ -46,6 +46,7 @@ function saveGame() {
     nextDeeperPromptAt: nextDeeperPromptAt,
     usedCardIds: usedCardIds,
     skippedCardIds: skippedCardIds,
+    skippedBy: skippedBy,
     heartRulesShown: heartRulesShown,
     pactAccepted: pactAccepted,
     favorites: favorites,
@@ -104,6 +105,9 @@ function loadGame() {
   // ma possiamo svuotarli e riempirli di nuovo.
   replaceArrayContent(usedCardIds, savedData.usedCardIds ?? []);
   replaceArrayContent(skippedCardIds, savedData.skippedCardIds ?? []);
+
+  // skippedBy è un oggetto "const": lo riempiamo con Object.assign (copia le chiavi salvate dentro)
+  Object.assign(skippedBy, savedData.skippedBy ?? {});
 
   return true;
 }
@@ -209,17 +213,22 @@ function toggleFavorite(cardId, playerKey) {
 
 /**
  * Restituisce le carte preferite secondo un filtro.
- * @param {string} filter - "first", "second" oppure "both"
+ * @param {string} filter - "first", "second" oppure "all" (tutte: di uno, dell'altro o di entrambi)
  * @returns {Array} le carte (oggetti completi, presi dal mazzo)
  */
 function getFavoriteCards(filter) {
   // Object.keys() dà l'elenco delle chiavi dell'oggetto: ["Q004", "Q017", …]
-  const favoriteIds = Object.keys(favorites).filter(function (cardId) {
-    const lovers = favorites[cardId];
-    if (filter === "both") {
-      return lovers.includes("first") && lovers.includes("second");
+  let favoriteIds = Object.keys(favorites).filter(function (cardId) {
+    if (filter === "all") {
+      return true; // ogni carta qui dentro ha almeno un cuore
     }
-    return lovers.includes(filter);
+    return favorites[cardId].includes(filter);
+  });
+
+  // In cima le carte che piacciono a tutti e due (quelle con 2 cuori).
+  // sort() con una funzione di confronto: un numero negativo mette "a" prima di "b".
+  favoriteIds = favoriteIds.sort(function (a, b) {
+    return favorites[b].length - favorites[a].length;
   });
 
   return favoriteIds

@@ -17,7 +17,7 @@
 
 // Il nome della "scatola" dove teniamo le copie.
 // Se un giorno serve buttare via tutte le copie vecchie, basta cambiare v1 in v2.
-const CACHE_NAME = "luna-v7"; // v7: istruzione sopra la domanda (v6: chi legge chiede, v5: guida, v4: neon, v3: nome, v2: icona)
+const CACHE_NAME = "luna-v9"; // v9: colore in sospeso, preferite "Tutte" (v8: pop-up che illuminano)
 
 // I file indispensabili: li salviamo subito, alla prima apertura,
 // così l'app funziona offline anche se non avete ancora visitato ogni schermata.

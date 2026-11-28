@@ -186,11 +186,17 @@ function updateGoDeeperButton() {
 /**
  * Crea il riquadro di una carta per gli elenchi.
  * @param {object} card
+ * @param {string} [colorHex] - facoltativo: il colore del bordo (es. di chi l'ha messa in sospeso)
  * @returns {HTMLElement} l'elemento pronto da inserire nella pagina
  */
-function createListItem(card) {
+function createListItem(card, colorHex) {
   const item = document.createElement("article");
   item.className = "listItem";
+
+  if (colorHex) {
+    item.classList.add("listItem--colored");
+    item.style.setProperty("--itemColor", colorHex);
+  }
 
   const meta = document.createElement("p");
   meta.className = "listItemMeta";
@@ -236,7 +242,19 @@ function renderSkippedList(onOpenCard) {
       return; // per sicurezza: codice sconosciuto, lo saltiamo
     }
 
-    const item = createListItem(card);
+    // Il colore di chi l'ha messa in sospeso (se lo sappiamo)
+    const ownerKey = skippedBy[card.id];
+    const ownerColor = ownerKey ? findColorById(players[ownerKey]) : null;
+    const item = createListItem(card, ownerColor ? ownerColor.hex : null);
+
+    // Una riga che dice chi la stava leggendo
+    if (ownerColor) {
+      const owner = document.createElement("p");
+      owner.className = "listItemMeta";
+      owner.textContent = "Messa in sospeso da " + ownerColor.name;
+      owner.style.color = ownerColor.hex;
+      item.appendChild(owner);
+    }
 
     const openButton = document.createElement("button");
     openButton.className = "button button--outline listItemAction";
@@ -252,7 +270,7 @@ function renderSkippedList(onOpenCard) {
 
 /**
  * Disegna l'elenco delle preferite, secondo il filtro scelto.
- * @param {string} filter - "first", "second" o "both"
+ * @param {string} filter - "first", "second" o "all"
  */
 function renderFavoritesList(filter) {
   // Etichette dei filtri: i nomi dei colori dei giocatori
@@ -341,7 +359,7 @@ const TUTORIAL_STEPS = [
       "Sotto ogni domanda è scritto chi risponde:\n\n" +
       "🗣️ Leggila all'altro\nLeggi la domanda: risponde l'altra persona.\n\n" +
       "🤝 Rispondete tutti e due\nLeggi la domanda: rispondete entrambi, uno dopo l'altro.\n\n" +
-      "🔮 Fallo indovinare\nLeggi la domanda: l'altra persona prova a indovinare cosa risponderesti tu. " +
+      "🔮 L'altro indovina la tua risposta\nLeggi la domanda: l'altra persona prova a indovinare cosa risponderesti tu. " +
       "Poi le dici se ci ha preso.",
   },
   {
@@ -466,48 +484,80 @@ function renderTutorialStep(stepIndex, totalSteps, lastButtonLabel) {
 }
 
 // =========================================================
-// POP-UP "LA PRIMA VOLTA CHE…"
+// POP-UP "LA PRIMA VOLTA CHE…" CON EVIDENZIAZIONE
 // Piccole spiegazioni che compaiono UNA volta sola, nel momento in cui servono.
-// Ognuna ha: un codice (key), quando compare (appliesTo), titolo e testo.
-// Quelle già viste sono salvate in seenHints (storage.js).
+// Mentre il pop-up spiega, la parte dello schermo di cui parla si illumina
+// (classe CSS "spotlight") e tutto il resto si scurisce.
+//
+// Ogni pop-up ha:
+// - key: un codice, per ricordarsi che è già stato visto (seenHints, in storage.js)
+// - appliesTo: una funzione che dice se riguarda questa carta
+// - target: l'elemento da illuminare (un selettore CSS, es. "#cardMode")
+// - title e text: cosa scrivere
+// L'ordine dell'array è l'ordine in cui compaiono.
 // =========================================================
 const FIRST_TIME_HINTS = [
   {
     key: "warmup",
     appliesTo: function (card, kind) { return kind === "warmup"; },
+    target: "#cardLevel",
     title: "Si comincia piano",
     text:
       "Le prime 3 carte sono un riscaldamento: domande leggere per arrivare alla serata.\n\n" +
-      "Chi tiene il telefono legge la carta ad alta voce all'altro, che risponde. " +
-      "Poi «Fatto, passa».",
+      "Chi tiene il telefono legge la carta ad alta voce all'altro, che risponde.",
+  },
+  {
+    key: "nextTurn",
+    appliesTo: function (card, kind) { return kind !== "bonus" && currentCardSource === "evening"; },
+    target: "#buttonNextTurn",
+    title: "Fatto, passa",
+    text: "Quando l'altro ha risposto, premi qui e passagli il telefono: adesso tocca a lui o a lei leggere a te.",
+  },
+  {
+    key: "help",
+    appliesTo: function (card, kind) { return kind === "warmup" && evening.warmupsDone >= 1; },
+    target: "#buttonHelp",
+    title: "Un dubbio?",
+    text: "Toccate il «?» quando volete: riapre la guida completa, e poi tornate alla stessa carta.",
   },
   {
     key: "readAloud",
     appliesTo: function (card, kind) { return kind === "question" && card.mode === "self"; },
+    target: "#cardMode",
     title: "Leggila all'altro",
-    text:
-      "La carta ha il tuo colore: leggi la domanda ad alta voce. Risponde l'altra persona.\n\n" +
-      "Quando ha finito, premi «Fatto, passa» e dagli il telefono.",
+    text: "Questa etichetta dice come funziona la carta. Qui: leggi la domanda ad alta voce, risponde l'altra persona.",
   },
   {
     key: "together",
     appliesTo: function (card, kind) { return kind !== "bonus" && card.mode === "together"; },
+    target: "#card",
     title: "Rispondete insieme",
     text: "Quando la carta ha i vostri due colori, la leggi ad alta voce e rispondete tutti e due, uno dopo l'altro.",
   },
   {
     key: "guess",
     appliesTo: function (card, kind) { return kind !== "bonus" && card.mode === "guessOther"; },
-    title: "Fallo indovinare",
+    target: "#cardMode",
+    title: "L'altro indovina",
     text:
       "Leggi la domanda: l'altra persona prova a indovinare cosa risponderesti tu.\n\n" +
       "Poi le dici se ci ha preso, e com'è davvero.",
+  },
+  {
+    key: "intensity",
+    appliesTo: function (card, kind) {
+      return kind === "question" && !card.isFinal && card.intensity < 3;
+    },
+    target: "#cardIntensity",
+    title: "Quanto è profonda",
+    text: "I pallini dicono quanto va a fondo la domanda: ●○○ leggera, ●●○ più personale, ●●● intensa.",
   },
   {
     key: "covered",
     appliesTo: function (card, kind) {
       return kind === "question" && !card.isFinal && card.intensity === 3;
     },
+    target: ".cardCover .buttonGroup",
     title: "Una carta intensa",
     text:
       "Le domande più profonde arrivano coperte.\n\n" +
@@ -516,52 +566,119 @@ const FIRST_TIME_HINTS = [
   {
     key: "bonus",
     appliesTo: function (card, kind) { return kind === "bonus"; },
+    target: "#card",
     title: "Una pausa",
     text: "Le carte con il bordo tratteggiato sono una pausa: un gesto, un respiro. Fatela o saltatela, come vi va.",
   },
+  // Le prossime arrivano più avanti nella serata, una novità alla volta
   {
     key: "hearts",
-    appliesTo: function (card, kind) { return kind === "question" && card.intensity < 3; },
+    appliesTo: function (card, kind) {
+      return kind === "question" && card.intensity < 3 && evening.questionsDone >= 1;
+    },
+    target: "#cardHearts",
     title: "Le vostre preferite",
     text:
-      "Se una domanda vi ha colpito, toccate il vostro cuore ♡: ognuno ha il suo, nel suo colore.\n\n" +
+      "Se una domanda vi ha colpito, toccate il vostro cuore: ognuno ha il suo, nel suo colore.\n\n" +
       "Le ritrovate nella pagina «Preferite».",
+  },
+  {
+    key: "skip",
+    appliesTo: function (card, kind) {
+      return kind === "question" && currentCardSource === "evening" && evening.questionsDone >= 2;
+    },
+    target: "#buttonSkipCard",
+    title: "Metti in sospeso",
+    text:
+      "Una domanda è troppo difficile adesso? Mettetela in sospeso: non si perde.\n\n" +
+      "La ritrovate nella pagina «In sospeso», quando vi sentite pronti.",
+  },
+  {
+    key: "goDeeper",
+    appliesTo: function (card, kind) {
+      return kind === "question" && currentCardSource === "evening" && evening.questionsDone >= 4;
+    },
+    target: "#buttonGoDeeper",
+    title: "Più a fondo",
+    text: "Quando vi sentite pronti tutti e due, da qui potete passare al livello successivo.",
   },
 ];
 
 /**
- * Trova i pop-up da mostrare per questa carta: quelli che la riguardano e non sono ancora stati visti.
+ * Un elemento è visibile sullo schermo? (Se è nascosto, non ha senso illuminarlo.)
+ * getClientRects() è vuoto quando l'elemento (o un suo genitore) non viene disegnato.
+ * @param {HTMLElement|null} element
+ * @returns {boolean}
+ */
+function isVisibleOnScreen(element) {
+  return element !== null
+    && element.getClientRects().length > 0
+    && getComputedStyle(element).visibility !== "hidden";
+}
+
+/**
+ * Trova i pop-up da mostrare per questa carta: quelli che la riguardano,
+ * non ancora visti, e il cui elemento da illuminare è davvero sullo schermo.
  * @param {object} card
  * @param {string} kind
  * @returns {Array}
  */
 function getHintsToShow(card, kind) {
   return FIRST_TIME_HINTS.filter(function (hint) {
-    return hint.appliesTo(card, kind) && !seenHints.includes(hint.key);
+    return hint.appliesTo(card, kind)
+      && !seenHints.includes(hint.key)
+      && isVisibleOnScreen(document.querySelector(hint.target));
   });
 }
 
 /**
- * Mostra i pop-up uno dopo l'altro. Ogni "Ho capito" lo segna come visto e passa al successivo.
- * @param {Array} hints
+ * Spegne l'evidenziazione su qualsiasi elemento la abbia.
  */
-function showHints(hints) {
+function clearSpotlight() {
+  document.querySelectorAll(".spotlight").forEach(function (element) {
+    element.classList.remove("spotlight");
+  });
+}
+
+/**
+ * Mostra i pop-up uno dopo l'altro, illuminando ogni volta la parte giusta.
+ * Ogni pressione del pulsante lo segna come visto e passa al successivo.
+ * @param {Array} hints - i pop-up ancora da mostrare
+ * @param {number} position - il numero di questo pop-up nella serie (parte da 1)
+ * @param {number} total - quanti pop-up ci sono in tutto nella serie
+ */
+function showHints(hints, position = 1, total = hints.length) {
   const overlay = document.getElementById("hintOverlay");
+  clearSpotlight();
 
   if (hints.length === 0) {
     overlay.hidden = true;
     return;
   }
 
-  // Il primo della lista
   const hint = hints[0];
+  const target = document.querySelector(hint.target);
+
+  // Illuminiamo l'elemento di cui parla il pop-up
+  target.classList.add("spotlight");
+
+  // Se l'elemento è nella metà bassa dello schermo, il riquadro va in alto (e viceversa),
+  // così non lo copre. getBoundingClientRect() dice dove si trova l'elemento.
+  const box = target.getBoundingClientRect();
+  const targetCenter = box.top + box.height / 2;
+  overlay.classList.toggle("hintOverlay--top", targetCenter > window.innerHeight * 0.55);
+
   document.getElementById("hintTitle").textContent = hint.title;
   document.getElementById("hintText").textContent = hint.text;
+  // "1 di 3" se ce n'è più di uno in fila; il pulsante dice "Avanti" fino all'ultimo
+  const isLast = hints.length === 1;
+  document.getElementById("hintCounter").textContent = total > 1 ? position + " di " + total : "";
+  document.getElementById("hintOkButton").textContent = isLast ? "Ho capito" : "Avanti";
   overlay.hidden = false;
 
   document.getElementById("hintOkButton").onclick = function () {
     markHintAsSeen(hint.key); // sta in storage.js
     // slice(1) = tutti tranne il primo: mostriamo i rimanenti
-    showHints(hints.slice(1));
+    showHints(hints.slice(1), position + 1, total);
   };
 }

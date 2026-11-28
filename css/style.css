@@ -769,3 +769,66 @@ h2 {
     animation: none;
   }
 }
+
+/* --- Evidenziazione: l'elemento di cui parla il pop-up --- */
+
+/* Pop-up in alto, quando l'elemento illuminato è nella parte bassa dello schermo */
+.hintOverlay--top {
+  align-items: flex-start;
+}
+
+.hintHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: 12px;
+}
+
+.hintCounter {
+  margin: 0;
+  font-size: 0.8rem;
+  color: var(--colorTextSoft);
+  white-space: nowrap;
+}
+
+/* L'elemento illuminato: sta SOPRA lo strato scuro (z-index più alto del pop-up: 10),
+   ha un contorno neon che pulsa, e non si può premere finché il pop-up è aperto. */
+.spotlight {
+  position: relative;
+  z-index: 11;
+  pointer-events: none;
+  outline: 2px solid var(--neonAzure);
+  outline-offset: 6px;
+  animation: spotlightPulse 1.4s ease-in-out infinite;
+}
+
+/* Gli elementi di testo non hanno angoli arrotondati: glieli diamo, così il contorno è morbido */
+.cardLevel.spotlight,
+.cardIntensity.spotlight,
+.cardHearts.spotlight,
+.buttonGroup.spotlight {
+  border-radius: 10px;
+}
+
+@keyframes spotlightPulse {
+  0%, 100% {
+    outline-color: rgba(111, 208, 255, 1);
+    outline-offset: 6px;
+  }
+  50% {
+    outline-color: rgba(111, 208, 255, 0.35);
+    outline-offset: 10px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .spotlight {
+    animation: none;
+  }
+}
+
+/* Riquadro dell'elenco con il colore di una persona (es. chi ha messo la carta in sospeso) */
+.listItem--colored {
+  border: 2px solid var(--itemColor);
+  box-shadow: 0 0 16px -6px var(--itemColor);
+}

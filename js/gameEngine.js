@@ -119,6 +119,10 @@ const usedCardIds = [];
 // I codici delle domande messe in sospeso
 const skippedCardIds = [];
 
+// Chi ha messo in sospeso ogni carta (chi la stava leggendo): { "Q017": "first", … }
+// Serve per colorarla con il suo colore, nell'elenco e quando la si riapre.
+const skippedBy = {};
+
 // La schermata "regole del cuore" va mostrata una volta sola
 let heartRulesShown = false;
 
@@ -602,6 +606,8 @@ function removeFromSkipped(cardId) {
   if (position !== -1) {
     skippedCardIds.splice(position, 1);
   }
+  // delete toglie una chiave da un oggetto
+  delete skippedBy[cardId];
 }
 
 /**
@@ -632,8 +638,9 @@ function getJourneyProgress() {
 /**
  * "Metti in sospeso": la carta va da parte.
  * Un riscaldamento non va "in sospeso": lo segniamo solo come già uscito stasera.
+ * @param {string} playerKey - chi la stava leggendo ("first" o "second")
  */
-function skipCurrentCard() {
+function skipCurrentCard(playerKey) {
   if (currentCard === null || currentCard.isFinal) {
     return;
   }
@@ -642,6 +649,7 @@ function skipCurrentCard() {
     evening.usedWarmupIds.push(currentCard.id);
   } else if (!skippedCardIds.includes(currentCard.id)) {
     skippedCardIds.push(currentCard.id);
+    skippedBy[currentCard.id] = playerKey;
   }
 }
 

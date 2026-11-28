@@ -167,11 +167,11 @@
   <!-- SCHERMATA 5: Preferite -->
   <section id="screenFavorites" class="screen screen--list">
     <h2>Preferite</h2>
-    <!-- I filtri: i cuori di un colore, dell'altro, o di entrambi -->
+    <!-- I filtri: tutte le preferite, oppure solo quelle di un colore o dell'altro -->
     <div class="filterRow">
+      <button id="filterAll" class="filterButton" data-filter="all">Tutte</button>
       <button id="filterFirst" class="filterButton" data-filter="first"></button>
       <button id="filterSecond" class="filterButton" data-filter="second"></button>
-      <button id="filterBoth" class="filterButton" data-filter="both">Entrambi</button>
     </div>
     <div id="favoritesList" class="cardList"></div>
     <button class="button button--ghost" data-target="screenHome">Indietro</button>
@@ -184,7 +184,10 @@
   -->
   <div id="hintOverlay" class="hintOverlay" hidden>
     <div class="hintBox" role="dialog" aria-labelledby="hintTitle">
-      <p id="hintTitle" class="hintTitle"></p>
+      <div class="hintHeader">
+        <p id="hintTitle" class="hintTitle"></p>
+        <p id="hintCounter" class="hintCounter"></p>
+      </div>
       <p id="hintText" class="hintText"></p>
       <button id="hintOkButton" class="button button--primary">Ho capito</button>
     </div>
