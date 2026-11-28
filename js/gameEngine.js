@@ -656,6 +656,19 @@ function findQuestionById(cardId) {
 }
 
 /**
+ * Cerca una carta in tutti e tre i mazzi (domande, riscaldamento, bonus).
+ * Serve per ricostruire una serata salvata, dove ogni carta è ricordata solo con il suo codice.
+ * @param {string} cardId - es. "Q017", "R04", "B12"
+ * @returns {object|undefined}
+ */
+function findAnyCardById(cardId) {
+  const allCards = deck.questions.concat(deck.warmups).concat(deck.bonuses);
+  return allCards.find(function (card) {
+    return card.id === cardId;
+  });
+}
+
+/**
  * Quante domande avete giocato sul totale (la carta finale non conta).
  * @returns {object} es. { played: 23, total: 149 }
  */

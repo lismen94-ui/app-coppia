@@ -8,15 +8,11 @@ Un'app per **ritrovarsi in coppia** attraverso domande profonde, con una base ps
 Si gioca in due su **un solo telefono Android**, passato di mano in mano.
 Non ci sono punteggi, vincitori o timer.
 
-## 2. Spiegazioni: poco all'inizio, il resto quando serve
+## 2. Spiegazioni: solo quando servono, solo se le chiedete
 - **La prima volta** che si preme "Nuova serata": solo **2 schede** (cos'è Luna; uno chiede, l'altro risponde) → poi la scelta dei colori.
-- **Pop-up "la prima volta che…"**: compaiono una volta sola, nel momento in cui serve. Mentre spiegano, **la parte di cui parlano si illumina** con un contorno neon che pulsa e il resto si scurisce; il riquadro va in alto o in basso per non coprirla. Se ce ne sono più di uno di fila: "1 di 2", "Avanti", "Ho capito".
-  - Primo riscaldamento: l'etichetta "Riscaldamento · 1 di 3", poi il pulsante "Fatto, passa"
-  - Seconda carta: il "?" della guida
-  - Prima domanda: l'etichetta 🗣️/🤝/🔮, i pallini dell'intensità
-  - Dalla 2ª domanda: i cuori · dalla 3ª: "Metti in sospeso" · dalla 5ª: "Più a fondo ↓"
-  - Prima carta "insieme": tutta la carta · prima carta intensa: i pulsanti Scopri / Mettila in sospeso · prima pausa: la carta tratteggiata
-- **Guida completa (7 schede)**: pulsante "Come si gioca" sulla home e "?" durante il gioco (si torna alla stessa carta).
+- **Alla primissima carta**, una volta sola, un fumetto discreto: "toccate le scritte sulla carta per sapere cosa significano; il «?» riapre la guida".
+- **Fumetti a richiesta**: toccando il nome del livello, i pallini o l'etichetta (🗣️/🤝/🔮) compare una piccola spiegazione. Sparisce da sola dopo 5 secondi o toccando altrove. Nessun pop-up si apre da solo durante il gioco.
+- **Guida completa (7 schede)**: "Come si gioca" sulla home e nelle Impostazioni, e il «?» durante il gioco (si torna alla stessa carta).
 - Sulle carte di riscaldamento: "Riscaldamento · 1 di 3".
 
 ## 2b. Setup
@@ -99,7 +95,7 @@ Anche "Chiudi la serata" a metà porta al rituale di chiusura.
 ## 8b. Tornare indietro, pausa, impostazioni
 - **Carte precedenti**: con la freccia «‹» in alto a sinistra si rivedono le carte già giocate stasera (riscaldamento e domande, non le pause). La carta si rivede scoperta, nel colore di chi l'aveva letta, con il bordo tratteggiato; si possono mettere e togliere i cuori. «‹ Precedente» / «Successiva ›» / «Torna alla carta di adesso».
 - **⏸ Pausa**: una schermata con un cerchio che guida il respiro (4 secondi dentro, 6 fuori) e un testo: fermarsi va bene, il corpo ha bisogno di almeno venti minuti per calmarsi; ditevi quando riprendete. «Riprendiamo» torna alla stessa carta; «Chiudiamo per stasera» porta al rituale di chiusura.
-- **⚙️ Impostazioni** (dalla home): cambia i vostri colori · come si gioca · rivedi i suggerimenti · **zona delicata** con «Ricomincia da zero» (con conferma).
+- **⚙️ Impostazioni** (dalla home): cambia i vostri colori · come si gioca · rivedi il suggerimento iniziale · **zona delicata** con «Ricomincia da zero» (con conferma).
 
 ## 9. Domande in sospeso
 - Una carta saltata finisce nell'elenco **condiviso** "In sospeso" (dalla home).

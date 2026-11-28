@@ -37,6 +37,10 @@ function showScreen(screenId) {
   // 6. Ogni volta che si torna alla home, aggiorniamo "a che punto siete"
   if (screenId === "screenHome") {
     updateJourneyStatus(); // sta in ui.js
+    updateResumeButton();
+  } else {
+    // Fuori dalla home il tasto "indietro" del telefono non deve chiudere l'app
+    armBackGuard();
   }
 }
 
@@ -281,6 +285,12 @@ function displayCard(card) {
   updateReviewButton();
   showScreen("screenGame");
 
+  // Salviamo la serata: se l'app si chiude adesso, si riprende da questa carta
+  if (currentCardSource === "evening") {
+    awaitingNextCard = false;
+    updateSavedEvening();
+  }
+
   // Una sola volta, alla primissima carta: un suggerimento discreto
   showFirstTimeTip();
 }
@@ -486,6 +496,11 @@ function passPhoneAndContinue() {
   // Operatore ternario: "se è first, diventa second; altrimenti diventa first"
   currentPlayer = currentPlayer === "first" ? "second" : "first";
   applyTurnColors();
+
+  // La carta è giocata: se l'app si chiude adesso, riprendendo si va avanti (non si rigioca la stessa)
+  awaitingNextCard = true;
+  updateSavedEvening();
+
   continueEveningAfterTurn();
 }
 
@@ -517,6 +532,8 @@ let afterBonusAction = null;
  */
 function showBonusCard(type, thenDo) {
   afterBonusAction = thenDo;
+  // Una funzione non si può salvare sul telefono: ne salviamo il "nome"
+  afterBonusKey = thenDo === passPhoneAndContinue ? "passPhone" : "next";
   const bonusCard = drawBonusCard(type); // sta in gameEngine.js
   saveGame();
   displayCard(bonusCard);
@@ -569,6 +586,9 @@ function skipCardAndDrawAgain() {
 function revealCard() {
   setCardCovered(false);
   currentCardRevealed = true;
+  if (currentCardSource === "evening") {
+    updateSavedEvening();
+  }
 }
 
 // La carta intensa sullo schermo è già stata scoperta?
@@ -685,7 +705,14 @@ function showClosingRitual() {
       "Ognuno dica all'altro una cosa che ha apprezzato di lui o di lei stasera.\n\n" +
       "Poi, se vi va, un abbraccio.",
     buttons: [
-      { label: "Buonanotte 🌙", style: "primary", onClick: function () { showScreen("screenHome"); } },
+      {
+        label: "Buonanotte 🌙",
+        style: "primary",
+        onClick: function () {
+          clearSavedEvening(); // la serata è finita: non c'è niente da riprendere
+          showScreen("screenHome");
+        },
+      },
     ],
   });
 }
@@ -710,6 +737,7 @@ function closeEvening() {
  * Il mazzo è finito: ricominciare da capo o tornare alla home?
  */
 function askToRestartJourney() {
+  clearSavedEvening();
   showPrompt({
     title: "Avete completato il viaggio ✨",
     text:
@@ -882,6 +910,178 @@ function onNewEveningClick() {
   } else {
     showScreen("screenSetup");
   }
+}
+
+// =========================================================
+// SALVARE E RIPRENDERE LA SERATA
+// =========================================================
+
+// Dopo "Fatto, passa", prima che compaia la carta successiva: true.
+// Serve a sapere, riprendendo, se la carta salvata era già stata giocata.
+let awaitingNextCard = false;
+
+// Il "nome" di cosa fare dopo una carta bonus ("passPhone" o "next")
+let afterBonusKey = null;
+
+/**
+ * Fotografa la serata in corso e la salva sul telefono.
+ * Le carte vengono ricordate solo con il loro codice (es. "Q017"):
+ * riprendendo, le ritroviamo nel mazzo con findAnyCardById().
+ */
+function updateSavedEvening() {
+  // { ...evening } copia tutte le proprietà di evening in un oggetto nuovo
+  const eveningCopy = { ...evening };
+  eveningCopy.history = evening.history.map(function (entry) {
+    return { cardId: entry.card.id, kind: entry.kind, player: entry.player };
+  });
+
+  savedEvening = {
+    savedAt: Date.now(),
+    evening: eveningCopy,
+    cardId: currentCard.id,
+    cardKind: currentCardKind,
+    player: currentPlayer,
+    revealed: currentCardRevealed,
+    awaitingNextCard: awaitingNextCard,
+    afterBonusKey: currentCardKind === "bonus" ? afterBonusKey : null,
+  };
+  saveGame();
+}
+
+/**
+ * Sulla home: "Riprendi la serata" compare solo se c'è una serata da riprendere.
+ * In quel caso è lui il pulsante principale, e "Nuova serata" diventa secondario.
+ */
+function updateResumeButton() {
+  const canResume = deck.questions.length > 0 && hasResumableEvening();
+  document.getElementById("buttonResumeEvening").hidden = !canResume;
+  document.getElementById("buttonNewEvening").classList.toggle("button--primary", !canResume);
+}
+
+/**
+ * "Riprendi la serata": ricostruisce la serata salvata e torna alla stessa carta.
+ */
+function resumeEvening() {
+  const saved = savedEvening;
+
+  // La storia: dai codici torniamo alle carte vere
+  const history = saved.evening.history
+    .map(function (entry) {
+      return { card: findAnyCardById(entry.cardId), kind: entry.kind, player: entry.player };
+    })
+    .filter(function (entry) {
+      return entry.card !== undefined;
+    });
+
+  evening = { ...saved.evening, history: history };
+  currentCard = findAnyCardById(saved.cardId);
+  currentCardKind = saved.cardKind;
+  currentCardSource = "evening";
+  currentPlayer = saved.player;
+  currentCardRevealed = saved.revealed;
+
+  // Se eravamo su una carta bonus, ricostruiamo cosa fare dopo
+  if (saved.afterBonusKey === "passPhone") {
+    afterBonusAction = passPhoneAndContinue;
+  } else if (saved.afterBonusKey === "next") {
+    afterBonusAction = showNextCard;
+  }
+
+  applyTurnColors();
+
+  if (saved.awaitingNextCard || currentCard === undefined) {
+    // La carta era già stata giocata: si va avanti
+    continueEveningAfterTurn();
+  } else {
+    displayCard(currentCard);
+  }
+}
+
+// =========================================================
+// IL TASTO "INDIETRO" DEL TELEFONO
+// Su Android, "indietro" in una pagina web torna alla pagina precedente:
+// nella nostra app (una pagina sola) vorrebbe dire uscire.
+// Trucco: aggiungiamo alla cronologia del browser un "gradino" in più
+// (history.pushState). Quando si preme "indietro" si scende di quel gradino,
+// il browser ce lo segnala (evento "popstate") e decidiamo noi cosa fare.
+// =========================================================
+
+/**
+ * Mette il "gradino" nella cronologia, se non c'è già.
+ */
+function armBackGuard() {
+  if (!history.state || history.state.luna !== "guard") {
+    history.pushState({ luna: "guard" }, "");
+  }
+}
+
+/**
+ * Qual è la schermata visibile adesso?
+ * @returns {string} l'id della schermata, es. "screenGame"
+ */
+function getActiveScreenId() {
+  return document.querySelector(".screen--active").id;
+}
+
+/**
+ * Si è premuto "indietro": facciamo la cosa più sensata per ogni schermata.
+ */
+function onBackButton() {
+  const activeScreen = getActiveScreenId();
+
+  // Dalla home "indietro" esce davvero dall'app: non facciamo niente
+  if (activeScreen === "screenHome") {
+    return;
+  }
+
+  if (activeScreen === "screenGame") {
+    if (reviewIndex !== null) {
+      exitReview(); // stavate rivedendo una carta: si torna a quella di adesso
+    } else if (currentCardSource === "skipped") {
+      openSkippedScreen();
+    } else {
+      askToLeaveEvening();
+    }
+  } else if (activeScreen === "screenTutorial") {
+    if (tutorialStepIndex > 0) {
+      previousTutorialStep();
+    } else {
+      closeTutorial();
+    }
+  } else if (activeScreen === "screenPause") {
+    resumeFromPause();
+  } else if (activeScreen === "screenSetup") {
+    onSetupBack();
+  } else if (activeScreen === "screenPrompt") {
+    // Le schermate di messaggio chiedono una scelta: restiamo lì
+  } else {
+    showScreen("screenHome");
+  }
+
+  // Rimettiamo il "gradino" per la prossima volta
+  armBackGuard();
+}
+
+/**
+ * "Indietro" durante la serata: uscire o restare?
+ */
+function askToLeaveEvening() {
+  showPrompt({
+    title: "Volete uscire dalla serata?",
+    text: "La serata resta salvata: dalla home potete riprenderla dalla stessa carta.",
+    buttons: [
+      {
+        label: "Continuiamo a giocare",
+        style: "primary",
+        onClick: function () { displayCard(currentCard); },
+      },
+      {
+        label: "Esci",
+        style: "ghost",
+        onClick: function () { showScreen("screenHome"); },
+      },
+    ],
+  });
 }
 
 // =========================================================
@@ -1104,6 +1304,7 @@ async function prepareDeck() {
     const totalCards = deck.questions.length + deck.warmups.length + deck.bonuses.length;
     statusLabel.textContent = totalCards + " carte pronte";
     updateJourneyStatus(); // ora che le carte ci sono, possiamo dire a che punto siete
+    updateResumeButton();  // e se c'è una serata da riprendere
 
     // Controllo dei dati: ci aspettiamo 50 domande per livello
     console.log(
@@ -1170,6 +1371,10 @@ document.addEventListener("click", function (event) {
     hideTooltip();
   }
 });
+
+// Riprendere la serata e tasto "indietro" del telefono
+document.getElementById("buttonResumeEvening").addEventListener("click", resumeEvening);
+window.addEventListener("popstate", onBackButton);
 
 // Carte precedenti
 document.getElementById("buttonReview").addEventListener("click", openReview);

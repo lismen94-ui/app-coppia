@@ -19,6 +19,15 @@ const RECENT_WARMUPS_TO_REMEMBER = 15;
 // cioè: per ogni carta, chi l'ha messa tra le preferite.
 let favorites = {};
 
+// La serata in corso, salvata a ogni carta: se l'app si chiude per sbaglio
+// (es. il tasto "indietro" del telefono) si può riprendere dalla stessa carta.
+// null = nessuna serata in corso. Il contenuto lo prepara updateSavedEvening() in script.js.
+let savedEvening = null;
+
+// Per quante ore una serata interrotta si può ancora riprendere.
+// Dopo, si riparte con una serata nuova (e con il riscaldamento).
+const RESUME_WINDOW_HOURS = 3;
+
 // La guida "Come si gioca" è già stata vista? (La prima volta si apre da sola.)
 let tutorialSeen = false;
 
@@ -54,6 +63,7 @@ function saveGame() {
     recentBonusIds: recentBonusIds,
     tutorialSeen: tutorialSeen,
     seenHints: seenHints,
+    savedEvening: savedEvening,
   };
 
   // try/catch: in rari casi (es. memoria piena, navigazione privata)
@@ -100,6 +110,7 @@ function loadGame() {
   recentBonusIds = savedData.recentBonusIds ?? [];
   tutorialSeen = savedData.tutorialSeen ?? false;
   seenHints = savedData.seenHints ?? [];
+  savedEvening = savedData.savedEvening ?? null;
 
   // usedCardIds e skippedCardIds sono "const": non possiamo sostituirli,
   // ma possiamo svuotarli e riempirli di nuovo.
@@ -128,6 +139,7 @@ function replaceArrayContent(targetArray, newItems) {
  */
 function eraseAllData() {
   localStorage.removeItem(STORAGE_KEY);
+  savedEvening = null;
   location.reload(); // ricarica la pagina
 }
 
@@ -158,6 +170,28 @@ function rememberBonus(bonusId) {
   if (recentBonusIds.length > RECENT_BONUSES_TO_REMEMBER) {
     recentBonusIds = recentBonusIds.slice(-RECENT_BONUSES_TO_REMEMBER);
   }
+}
+
+/**
+ * C'è una serata interrotta che si può riprendere?
+ * Sì se è stata salvata da meno di RESUME_WINDOW_HOURS ore.
+ * Date.now() dà l'ora attuale in millisecondi: 1 ora = 60 × 60 × 1000 millisecondi.
+ * @returns {boolean}
+ */
+function hasResumableEvening() {
+  if (savedEvening === null) {
+    return false;
+  }
+  const hoursPassed = (Date.now() - savedEvening.savedAt) / (60 * 60 * 1000);
+  return hoursPassed < RESUME_WINDOW_HOURS;
+}
+
+/**
+ * La serata è finita (o se ne inizia un'altra): non c'è più niente da riprendere.
+ */
+function clearSavedEvening() {
+  savedEvening = null;
+  saveGame();
 }
 
 /**
