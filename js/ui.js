@@ -12,9 +12,10 @@ const HEART_EMPTY = "♡\uFE0E";
 // Regola del gioco: chi tiene il telefono LEGGE la carta ad alta voce all'altro.
 // La chiave (self, together, guessOther) è quella scritta nei file JSON.
 const MODE_LABELS = {
-  self: "🗣️ Leggila all'altro: risponde lui o lei",
-  together: "🤝 Leggila ad alta voce: rispondete tutti e due",
-  guessOther: "🔮 Fallo indovinare: l'altro prova a indovinare la tua risposta",
+  // Etichette corte (una riga): i dettagli li spiegano i pop-up e la guida
+  self: "🗣️ Leggila all'altro",
+  together: "🤝 Rispondete tutti e due",
+  guessOther: "🔮 L'altro indovina la tua risposta",
 };
 
 // Le carte bonus invece sono azioni per chi tiene il telefono

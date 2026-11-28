@@ -461,12 +461,25 @@ h2 {
   text-align: center;
   /* Le domande lunghe vanno a capo in modo più armonioso */
   text-wrap: balance;
+  /* La domanda occupa tutto lo spazio libero della carta e sta al centro */
+  flex: 1;
+  padding: 16px 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
+/* L'istruzione ("Leggila all'altro…"): una piccola etichetta sotto il nome del livello */
 .cardMode {
-  margin: 0;
-  color: var(--colorTextSoft);
+  align-self: center;
+  margin: 14px 0 0;
+  padding: 6px 14px;
+  border-radius: var(--radiusPill);
+  border: 1px solid rgba(163, 166, 214, 0.3);
+  background-color: rgba(5, 7, 26, 0.35);
+  font-size: 0.85rem;
   text-align: center;
+  color: var(--colorTextSoft);
 }
 
 /* =========================================================
