@@ -158,6 +158,7 @@ function createNewEvening() {
     isContinuation: false, // true se la coppia ha scelto di continuare dopo il limite
     mood: null,            // l'intensità scelta per stasera: "light", "normal", "deep" (null = non ancora scelta)
     usedBonusIds: [],      // carte bonus già uscite stasera
+    history: [],           // le carte mostrate stasera, in ordine: { card, kind, player }
   };
 }
 
@@ -510,6 +511,39 @@ function drawNextCard() {
   }
 
   return currentCard;
+}
+
+// =========================================================
+// CARTE PRECEDENTI (la "storia" della serata)
+// =========================================================
+
+/**
+ * Aggiunge una carta alla storia della serata, se non è già l'ultima registrata.
+ * (La stessa carta può essere rimostrata, ad esempio dopo la guida: non va contata due volte.)
+ * Le carte bonus non entrano nella storia: sono pause, non domande da rileggere.
+ * @param {object} card
+ * @param {string} kind - "warmup" o "question"
+ * @param {string} player - chi la stava leggendo ("first" o "second")
+ * @returns {boolean} true se è una carta nuova
+ */
+function addToEveningHistory(card, kind, player) {
+  const lastEntry = evening.history[evening.history.length - 1];
+  if (lastEntry && lastEntry.card.id === card.id) {
+    return false;
+  }
+  evening.history.push({ card: card, kind: kind, player: player });
+  return true;
+}
+
+/**
+ * Quante carte "precedenti" si possono rivedere: tutte quelle della storia
+ * tranne quella che è sullo schermo adesso.
+ * @returns {number}
+ */
+function countPreviousCards() {
+  const lastEntry = evening.history[evening.history.length - 1];
+  const currentIsLast = lastEntry && currentCard && lastEntry.card.id === currentCard.id;
+  return currentIsLast ? evening.history.length - 1 : evening.history.length;
 }
 
 // =========================================================

@@ -87,6 +87,10 @@ function renderCard(card, kind) {
   // Le carte bonus hanno un aspetto un po' diverso: sono una pausa, non una domanda
   cardElement.classList.toggle("card--bonus", kind === "bonus");
 
+  // Ogni volta che si disegna una carta si toglie l'aspetto "rivista":
+  // lo rimette showReviewCard() quando serve
+  cardElement.classList.remove("card--review");
+
   // Le carte intense arrivano coperte, con l'avvertimento
   const isIntense = showsIntensity && card.intensity === 3;
   setCardCovered(isIntense);
@@ -592,6 +596,28 @@ const FIRST_TIME_HINTS = [
     text:
       "Una domanda è troppo difficile adesso? Mettetela in sospeso: non si perde.\n\n" +
       "La ritrovate nella pagina «In sospeso», quando vi sentite pronti.",
+  },
+  {
+    key: "review",
+    appliesTo: function (card, kind) {
+      return kind === "question" && currentCardSource === "evening" && evening.questionsDone >= 2;
+    },
+    target: "#buttonReview",
+    title: "Tornare indietro",
+    text:
+      "Con questa freccia rivedete le carte già giocate stasera: " +
+      "per rileggerle, rispondere di nuovo o mettere e togliere un cuore.",
+  },
+  {
+    key: "pause",
+    appliesTo: function (card, kind) {
+      return kind === "question" && currentCardSource === "evening" && evening.questionsDone >= 3;
+    },
+    target: "#buttonPause",
+    title: "Una pausa, se serve",
+    text:
+      "Se una risposta accende una discussione, fermatevi qui. " +
+      "Si respira, ci si prende del tempo, e poi si riparte dalla stessa carta.",
   },
   {
     key: "goDeeper",

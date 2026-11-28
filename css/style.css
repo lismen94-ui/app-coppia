@@ -832,3 +832,142 @@ h2 {
   border: 2px solid var(--itemColor);
   box-shadow: 0 0 16px -6px var(--itemColor);
 }
+
+/* =========================================================
+   CARTE PRECEDENTI (rivedere la serata)
+   ========================================================= */
+
+/* Il pulsante "‹" in alto a sinistra: uguale al "?", ma sull'altro lato */
+.helpButton--left {
+  right: auto;
+  left: 18px;
+  font-size: 1.3rem;
+  line-height: 1;
+}
+
+.gameControls {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+  width: 100%;
+}
+
+.reviewBar {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+  width: 100%;
+}
+
+.reviewLabel {
+  margin: 0;
+  font-size: 0.85rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--colorTextSoft);
+}
+
+/* Mentre si rivede una carta già giocata, la carta è un po' più "spenta" */
+.card--review {
+  opacity: 0.92;
+  border-style: dashed;
+}
+
+/* =========================================================
+   PAUSA: il cerchio del respiro
+   Un ciclo di 10 secondi: 4 per inspirare (il cerchio si allarga),
+   6 per espirare (si stringe). Espirare più a lungo aiuta a calmarsi.
+   ========================================================= */
+.breathCircle {
+  position: relative;
+  width: 150px;
+  height: 150px;
+  border-radius: 50%;
+  border: 2px solid var(--neonLilac);
+  box-shadow:
+    0 0 24px -4px var(--neonLilac),
+    inset 0 0 30px -10px var(--neonAzure);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  animation: breathe 10s ease-in-out infinite;
+}
+
+@keyframes breathe {
+  0%   { transform: scale(0.7); }
+  40%  { transform: scale(1); }   /* fine dell'inspirazione: 4 secondi su 10 */
+  100% { transform: scale(0.7); } /* espirazione: i 6 secondi successivi */
+}
+
+/* Le due parole sono una sopra l'altra: si vede "Inspira" mentre il cerchio cresce,
+   "Espira" mentre si stringe */
+.breathWord {
+  position: absolute;
+  font-size: 1.1rem;
+  letter-spacing: 0.1em;
+  color: var(--colorText);
+}
+
+.breathWord--in  { animation: showWhileInhaling 10s infinite; }
+.breathWord--out { animation: showWhileExhaling 10s infinite; }
+
+@keyframes showWhileInhaling {
+  0%, 38%   { opacity: 1; }
+  42%, 100% { opacity: 0; }
+}
+
+@keyframes showWhileExhaling {
+  0%, 38%   { opacity: 0; }
+  42%, 96%  { opacity: 1; }
+  100%      { opacity: 0; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .breathCircle,
+  .breathWord--in,
+  .breathWord--out {
+    animation: none;
+  }
+  .breathWord--out {
+    display: none;
+  }
+}
+
+/* =========================================================
+   IMPOSTAZIONI
+   ========================================================= */
+.dangerZone {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  width: 100%;
+  margin-top: 24px;
+  padding: 18px;
+  border-radius: 16px;
+  border: 1px solid rgba(239, 143, 132, 0.4);
+}
+
+.dangerTitle {
+  margin: 0;
+  font-size: 0.8rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: #ef8f84;
+}
+
+/* Pulsante "pericoloso": bordo corallo, così si nota che è diverso dagli altri */
+.button--danger {
+  border-color: #ef8f84;
+  color: #ef8f84;
+}
+
+.pauseText {
+  text-align: center;
+  color: var(--colorTextSoft);
+}
+
+.pauseText p {
+  margin: 0 0 12px;
+}

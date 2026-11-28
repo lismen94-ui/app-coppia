@@ -45,9 +45,8 @@
       <button id="buttonOpenSkipped" class="button">In sospeso</button>
       <button id="buttonOpenFavorites" class="button">Preferite</button>
       <button id="buttonOpenTutorial" class="button button--ghost">Come si gioca</button>
+      <button class="button button--ghost" data-target="screenSettings">⚙️ Impostazioni</button>
     </div>
-
-    <button id="buttonEraseData" class="button button--ghost button--small">Ricomincia da zero</button>
   </section>
 
   <!-- SCHERMATA 2: Scelta dei colori -->
@@ -74,12 +73,14 @@
     <div class="buttonGroup">
       <!-- "disabled": il pulsante non si può premere finché non avete scelto entrambi -->
       <button id="buttonStartEvening" class="button button--primary" disabled>Iniziamo</button>
-      <button class="button button--ghost" data-target="screenHome">Indietro</button>
+      <button id="buttonSetupBack" class="button button--ghost">Indietro</button>
     </div>
   </section>
 
   <!-- SCHERMATA 3: Gioco -->
   <section id="screenGame" class="screen">
+    <!-- In alto a sinistra: torna alle carte precedenti della serata -->
+    <button id="buttonReview" class="helpButton helpButton--left" aria-label="Carte precedenti">‹</button>
     <!-- Il "?" in alto a destra riapre la guida senza perdere la carta -->
     <button id="buttonHelp" class="helpButton" aria-label="Come si gioca">?</button>
 
@@ -111,17 +112,75 @@
       </div>
     </article>
 
-    <!-- I pulsanti di gioco: nascosti mentre una carta intensa è ancora coperta -->
-    <div id="gameActions" class="buttonGroup buttonGroup--row">
-      <button id="buttonSkipCard" class="button button--ghost">Metti in sospeso</button>
-      <button id="buttonNextTurn" class="button button--primary">Fatto, passa</button>
+    <!-- Tutti i comandi di gioco: nascosti mentre si rivedono le carte precedenti -->
+    <div id="gameControls" class="gameControls">
+      <!-- I pulsanti di gioco: nascosti mentre una carta intensa è ancora coperta -->
+      <div id="gameActions" class="buttonGroup buttonGroup--row">
+        <button id="buttonSkipCard" class="button button--ghost">Metti in sospeso</button>
+        <button id="buttonNextTurn" class="button button--primary">Fatto, passa</button>
+      </div>
+
+      <!-- Pulsanti secondari: una pausa, scendere di livello, chiudere la serata -->
+      <div class="buttonGroup buttonGroup--row">
+        <button id="buttonPause" class="button button--ghost">⏸ Pausa</button>
+        <button id="buttonGoDeeper" class="button button--ghost">Più a fondo ↓</button>
+      </div>
+      <button id="buttonCloseEvening" class="button button--ghost button--small">Chiudi la serata</button>
     </div>
 
-    <!-- Pulsanti secondari: scendere di livello quando ci si sente pronti, o chiudere la serata -->
-    <div class="buttonGroup buttonGroup--row">
-      <button id="buttonGoDeeper" class="button button--ghost">Più a fondo ↓</button>
-      <button id="buttonCloseEvening" class="button button--ghost">Chiudi la serata</button>
+    <!-- Barra per rivedere le carte precedenti: compare al posto dei comandi di gioco -->
+    <div id="reviewBar" class="reviewBar" hidden>
+      <p id="reviewLabel" class="reviewLabel"></p>
+      <div class="buttonGroup buttonGroup--row">
+        <button id="reviewPrevious" class="button button--ghost">‹ Precedente</button>
+        <button id="reviewNext" class="button button--ghost">Successiva ›</button>
+      </div>
+      <button id="reviewExit" class="button button--primary">Torna alla carta di adesso</button>
     </div>
+  </section>
+
+  <!-- PAUSA: per quando una conversazione si scalda -->
+  <section id="screenPause" class="screen">
+    <h2>Facciamo una pausa</h2>
+
+    <!-- Il cerchio che si allarga e si stringe: respirate seguendo lui -->
+    <div class="breathCircle" aria-hidden="true">
+      <span class="breathWord breathWord--in">Inspira</span>
+      <span class="breathWord breathWord--out">Espira</span>
+    </div>
+
+    <div class="pauseText">
+      <p>Va bene fermarsi. Quando una conversazione si scalda, il corpo ha bisogno di tempo per calmarsi: di solito almeno venti minuti.</p>
+      <p>Prima di allontanarvi, ditevi quando riprendete. Nel frattempo fate qualcosa che vi calma, senza ripensare alla discussione.</p>
+      <p>Quando tornate, ripartite dalla stessa carta.</p>
+    </div>
+
+    <div class="buttonGroup">
+      <button id="buttonResumeFromPause" class="button button--primary">Riprendiamo</button>
+      <button id="buttonEndFromPause" class="button button--ghost">Chiudiamo per stasera</button>
+    </div>
+  </section>
+
+  <!-- IMPOSTAZIONI -->
+  <section id="screenSettings" class="screen screen--list">
+    <h2>Impostazioni</h2>
+
+    <div class="buttonGroup">
+      <button id="settingsColors" class="button button--outline">🎨 Cambia i vostri colori</button>
+      <button id="settingsTutorial" class="button button--outline">📖 Come si gioca</button>
+      <button id="settingsHints" class="button button--outline">💡 Rivedi i suggerimenti</button>
+    </div>
+
+    <!-- La zona delicata: separata e in fondo, per non toccarla per sbaglio -->
+    <div class="dangerZone">
+      <p class="dangerTitle">Zona delicata</p>
+      <p class="listIntro">
+        Cancella colori, carte giocate, in sospeso e preferite. Non si può annullare.
+      </p>
+      <button id="buttonEraseData" class="button button--danger">Ricomincia da zero</button>
+    </div>
+
+    <button class="button button--ghost" data-target="screenHome">Indietro</button>
   </section>
 
   <!--

@@ -98,12 +98,13 @@ Anche "Chiudi la serata" a metà porta al rituale di chiusura.
 
 ## 9. Domande in sospeso
 - Una carta saltata finisce nell'elenco **condiviso** "In sospeso" (dalla home).
-- Ogni carta ha "Rispondiamo adesso": si apre come una carta normale. **Fatto** → diventa giocata ed esce dall'elenco; **Lasciala in sospeso** → resta lì.
+- Ogni carta ricorda **chi l'ha messa in sospeso** (chi la stava leggendo): nell'elenco ha il bordo del suo colore e la scritta "Messa in sospeso da [colore]".
+- Ogni carta ha "Rispondiamo adesso": si riapre **nel colore di chi l'aveva messa in sospeso** (è lui o lei a rileggerla). **Fatto** → diventa giocata ed esce dall'elenco; **Lasciala in sospeso** → resta lì.
 - Dopo una domanda saltata (durante la serata) arriva una carta bonus **☀️ Un respiro**, per sciogliere la tensione.
 
 ## 10. Preferite
 - Ogni domanda ha due cuori, uno per colore: ognuno tocca il proprio.
-- Pagina "Preferite" con tre filtri: il primo colore, il secondo colore, entrambi.
+- Pagina "Preferite" con tre filtri: **Tutte** (ogni carta con almeno un cuore, di uno o dell'altro; in cima quelle con il cuore di tutti e due), il primo colore, il secondo colore. Sotto ogni carta, i cuori di chi l'ha scelta.
 
 ## 11. Memoria e ripresa
 - Salvataggio automatico sul telefono (localStorage), a ogni carta: colori, livello, carte giocate, in sospeso, preferite, patto accettato.

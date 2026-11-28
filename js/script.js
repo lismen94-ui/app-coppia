@@ -104,10 +104,12 @@ function findColorById(colorId) {
  * --colorCurrentPlayer → chi ha il telefono adesso
  * --colorOtherPlayer   → l'altra persona (serve per le carte "insieme")
  */
-function applyTurnColors() {
-  const otherPlayer = currentPlayer === "first" ? "second" : "first";
+function applyTurnColors(playerKey = currentPlayer) {
+  // playerKey: di chi usare il colore. Di solito chi ha il telefono adesso,
+  // ma rivedendo una carta precedente usiamo il colore di chi l'aveva letta.
+  const otherPlayer = playerKey === "first" ? "second" : "first";
 
-  const currentHex = findColorById(players[currentPlayer]).hex;
+  const currentHex = findColorById(players[playerKey]).hex;
   const otherHex = findColorById(players[otherPlayer]).hex;
 
   document.documentElement.style.setProperty("--colorCurrentPlayer", currentHex);
@@ -254,9 +256,26 @@ function showCardWithRulesIfNeeded(card) {
  * @param {object} card
  */
 function displayCard(card) {
+  // Le carte della serata (non le bonus) entrano nella storia, per poterle rivedere
+  if (currentCardSource === "evening" && currentCardKind !== "bonus") {
+    const isNewCard = addToEveningHistory(card, currentCardKind, currentPlayer);
+    if (isNewCard) {
+      currentCardRevealed = false;
+    }
+  } else if (currentCardSource === "skipped") {
+    currentCardRevealed = false;
+  }
+
   renderCard(card, currentCardKind);
+
+  // Una carta intensa già scoperta resta scoperta, anche se la ridisegniamo
+  if (currentCardRevealed) {
+    setCardCovered(false);
+  }
+
   updateGoDeeperButton();
   updateGameButtons();
+  updateReviewButton();
   showScreen("screenGame");
 
   // La prima volta che compare un certo tipo di carta, un pop-up la spiega (ui.js)
@@ -273,22 +292,29 @@ function updateGameButtons() {
   const nextButton = document.getElementById("buttonNextTurn");
   const skipButton = document.getElementById("buttonSkipCard");
   const closeButton = document.getElementById("buttonCloseEvening");
+  const fromSkipped = currentCardSource === "skipped";
 
   if (currentCardKind === "bonus") {
     nextButton.textContent = "Fatto";
     skipButton.textContent = "Salta";
     closeButton.textContent = "Chiudi la serata";
-    document.getElementById("buttonGoDeeper").hidden = true;
-  } else if (currentCardSource === "skipped") {
+  } else if (fromSkipped) {
     nextButton.textContent = "Fatto";
     skipButton.textContent = "Lasciala in sospeso";
     closeButton.textContent = "Torna all'elenco";
-    document.getElementById("buttonGoDeeper").hidden = true;
   } else {
     nextButton.textContent = "Fatto, passa";
     skipButton.textContent = "Metti in sospeso";
     closeButton.textContent = "Chiudi la serata";
   }
+
+  // "Più a fondo" non serve sulle carte bonus né su quelle riaperte dalle domande in sospeso
+  if (currentCardKind === "bonus" || fromSkipped) {
+    document.getElementById("buttonGoDeeper").hidden = true;
+  }
+
+  // La pausa serve durante la serata (non quando si riapre una carta in sospeso)
+  document.getElementById("buttonPause").hidden = fromSkipped;
 }
 
 /**
@@ -539,7 +565,11 @@ function skipCardAndDrawAgain() {
  */
 function revealCard() {
   setCardCovered(false);
+  currentCardRevealed = true;
 }
+
+// La carta intensa sullo schermo è già stata scoperta?
+let currentCardRevealed = false;
 
 // ---------------------------------------------------------
 // Scendere di livello (sempre insieme)
@@ -744,8 +774,20 @@ function openFavoritesScreen() {
  * @param {string} playerKey - "first" o "second"
  */
 function onHeartClick(playerKey) {
-  toggleFavorite(currentCard.id, playerKey); // sta in storage.js (e salva)
-  updateHearts(currentCard);                 // sta in ui.js
+  const shownCard = getShownCard();
+  toggleFavorite(shownCard.id, playerKey); // sta in storage.js (e salva)
+  updateHearts(shownCard);                 // sta in ui.js
+}
+
+/**
+ * La carta che si vede adesso: quella del gioco, oppure una precedente che si sta rivedendo.
+ * @returns {object}
+ */
+function getShownCard() {
+  if (reviewIndex !== null) {
+    return evening.history[reviewIndex].card;
+  }
+  return currentCard;
 }
 
 /**
@@ -831,11 +873,173 @@ function closeTutorial() {
  * "Nuova serata": la primissima volta, prima la guida e poi la scelta dei colori.
  */
 function onNewEveningClick() {
+  setSetupMode("evening");
   if (!tutorialSeen) {
     openTutorial("screenSetup", true); // la prima volta: solo le 2 schede essenziali
   } else {
     showScreen("screenSetup");
   }
+}
+
+// =========================================================
+// RIVEDERE LE CARTE PRECEDENTI DELLA SERATA
+// =========================================================
+
+// Quale carta della storia si sta rivedendo (null = nessuna: si sta giocando)
+let reviewIndex = null;
+
+/**
+ * Il pulsante "‹" si vede solo se c'è almeno una carta precedente da rivedere.
+ */
+function updateReviewButton() {
+  const canReview = currentCardSource === "evening" && countPreviousCards() > 0;
+  document.getElementById("buttonReview").hidden = !canReview;
+}
+
+/**
+ * "‹": apre l'ultima carta precedente.
+ */
+function openReview() {
+  if (countPreviousCards() === 0) {
+    return;
+  }
+  reviewIndex = countPreviousCards() - 1;
+  showReviewCard();
+}
+
+/**
+ * Mostra la carta della storia indicata da reviewIndex,
+ * nel colore di chi l'aveva letta, già scoperta, con i cuori attivi.
+ */
+function showReviewCard() {
+  const entry = evening.history[reviewIndex];
+
+  applyTurnColors(entry.player);
+  renderCard(entry.card, entry.kind);
+  setCardCovered(false); // le carte già giocate si rileggono scoperte
+  document.getElementById("card").classList.add("card--review");
+
+  // Al posto dei comandi di gioco, la barra per muoversi tra le carte
+  document.getElementById("gameControls").hidden = true;
+  document.getElementById("reviewBar").hidden = false;
+  document.getElementById("buttonReview").hidden = true;
+  document.getElementById("buttonHelp").hidden = true;
+
+  document.getElementById("reviewLabel").textContent =
+    "Carta " + (reviewIndex + 1) + " di " + countPreviousCards() + " di stasera";
+  document.getElementById("reviewPrevious").disabled = reviewIndex === 0;
+}
+
+/**
+ * "‹ Precedente": una carta più indietro.
+ */
+function reviewPreviousCard() {
+  if (reviewIndex > 0) {
+    reviewIndex = reviewIndex - 1;
+    showReviewCard();
+  }
+}
+
+/**
+ * "Successiva ›": una carta più avanti; dopo l'ultima si torna al gioco.
+ */
+function reviewNextCard() {
+  if (reviewIndex < countPreviousCards() - 1) {
+    reviewIndex = reviewIndex + 1;
+    showReviewCard();
+  } else {
+    exitReview();
+  }
+}
+
+/**
+ * "Torna alla carta di adesso": si riprende a giocare da dove eravate.
+ */
+function exitReview() {
+  reviewIndex = null;
+  document.getElementById("card").classList.remove("card--review");
+  document.getElementById("gameControls").hidden = false;
+  document.getElementById("reviewBar").hidden = true;
+  document.getElementById("buttonHelp").hidden = false;
+
+  applyTurnColors();
+  displayCard(currentCard);
+}
+
+// =========================================================
+// PAUSA
+// =========================================================
+
+function openPause() {
+  showScreen("screenPause");
+}
+
+function resumeFromPause() {
+  // La carta è ancora lì, esattamente com'era
+  showScreen("screenGame");
+}
+
+function endFromPause() {
+  showClosingRitual();
+}
+
+// =========================================================
+// IMPOSTAZIONI E COLORI
+// =========================================================
+
+// La schermata dei colori si usa in due modi:
+// "evening" = prima di una serata (pulsante "Iniziamo");
+// "settings" = dalle impostazioni, solo per cambiare i colori (pulsante "Salva i colori").
+let setupMode = "evening";
+
+/**
+ * Prepara la schermata dei colori per uno dei due usi.
+ * @param {string} mode - "evening" o "settings"
+ */
+function setSetupMode(mode) {
+  setupMode = mode;
+  document.getElementById("buttonStartEvening").textContent =
+    mode === "settings" ? "Salva i colori" : "Iniziamo";
+}
+
+/**
+ * Il pulsante principale della schermata dei colori.
+ */
+function onSetupConfirm() {
+  if (setupMode === "settings") {
+    saveGame();
+    showScreen("screenSettings");
+  } else {
+    startEvening();
+  }
+}
+
+/**
+ * "Indietro" dalla schermata dei colori: torna da dove si era venuti.
+ */
+function onSetupBack() {
+  showScreen(setupMode === "settings" ? "screenSettings" : "screenHome");
+}
+
+function openColorSettings() {
+  setSetupMode("settings");
+  renderColorPickers();
+  showScreen("screenSetup");
+}
+
+/**
+ * "Rivedi i suggerimenti": i pop-up della prima volta ricompariranno.
+ */
+function resetHints() {
+  seenHints = [];
+  saveGame();
+  showPrompt({
+    title: "Fatto",
+    text: "I suggerimenti ricompariranno durante il gioco, uno alla volta, quando servono.",
+    buttons: [
+      { label: "Ok", style: "primary", onClick: function () { showScreen("screenSettings"); } },
+    ],
+  });
 }
 
 // =========================================================
@@ -894,13 +1098,32 @@ setupNavigationButtons();
 renderColorPickers();
 prepareDeck();
 
-document.getElementById("buttonStartEvening").addEventListener("click", startEvening);
+document.getElementById("buttonStartEvening").addEventListener("click", onSetupConfirm);
+document.getElementById("buttonSetupBack").addEventListener("click", onSetupBack);
 document.getElementById("buttonNextTurn").addEventListener("click", goToNextTurn);
 document.getElementById("buttonSkipCard").addEventListener("click", skipCardAndDrawAgain);
 document.getElementById("buttonRevealCard").addEventListener("click", revealCard);
 document.getElementById("buttonSkipCovered").addEventListener("click", skipCardAndDrawAgain);
 document.getElementById("buttonGoDeeper").addEventListener("click", goDeeperFromButton);
 document.getElementById("buttonCloseEvening").addEventListener("click", closeEvening);
+
+// Carte precedenti
+document.getElementById("buttonReview").addEventListener("click", openReview);
+document.getElementById("reviewPrevious").addEventListener("click", reviewPreviousCard);
+document.getElementById("reviewNext").addEventListener("click", reviewNextCard);
+document.getElementById("reviewExit").addEventListener("click", exitReview);
+
+// Pausa
+document.getElementById("buttonPause").addEventListener("click", openPause);
+document.getElementById("buttonResumeFromPause").addEventListener("click", resumeFromPause);
+document.getElementById("buttonEndFromPause").addEventListener("click", endFromPause);
+
+// Impostazioni
+document.getElementById("settingsColors").addEventListener("click", openColorSettings);
+document.getElementById("settingsTutorial").addEventListener("click", function () {
+  openTutorial("screenSettings");
+});
+document.getElementById("settingsHints").addEventListener("click", resetHints);
 
 // Guida "Come si gioca"
 document.getElementById("buttonNewEvening").addEventListener("click", onNewEveningClick);
