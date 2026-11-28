@@ -23,7 +23,7 @@
     "level": 1,
     "intensity": 1,
     "mode": "together",
-    "text": "Se doveste descrivere la vostra coppia a uno sconosciuto con tre parole, quali scegliereste?",
+    "text": "Se doveste descrivere la vostra coppia a qualcuno che non vi conosce, con tre parole, quali scegliereste?",
     "isFinal": false
   },
   {
@@ -50,7 +50,7 @@
     "level": 1,
     "intensity": 2,
     "mode": "self",
-    "text": "Cosa pensi che gli altri vedano di me che io non riesco a vedere?",
+    "text": "Cosa pensi che le altre persone vedano di me che io non riesco a vedere?",
     "isFinal": false
   },
   {
@@ -104,7 +104,7 @@
     "level": 1,
     "intensity": 1,
     "mode": "together",
-    "text": "In quale momento della giornata vi sentite più vicini, anche senza parlare?",
+    "text": "In quale momento della giornata sentite più vicinanza, anche senza parlare?",
     "isFinal": false
   },
   {
@@ -194,7 +194,7 @@
     "level": 1,
     "intensity": 1,
     "mode": "together",
-    "text": "Ognuno dica una cosa che ha imparato dall'altro senza accorgersene.",
+    "text": "A turno, dite una cosa che avete imparato dall'altra persona senza accorgervene.",
     "isFinal": false
   },
   {
@@ -248,7 +248,7 @@
     "level": 1,
     "intensity": 2,
     "mode": "self",
-    "text": "In quale momento della nostra storia mi hai vista o visto più vulnerabile, e cosa hai provato?",
+    "text": "In quale momento della nostra storia hai visto la mia parte più vulnerabile, e cosa hai provato?",
     "isFinal": false
   },
   {
@@ -266,7 +266,7 @@
     "level": 1,
     "intensity": 2,
     "mode": "together",
-    "text": "Ognuno dica: quale ruolo ho preso nella coppia senza averlo davvero scelto?",
+    "text": "A turno: quale ruolo ho preso nella coppia senza averlo davvero scelto?",
     "isFinal": false
   },
   {
@@ -356,7 +356,7 @@
     "level": 1,
     "intensity": 2,
     "mode": "together",
-    "text": "Ognuno completi la frase: «Con te posso finalmente…»",
+    "text": "A turno, completate la frase: «Con te posso finalmente…»",
     "isFinal": false
   },
   {
@@ -365,7 +365,7 @@
     "level": 1,
     "intensity": 2,
     "mode": "self",
-    "text": "Quando parli di me agli altri, cosa racconti?",
+    "text": "Quando parli di me alle altre persone, cosa racconti?",
     "isFinal": false
   },
   {
@@ -428,7 +428,7 @@
     "level": 1,
     "intensity": 2,
     "mode": "self",
-    "text": "Cosa dico spesso di me stesso che secondo te non è vero?",
+    "text": "Cosa dico spesso di me che secondo te non è vero?",
     "isFinal": false
   },
   {
@@ -437,7 +437,7 @@
     "level": 1,
     "intensity": 2,
     "mode": "together",
-    "text": "Cosa vi siete detti, nel tempo, senza bisogno di parole?",
+    "text": "Cosa è passato tra voi, nel tempo, senza bisogno di parole?",
     "isFinal": false
   },
   {
@@ -554,7 +554,7 @@
     "level": 2,
     "intensity": 3,
     "mode": "together",
-    "text": "Ognuno racconti un momento in cui ha avuto paura di perdere l'altro.",
+    "text": "A turno, raccontate un momento in cui avete avuto paura di perdere l'altra persona.",
     "isFinal": false
   },
   {
@@ -716,7 +716,7 @@
     "level": 2,
     "intensity": 3,
     "mode": "together",
-    "text": "Ognuno dica una cosa che deve perdonare all'altro e una che vorrebbe farsi perdonare.",
+    "text": "A turno, dite una cosa che dovete perdonare all'altra persona e una che vorreste farvi perdonare.",
     "isFinal": false
   },
   {
@@ -878,7 +878,7 @@
     "level": 2,
     "intensity": 3,
     "mode": "together",
-    "text": "Ognuno dica la frase che ha più paura di sentirsi dire dall'altro. Poi rassicuratevi a vicenda.",
+    "text": "A turno, dite la frase che avete più paura di sentirvi dire dall'altra persona. Poi rassicuratevi a vicenda.",
     "isFinal": false
   },
   {
@@ -941,7 +941,7 @@
     "level": 3,
     "intensity": 2,
     "mode": "together",
-    "text": "Qual è il vostro modo di fare pace? Funziona ancora per tutti e due?",
+    "text": "Qual è il vostro modo di fare pace? Funziona ancora per voi due?",
     "isFinal": false
   },
   {
@@ -986,7 +986,7 @@
     "level": 3,
     "intensity": 2,
     "mode": "together",
-    "text": "Ognuno dica una cosa che l'altro fa e che lo fa sentire a casa.",
+    "text": "A turno, dite una cosa che l'altra persona fa e che vi fa sentire a casa.",
     "isFinal": false
   },
   {
@@ -1013,7 +1013,7 @@
     "level": 3,
     "intensity": 3,
     "mode": "together",
-    "text": "Ognuno dica all'altro una cosa che accetta completamente di lui o di lei, e una che sta ancora imparando ad accettare.",
+    "text": "A turno, dite una cosa che accettate completamente dell'altra persona, e una che state ancora imparando ad accettare.",
     "isFinal": false
   },
   {
@@ -1058,7 +1058,7 @@
     "level": 3,
     "intensity": 2,
     "mode": "together",
-    "text": "Cosa avete superato insieme che da soli non avreste superato?",
+    "text": "Cosa avete superato insieme che separatamente non avreste superato?",
     "isFinal": false
   },
   {
@@ -1094,7 +1094,7 @@
     "level": 3,
     "intensity": 3,
     "mode": "together",
-    "text": "Prendetevi le mani. Ognuno dica una paura sulla coppia, e l'altro risponda solo: «Ti ascolto».",
+    "text": "Prendetevi le mani. A turno, dite una paura sulla coppia; chi ascolta risponde solo: «Ti ascolto».",
     "isFinal": false
   },
   {
@@ -1112,7 +1112,7 @@
     "level": 3,
     "intensity": 2,
     "mode": "self",
-    "text": "Per cosa, secondo te, non ti ho mai ringraziato abbastanza?",
+    "text": "Per cosa, secondo te, non ti ho mai detto grazie abbastanza?",
     "isFinal": false
   },
   {
@@ -1130,7 +1130,7 @@
     "level": 3,
     "intensity": 2,
     "mode": "together",
-    "text": "Ognuno ringrazi l'altro per una cosa che non ha mai nominato.",
+    "text": "A turno, ringraziate l'altra persona per una cosa che non avete mai nominato.",
     "isFinal": false
   },
   {
@@ -1220,7 +1220,7 @@
     "level": 3,
     "intensity": 3,
     "mode": "together",
-    "text": "Ognuno dica una cosa che promette di proteggere della vostra coppia.",
+    "text": "A turno, dite una cosa che promettete di proteggere della vostra coppia.",
     "isFinal": false
   },
   {
@@ -1274,7 +1274,7 @@
     "level": 3,
     "intensity": 2,
     "mode": "together",
-    "text": "Ognuno descriva il futuro della coppia con un'immagine, non con un concetto.",
+    "text": "A turno, descrivete il futuro della coppia con un'immagine, non con un concetto.",
     "isFinal": false
   },
   {
@@ -1301,7 +1301,7 @@
     "level": 3,
     "intensity": 2,
     "mode": "self",
-    "text": "Cosa mi diresti, il giorno in cui ci siamo conosciuti, sapendo quello che sai oggi?",
+    "text": "Cosa mi diresti, il giorno del nostro primo incontro, sapendo quello che sai oggi?",
     "isFinal": false
   },
   {
@@ -1337,7 +1337,7 @@
     "level": 3,
     "intensity": 3,
     "mode": "together",
-    "text": "Guardatevi negli occhi. Ognuno completi la frase: «Mi riconosco in te quando…»",
+    "text": "Guardatevi negli occhi. A turno, completate la frase: «Mi riconosco in te quando…»",
     "isFinal": false
   },
   {
@@ -1346,7 +1346,7 @@
     "level": 3,
     "intensity": 2,
     "mode": "together",
-    "text": "Avete attraversato tutto il mazzo. Ognuno dica all'altro, senza fretta, cosa ha scoperto di nuovo su di lui o su di lei in questo viaggio.",
+    "text": "Avete attraversato tutto il mazzo. A turno, senza fretta, raccontate cosa avete scoperto di nuovo sulla persona che avete accanto, in questo viaggio.",
     "isFinal": true
   }
 ]

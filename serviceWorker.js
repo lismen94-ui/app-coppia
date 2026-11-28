@@ -17,7 +17,7 @@
 
 // Il nome della "scatola" dove teniamo le copie.
 // Se un giorno serve buttare via tutte le copie vecchie, basta cambiare v1 in v2.
-const CACHE_NAME = "luna-v12"; // v12: serata salvata e tasto indietro (v11: fumetti)
+const CACHE_NAME = "luna-v13"; // v13: linguaggio neutro, menu ⋯, puntini della serata, avvio più rapido (v12: serata salvata)
 
 // I file indispensabili: li salviamo subito, alla prima apertura,
 // così l'app funziona offline anche se non avete ancora visitato ogni schermata.

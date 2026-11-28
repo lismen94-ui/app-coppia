@@ -249,7 +249,7 @@ function showCardWithRulesIfNeeded(card) {
         "Ogni carta si può mettere in sospeso.\n" +
         "Quello che viene detto qui, resta qui.",
       buttons: [
-        { label: "Siamo pronti", style: "primary", onClick: function () { displayCard(card); } },
+        { label: "Ci siamo", style: "primary", onClick: function () { displayCard(card); } },
       ],
     });
     return;
@@ -283,6 +283,7 @@ function displayCard(card) {
   updateGoDeeperButton();
   updateGameButtons();
   updateReviewButton();
+  renderEveningProgress(); // sta in ui.js
   showScreen("screenGame");
 
   // Salviamo la serata: se l'app si chiude adesso, si riprende da questa carta
@@ -399,13 +400,12 @@ function showInitialPact() {
       "di farsi accompagnare da un professionista.",
     buttons: [
       {
-        label: "Siamo pronti",
+        label: "Ci siamo",
         style: "primary",
         onClick: function () {
           pactAccepted = true;
           saveGame();
-          // Prima di partire, la presentazione del primo livello
-          showLevelIntro(currentLevel, beginEvening);
+          beginEvening();
         },
       },
       {
@@ -434,9 +434,9 @@ function askEveningMood() {
     title: "Come vi sentite stasera?",
     text: "Parlatene un attimo, e scegliete insieme.",
     buttons: [
-      { label: "🌙 Leggeri — niente carte intense", style: "outline", onClick: chooseMood("light") },
+      { label: "🌙 Serata leggera — niente carte intense", style: "outline", onClick: chooseMood("light") },
       { label: "🌗 Come viene — il ritmo normale", style: "outline", onClick: chooseMood("normal") },
-      { label: "🌕 Pronti ad andare a fondo", style: "outline", onClick: chooseMood("deep") },
+      { label: "🌕 Andiamo a fondo — più carte intense", style: "outline", onClick: chooseMood("deep") },
     ],
   });
 }
@@ -635,11 +635,11 @@ function askConsentToGoDeeper() {
     title: "Prima di scendere in " + nextLevelName,
     text:
       LEVEL_DESCRIPTIONS[nextLevel] + "\n\n" +
-      "Parlatene: vi sentite pronti tutti e due?\n" +
-      "Se anche uno solo ha dei dubbi, si resta. Non è una gara.",
+      "Parlatene: è il momento giusto per voi due?\n" +
+      "Se anche solo una persona ha dei dubbi, si resta. Non è una gara.",
     buttons: [
       {
-        label: "Siamo pronti tutti e due",
+        label: "Sì, scendiamo insieme",
         style: "primary",
         onClick: function () {
           goDeeper();
@@ -702,7 +702,7 @@ function showClosingRitual() {
   showPrompt({
     title: "Prima di salutarvi",
     text:
-      "Ognuno dica all'altro una cosa che ha apprezzato di lui o di lei stasera.\n\n" +
+      "A turno, dite una cosa che avete apprezzato stasera della persona che avete accanto.\n\n" +
       "Poi, se vi va, un abbraccio.",
     buttons: [
       {
@@ -905,6 +905,13 @@ function closeTutorial() {
  */
 function onNewEveningClick() {
   setSetupMode("evening");
+
+  // Colori già scelti: si parte subito (si cambiano dalle Impostazioni)
+  if (tutorialSeen && arePlayersChosen()) {
+    startEvening();
+    return;
+  }
+
   if (!tutorialSeen) {
     openTutorial("screenSetup", true); // la prima volta: solo le 2 schede essenziali
   } else {
@@ -1028,6 +1035,13 @@ function getActiveScreenId() {
  */
 function onBackButton() {
   const activeScreen = getActiveScreenId();
+
+  // Se il menu "⋯" è aperto, "indietro" lo chiude e basta
+  if (!document.getElementById("moreMenu").hidden) {
+    closeMoreMenu();
+    armBackGuard();
+    return;
+  }
 
   // Dalla home "indietro" esce davvero dall'app: non facciamo niente
   if (activeScreen === "screenHome") {
@@ -1168,6 +1182,7 @@ function showReviewCard() {
   document.getElementById("reviewBar").hidden = false;
   document.getElementById("buttonReview").hidden = true;
   document.getElementById("buttonHelp").hidden = true;
+  document.getElementById("eveningProgress").innerHTML = ""; // i puntini riguardano la carta di adesso
 
   document.getElementById("reviewLabel").textContent =
     "Stasera · carta " + (reviewIndex + 1) + " di " + countPreviousCards();
@@ -1208,6 +1223,18 @@ function exitReview() {
 
   applyTurnColors();
   displayCard(currentCard);
+}
+
+// =========================================================
+// MENU "⋯ ALTRO"
+// =========================================================
+
+function openMoreMenu() {
+  document.getElementById("moreMenu").hidden = false;
+}
+
+function closeMoreMenu() {
+  document.getElementById("moreMenu").hidden = true;
 }
 
 // =========================================================
@@ -1370,6 +1397,20 @@ document.addEventListener("click", function (event) {
   if (!tappedExplainable) {
     hideTooltip();
   }
+});
+
+// Menu "⋯ Altro": si apre con il pulsante; si chiude con "Annulla",
+// toccando fuori dal pannello, o scegliendo una qualsiasi azione
+document.getElementById("buttonMore").addEventListener("click", openMoreMenu);
+document.getElementById("buttonMoreCancel").addEventListener("click", closeMoreMenu);
+document.getElementById("moreMenu").addEventListener("click", function (event) {
+  // event.target è l'elemento toccato: se è lo sfondo scuro (non il pannello), chiudiamo
+  if (event.target.id === "moreMenu") {
+    closeMoreMenu();
+  }
+});
+["buttonPause", "buttonGoDeeper", "buttonCloseEvening"].forEach(function (buttonId) {
+  document.getElementById(buttonId).addEventListener("click", closeMoreMenu);
 });
 
 // Riprendere la serata e tasto "indietro" del telefono

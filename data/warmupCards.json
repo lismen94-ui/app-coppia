@@ -7,7 +7,7 @@
   {
     "id": "R02",
     "mode": "together",
-    "text": "Ognuno dica, in una parola, con che umore arriva a questa serata."
+    "text": "A turno, dite in una parola con che umore arrivate a questa serata."
   },
   {
     "id": "R03",
@@ -42,7 +42,7 @@
   {
     "id": "R09",
     "mode": "together",
-    "text": "Se questa serata fosse un colore, quale sarebbe per ciascuno di voi?"
+    "text": "Se questa serata fosse un colore, quale sarebbe? Rispondete a turno."
   },
   {
     "id": "R10",
@@ -62,12 +62,12 @@
   {
     "id": "R13",
     "mode": "together",
-    "text": "Ognuno racconti un piccolo momento della settimana che l'altro non conosce."
+    "text": "A turno, raccontate un piccolo momento della settimana che l'altra persona non conosce."
   },
   {
     "id": "R14",
     "mode": "self",
-    "text": "Come sta il tuo corpo in questo momento: stanco, teso, rilassato?"
+    "text": "Come sta il tuo corpo in questo momento: c'è stanchezza, tensione o relax?"
   },
   {
     "id": "R15",
@@ -82,7 +82,7 @@
   {
     "id": "R17",
     "mode": "together",
-    "text": "Ognuno dica una cosa per cui oggi si sente grato."
+    "text": "A turno, dite una cosa per cui oggi provate gratitudine."
   },
   {
     "id": "R18",
@@ -117,7 +117,7 @@
   {
     "id": "R24",
     "mode": "together",
-    "text": "Ognuno dica una cosa che ha notato dell'altro oggi."
+    "text": "A turno, dite una cosa che avete notato dell'altra persona oggi."
   },
   {
     "id": "R25",
@@ -137,7 +137,7 @@
   {
     "id": "R28",
     "mode": "together",
-    "text": "Abbassate una luce, mettetevi comodi e dite insieme: «Ok, ci siamo»."
+    "text": "Abbassate una luce, mettetevi a vostro agio e dite insieme: «Ok, ci siamo»."
   },
   {
     "id": "R29",
@@ -147,7 +147,7 @@
   {
     "id": "R30",
     "mode": "together",
-    "text": "Ognuno scelga una parola che vorrebbe portare in questa serata."
+    "text": "A turno, scegliete una parola da portare in questa serata."
   },
   {
     "id": "R31",
@@ -157,7 +157,7 @@
   {
     "id": "R32",
     "mode": "together",
-    "text": "Ognuno dica che tempo fa dentro di sé: sole, nuvole, pioggia o vento?"
+    "text": "A turno, dite che tempo fa dentro di voi: sole, nuvole, pioggia o vento?"
   },
   {
     "id": "R33",
@@ -192,7 +192,7 @@
   {
     "id": "R39",
     "mode": "together",
-    "text": "Ognuno dica un desiderio piccolissimo per la settimana che viene."
+    "text": "A turno, dite un desiderio piccolissimo per la settimana che viene."
   },
   {
     "id": "R40",
@@ -232,7 +232,7 @@
   {
     "id": "R47",
     "mode": "together",
-    "text": "Ognuno dica una cosa che per stasera lascia fuori dalla porta."
+    "text": "A turno, dite una cosa che per stasera lasciate fuori dalla porta."
   },
   {
     "id": "R48",
@@ -247,6 +247,6 @@
   {
     "id": "R50",
     "mode": "together",
-    "text": "Toglietevi le scarpe, mettetevi comodi e guardatevi un attimo prima di cominciare."
+    "text": "Toglietevi le scarpe, mettetevi a vostro agio e guardatevi un attimo prima di cominciare."
   }
 ]

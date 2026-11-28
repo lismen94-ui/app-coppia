@@ -8,8 +8,12 @@ Un'app per **ritrovarsi in coppia** attraverso domande profonde, con una base ps
 Si gioca in due su **un solo telefono Android**, passato di mano in mano.
 Non ci sono punteggi, vincitori o timer.
 
+## 1b. Per ogni coppia
+Tutti i testi sono **neutri rispetto al genere**: niente "lui/lei" né maschili generici riferiti alle persone. Si usano "l'altra persona", "a turno", "voi due", "insieme", "ve la sentite".
+
 ## 2. Spiegazioni: solo quando servono, solo se le chiedete
-- **La prima volta** che si preme "Nuova serata": solo **2 schede** (cos'è Luna; uno chiede, l'altro risponde) → poi la scelta dei colori.
+- **La prima volta** che si preme "Nuova serata": solo **2 schede** (un benvenuto; chi legge chiede, chi ascolta risponde) → la scelta dei colori → il patto → si gioca (la presentazione di Specchio non c'è più al primo avvio).
+- **Dalla seconda serata** "Nuova serata" parte subito, senza ripassare dai colori (si cambiano dalle Impostazioni).
 - **Alla primissima carta**, una volta sola, un fumetto discreto: "toccate le scritte sulla carta per sapere cosa significano; il «?» riapre la guida".
 - **Fumetti a richiesta**: toccando il nome del livello, i pallini o l'etichetta (🗣️/🤝/🔮) compare una piccola spiegazione. Sparisce da sola dopo 5 secondi o toccando altrove. Nessun pop-up si apre da solo durante il gioco.
 - **Guida completa (7 schede)**: "Come si gioca" sulla home e nelle Impostazioni, e il «?» durante il gioco (si torna alla stessa carta).
@@ -44,9 +48,9 @@ Ogni carta domanda ha:
 - **codice** (es. `Q001`) — solo un identificativo, NON l'ordine di gioco
 - **categoria**, **livello** (1–3), **intensità** (1–3, mostrata come ●○○ / ●●○ / ●●●)
 - **chi risponde**. Regola base: **chi tiene il telefono legge la carta ad alta voce all'altro** (le domande sono scritte in prima persona: "cosa hai notato *di me*?").
-  - 🗣️ *Leggila all'altro* — risponde l'altra persona (nei dati: `self`)
-  - 🤝 *Rispondete tutti e due* — chi legge e chi ascolta rispondono entrambi (`together`)
-  - 🔮 *L'altro indovina la tua risposta* — l'altra persona indovina la risposta di chi legge, che poi dice se ci ha preso (`guessOther`)
+  - 🗣️ *Leggila all'altra persona* — risponde chi ascolta (nei dati: `self`)
+  - 🤝 *Rispondete a turno* — rispondono tutte e due le persone, una alla volta (`together`)
+  - 🔮 *Fai indovinare la tua risposta* — l'altra persona indovina la risposta di chi legge, che poi dice se ci ha preso (`guessOther`)
   - Nelle carte **bonus** invece l'azione la fa chi tiene il telefono (🎯 Tocca a te / 🤝 Insieme).
 - **testo**
 
@@ -67,9 +71,9 @@ Una schermata da leggere e discutere insieme: perché fare questo viaggio adesso
 Ogni volta che si apre l'app inizia una **nuova serata**, anche se si era chiuso 10 minuti prima.
 1. **Riscaldamento**: 3 carte dal mazzo riscaldamento (check-in: "come arrivi stasera?")
 2. **"Come vi sentite stasera?"**: la coppia sceglie insieme l'intensità
-   - 🌙 *Leggeri*: niente carte ●●●
+   - 🌙 *Serata leggera*: niente carte ●●●
    - 🌗 *Come viene*: ogni tanto una ●●● (circa 1 su 3, se disponibili)
-   - 🌕 *Pronti ad andare a fondo*: spesso una ●●● (circa 3 su 4, se disponibili)
+   - 🌕 *Andiamo a fondo*: spesso una ●●● (circa 3 su 4, se disponibili)
 3. **Salita**: 3 domande, le più leggere disponibili nel livello
 4. **Cuore**: 5 domande, con l'intensità scelta
 5. **Discesa**: 2 domande morbide
@@ -92,6 +96,12 @@ Anche "Chiudi la serata" a metà porta al rituale di chiusura.
 - Ogni carta ●●● compare **coperta**, con "Carta intensa — siete pronti a scoprirla?" e due pulsanti: **Scopri** / **Mettila in sospeso**.
 - Dopo una ●●● arriva una carta bonus **🌙 Un momento di calma**, PRIMA di passare il telefono: la fa chi ha letto la domanda, cioè chi ha appena ascoltato la risposta.
 
+## 8a. La schermata di gioco
+- In alto: «‹» (carte precedenti), **i puntini della serata** (uno per carta: 3 di riscaldamento + 10 domande; quello di adesso nel colore di chi legge), «?» (guida).
+- Al centro: la carta.
+- Sotto: «Metti in sospeso» e «Fatto, passa».
+- **⋯ Altro**: un pannello dal basso con ⏸ Facciamo una pausa · ↓ Più a fondo · Chiudi la serata · Annulla. Si chiude toccando fuori o con "indietro".
+
 ## 8b. Tornare indietro, pausa, impostazioni
 - **Carte precedenti**: con la freccia «‹» in alto a sinistra si rivedono le carte già giocate stasera (riscaldamento e domande, non le pause). La carta si rivede scoperta, nel colore di chi l'aveva letta, con il bordo tratteggiato; si possono mettere e togliere i cuori. «‹ Precedente» / «Successiva ›» / «Torna alla carta di adesso».
 - **⏸ Pausa**: una schermata con un cerchio che guida il respiro (4 secondi dentro, 6 fuori) e un testo: fermarsi va bene, il corpo ha bisogno di almeno venti minuti per calmarsi; ditevi quando riprendete. «Riprendiamo» torna alla stessa carta; «Chiudiamo per stasera» porta al rituale di chiusura.
@@ -109,7 +119,9 @@ Anche "Chiudi la serata" a metà porta al rituale di chiusura.
 
 ## 11. Memoria e ripresa
 - Salvataggio automatico sul telefono (localStorage), a ogni carta: colori, livello, carte giocate, in sospeso, preferite, patto accettato.
-- Riaprendo l'app, i colori sono già scelti e il viaggio riprende dal livello in cui eravate. Ogni apertura è comunque una **nuova serata** (riparte dal riscaldamento).
+- Riaprendo l'app, i colori sono già scelti e il viaggio riprende dal livello in cui eravate.
+- **La serata in corso è salvata a ogni carta.** Se l'app si chiude (per sbaglio o no), sulla home compare **«Riprendi la serata»**: si torna alla stessa carta, con lo stesso colore, la stessa storia della serata e le carte intense già scoperte ancora scoperte. Vale **3 ore**; dopo, si riparte con una serata nuova (e il riscaldamento). «Nuova serata» resta sempre disponibile.
+- **Tasto "indietro" del telefono**: in partita chiede «Volete uscire dalla serata?» (la serata resta salvata); mentre si rivede una carta torna a quella di adesso; nella guida torna alla scheda precedente; nelle altre schermate torna alla home. Solo dalla home chiude l'app.
 - **Nessuna domanda si ripete** finché il mazzo non è finito.
 - Le carte di riscaldamento non si ripetono nella stessa serata né nelle ultime 5 serate.
 - Sulla home: "Siete in [livello] · N domande su 149".

@@ -13,9 +13,9 @@ const HEART_EMPTY = "♡\uFE0E";
 // La chiave (self, together, guessOther) è quella scritta nei file JSON.
 const MODE_LABELS = {
   // Etichette corte (una riga): i dettagli li spiegano i pop-up e la guida
-  self: "🗣️ Leggila all'altro",
-  together: "🤝 Rispondete tutti e due",
-  guessOther: "🔮 L'altro indovina la tua risposta",
+  self: "🗣️ Leggila all'altra persona",
+  together: "🤝 Rispondete a turno",
+  guessOther: "🔮 Fai indovinare la tua risposta",
 };
 
 // Le carte bonus invece sono azioni per chi tiene il telefono
@@ -340,7 +340,7 @@ function updateJourneyStatus() {
 // =========================================================
 const TUTORIAL_STEPS = [
   {
-    title: "Benvenuti in Luna",
+    title: "Un benvenuto a voi due",
     text:
       "Luna è un gioco di domande per ritrovarsi in coppia.\n\n" +
       "Non ci sono punti, né vincitori, né tempi. Si gioca in due, " +
@@ -348,22 +348,22 @@ const TUTORIAL_STEPS = [
       "L'unica regola vera: ascoltarsi.",
   },
   {
-    title: "Uno chiede, l'altro risponde",
+    title: "Chi legge chiede, chi ascolta risponde",
     visual: "colors",
     text:
-      "All'inizio ognuno sceglie un colore.\n\n" +
+      "All'inizio ogni persona sceglie un colore.\n\n" +
       "La carta si illumina del colore di chi tiene il telefono: " +
-      "tocca a lui o a lei leggere la domanda ad alta voce. Risponde l'altra persona.\n\n" +
-      "Poi «Fatto, passa»: il telefono passa all'altro, e adesso è lui o lei a leggere.\n\n" +
-      "Quando la carta è metà di un colore e metà dell'altro, rispondete tutti e due.",
+      "è il suo turno di leggere la domanda ad alta voce. Risponde l'altra persona.\n\n" +
+      "Poi «Fatto, passa»: il telefono passa all'altra persona, che adesso legge a sua volta.\n\n" +
+      "Quando la carta è metà di un colore e metà dell'altro, rispondete a turno.",
   },
   {
     title: "Chi risponde",
     text:
       "Sotto ogni domanda è scritto chi risponde:\n\n" +
-      "🗣️ Leggila all'altro\nLeggi la domanda: risponde l'altra persona.\n\n" +
-      "🤝 Rispondete tutti e due\nLeggi la domanda: rispondete entrambi, uno dopo l'altro.\n\n" +
-      "🔮 L'altro indovina la tua risposta\nLeggi la domanda: l'altra persona prova a indovinare cosa risponderesti tu. " +
+      "🗣️ Leggila all'altra persona\nLeggi la domanda: risponde chi ascolta.\n\n" +
+      "🤝 Rispondete a turno\nLeggi la domanda: poi rispondete, una persona alla volta.\n\n" +
+      "🔮 Fai indovinare la tua risposta\nLeggi la domanda: l'altra persona prova a indovinare cosa risponderesti tu. " +
       "Poi le dici se ci ha preso.",
   },
   {
@@ -392,16 +392,19 @@ const TUTORIAL_STEPS = [
       "Serata dopo serata, si scende più in profondità, in tre livelli:\n\n" +
       "🪞 Specchio\nCome ti vedo, come mi vedi.\n\n" +
       "🌱 Radici\nSogni, paure, cose non dette.\n\n" +
-      "🏡 Rifugio\nSentirsi al sicuro, prendersi cura l'uno dell'altra.\n\n" +
-      "Si passa al livello successivo solo quando siete pronti tutti e due.",
+      "🏡 Rifugio\nSentirsi al sicuro, prendersi cura a vicenda.\n\n" +
+      "Si passa al livello successivo solo quando lo scegliete insieme.",
   },
   {
     title: "I pulsanti",
     text:
-      "Fatto, passa\nLa risposta è arrivata: il telefono passa all'altro, che ora legge a te.\n\n" +
+      "Fatto, passa\nLa risposta è arrivata: il telefono passa all'altra persona, che ora legge a te.\n\n" +
       "Metti in sospeso\nLa domanda è troppo difficile adesso? La ritrovate nella pagina \"In sospeso\".\n\n" +
       "♡\nIl cuore del tuo colore: la carta finisce tra le Preferite.\n\n" +
-      "Più a fondo ↓\nPer passare al livello successivo, se vi sentite pronti.\n\n" +
+      "⋯ Altro\nUna pausa quando serve, il passaggio al livello successivo quando ve la sentite, " +
+      "e la chiusura della serata.\n\n" +
+      "‹\nPer rivedere le carte già giocate stasera.\n\n" +
+      "I puntini in alto\nQuante carte mancano alla fine della serata.\n\n" +
       "?\nPer rileggere questa guida durante il gioco.\n\n" +
       "Un dubbio su una carta? Toccate le scritte (il livello, i pallini, l'etichetta): " +
       "compare una piccola spiegazione.",
@@ -418,8 +421,8 @@ function getTutorialColors() {
     return { first: findColorById(players.first), second: findColorById(players.second) };
   }
   return {
-    first: { name: "uno", hex: "#6fd0ff" },
-    second: { name: "l'altro", hex: "#a08cff" },
+    first: { name: "Azzurro", hex: "#6fd0ff" },
+    second: { name: "Lilla", hex: "#a08cff" },
   };
 }
 
@@ -498,7 +501,7 @@ function renderTutorialStep(stepIndex, totalSteps, lastButtonLabel) {
 // Cosa dicono i fumetti per ogni modalità (la chiave è quella dei file JSON)
 const MODE_EXPLANATIONS = {
   self: "Leggi la domanda ad alta voce: risponde l'altra persona. Poi «Fatto, passa».",
-  together: "Leggi la domanda: rispondete tutti e due, uno dopo l'altro.",
+  together: "Leggi la domanda: poi rispondete a turno, una persona alla volta.",
   guessOther: "Leggi la domanda: l'altra persona prova a indovinare cosa risponderesti tu. Poi le dici se ci ha preso.",
 };
 
@@ -512,7 +515,7 @@ const BONUS_MODE_EXPLANATIONS = {
 const LEVEL_SHORT_EXPLANATIONS = {
   1: "Specchio, il primo livello: come ti vedo, come mi vedi.",
   2: "Radici, il secondo livello: sogni, paure, cose non dette.",
-  3: "Rifugio, il terzo livello: sentirsi al sicuro, prendersi cura l'uno dell'altra.",
+  3: "Rifugio, il terzo livello: sentirsi al sicuro, prendersi cura a vicenda.",
 };
 
 // Per far sparire il fumetto da solo dopo qualche secondo
@@ -539,7 +542,7 @@ function getExplanation(part, card, kind) {
     return "Riscaldamento: 3 carte leggere per arrivare alla serata e raccontarvi la giornata.";
   }
   if (kind === "bonus") {
-    return "Una pausa: un gesto o un respiro, per stare vicini. Fatela o saltatela, come vi va.";
+    return "Una pausa: un gesto o un respiro, per restare in contatto. Fatela o saltatela, come vi va.";
   }
   if (card.isFinal) {
     return "L'ultima carta del viaggio.";
@@ -575,4 +578,49 @@ function showTooltip(element, text) {
 
 function hideTooltip() {
   document.getElementById("tooltip").hidden = true;
+}
+
+// =========================================================
+// A CHE PUNTO DELLA SERATA
+// Una fila di puntini in alto: uno per ogni carta della serata.
+// Quelli già giocati sono più chiari, quello di adesso ha il colore di chi legge.
+// =========================================================
+
+/**
+ * Disegna i puntini della serata.
+ * Serata normale: 3 di riscaldamento + 10 domande = 13 puntini.
+ * Dopo "Continuiamo": un nuovo giro più corto (7 puntini).
+ */
+function renderEveningProgress() {
+  const container = document.getElementById("eveningProgress");
+  container.innerHTML = "";
+
+  // Solo durante la serata (non quando si riapre una carta in sospeso)
+  if (currentCardSource !== "evening") {
+    return;
+  }
+
+  let totalDots;
+  let doneDots;
+  if (evening.isContinuation) {
+    totalDots = getSegmentLength();
+    doneDots = evening.questionsDone - evening.segmentStart;
+  } else {
+    totalDots = WARMUP_CARDS_PER_EVENING + getSegmentLength();
+    doneDots = evening.warmupsDone + evening.questionsDone;
+  }
+
+  // Durante una carta bonus nessun puntino è "quello di adesso": è una pausa
+  const isOnRegularCard = currentCardKind !== "bonus";
+
+  for (let index = 0; index < totalDots; index = index + 1) {
+    const dot = document.createElement("span");
+    dot.className = "progressDot";
+    if (index < doneDots) {
+      dot.classList.add("progressDot--done");
+    } else if (index === doneDots && isOnRegularCard) {
+      dot.classList.add("progressDot--current");
+    }
+    container.appendChild(dot);
+  }
 }

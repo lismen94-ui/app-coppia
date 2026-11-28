@@ -14,13 +14,13 @@ const LEVEL_NAMES = {
 // La presentazione di ogni livello: compare quando ci si entra.
 const LEVEL_DESCRIPTIONS = {
   1: "Prima di guardarvi dentro, guardatevi.\n" +
-     "Qui scoprite come vi vede l'altro: le piccole cose che nota, " +
+     "Qui scoprite come vi vede l'altra persona: le piccole cose che nota, " +
      "quello che dà per scontato, quello che non vi ha mai detto.",
   2: "Qui si scende sotto la superficie: sogni messi da parte, paure, rinunce, cose non dette.\n" +
      "Alcune domande saranno intense. Andate piano: non c'è fretta e non c'è una risposta giusta.",
   3: "Dopo aver visto le radici, si costruisce il rifugio: " +
      "cosa vi fa sentire al sicuro, di cosa avete bisogno, " +
-     "come prendervi cura l'uno dell'altra.",
+     "come prendervi cura a vicenda.",
 };
 
 // =========================================================

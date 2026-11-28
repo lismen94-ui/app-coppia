@@ -86,6 +86,9 @@
     <!-- Il "?" in alto a destra riapre la guida senza perdere la carta -->
     <button id="buttonHelp" class="helpButton" aria-label="Come si gioca">?</button>
 
+    <!-- In alto al centro: a che punto della serata siete (un puntino per carta) -->
+    <div id="eveningProgress" class="eveningProgress" aria-hidden="true"></div>
+
     <!-- La carta: i testi vengono riempiti dalla funzione renderCard() in js/ui.js -->
     <article id="card" class="card">
       <div class="cardHeader">
@@ -106,7 +109,7 @@
       <div class="cardCover">
         <p class="cardCoverIntensity">●●●</p>
         <p class="cardCoverTitle">Carta intensa</p>
-        <p class="cardCoverText">Siete pronti a scoprirla?</p>
+        <p class="cardCoverText">Ve la sentite di scoprirla?</p>
         <div class="buttonGroup">
           <button id="buttonRevealCard" class="button button--primary">Scopri</button>
           <button id="buttonSkipCovered" class="button button--ghost">Mettila in sospeso</button>
@@ -122,12 +125,8 @@
         <button id="buttonNextTurn" class="button button--primary">Fatto, passa</button>
       </div>
 
-      <!-- Pulsanti secondari: una pausa, scendere di livello, chiudere la serata -->
-      <div class="buttonGroup buttonGroup--row">
-        <button id="buttonPause" class="button button--ghost">⏸ Pausa</button>
-        <button id="buttonGoDeeper" class="button button--ghost">Più a fondo ↓</button>
-      </div>
-      <button id="buttonCloseEvening" class="button button--ghost button--small">Chiudi la serata</button>
+      <!-- Le azioni meno frequenti stanno nel menu "⋯", per tenere la schermata tranquilla -->
+      <button id="buttonMore" class="button button--ghost button--small">⋯ Altro</button>
     </div>
 
     <!-- Barra per rivedere le carte precedenti: compare al posto dei comandi di gioco -->
@@ -140,6 +139,20 @@
       <button id="reviewExit" class="button button--primary">Torna alla carta di adesso</button>
     </div>
   </section>
+
+  <!--
+    MENU "⋯ ALTRO"
+    Un pannello che sale dal basso, sopra la schermata di gioco.
+    Si chiude toccando un'azione o fuori dal pannello.
+  -->
+  <div id="moreMenu" class="moreMenu" hidden>
+    <div class="moreMenuPanel">
+      <button id="buttonPause" class="button button--outline">⏸ Facciamo una pausa</button>
+      <button id="buttonGoDeeper" class="button button--outline">↓ Più a fondo</button>
+      <button id="buttonCloseEvening" class="button button--outline">Chiudi la serata</button>
+      <button id="buttonMoreCancel" class="button button--ghost">Annulla</button>
+    </div>
+  </div>
 
   <!-- PAUSA: per quando una conversazione si scalda -->
   <section id="screenPause" class="screen">
@@ -219,7 +232,7 @@
   <!-- SCHERMATA 4: Domande in sospeso -->
   <section id="screenSkipped" class="screen screen--list">
     <h2>In sospeso</h2>
-    <p class="listIntro">Le domande che avete messo da parte. Riapritele quando vi sentite pronti.</p>
+    <p class="listIntro">Le domande che avete messo da parte. Riapritele quando ve la sentite.</p>
     <!-- L'elenco viene creato dal JavaScript (renderSkippedList in ui.js) -->
     <div id="skippedList" class="cardList"></div>
     <button class="button button--ghost" data-target="screenHome">Indietro</button>

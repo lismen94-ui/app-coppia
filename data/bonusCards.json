@@ -21,7 +21,7 @@
     "id": "B04",
     "type": "calm",
     "mode": "self",
-    "text": "Chiudi gli occhi: l'altro ti accarezza la mano finché non li riapri."
+    "text": "Chiudi gli occhi: l'altra persona ti accarezza la mano finché non li riapri."
   },
   {
     "id": "B05",
@@ -39,7 +39,7 @@
     "id": "B07",
     "type": "calm",
     "mode": "self",
-    "text": "Appoggia la mano sul cuore dell'altro e ascolta il battito per un po'."
+    "text": "Appoggia la mano sul cuore dell'altra persona e ascolta il battito per un po'."
   },
   {
     "id": "B08",
@@ -51,7 +51,7 @@
     "id": "B09",
     "type": "calm",
     "mode": "self",
-    "text": "Massaggia per un minuto le spalle dell'altro."
+    "text": "Massaggia per un minuto le spalle dell'altra persona."
   },
   {
     "id": "B10",
@@ -63,19 +63,19 @@
     "id": "B11",
     "type": "calm",
     "mode": "self",
-    "text": "Scrivi tre parole che descrivono l'altro e mostragliele."
+    "text": "Scrivi tre parole che descrivono l'altra persona e mostragliele."
   },
   {
     "id": "B12",
     "type": "calm",
     "mode": "self",
-    "text": "Di' all'altro una cosa che ammiri di come ha appena risposto."
+    "text": "Di' all'altra persona una cosa che ammiri di come ha appena risposto."
   },
   {
     "id": "B13",
     "type": "calm",
     "mode": "together",
-    "text": "Ognuno dica all'altro: «Grazie per avermelo detto»."
+    "text": "A turno, ditevi: «Grazie per avermelo detto»."
   },
   {
     "id": "B14",
@@ -87,49 +87,49 @@
     "id": "B15",
     "type": "calm",
     "mode": "self",
-    "text": "Di' all'altro una cosa di cui sei certo, o certa, su di voi."
+    "text": "Di' all'altra persona una certezza che hai su di voi."
   },
   {
     "id": "B16",
     "type": "calm",
     "mode": "self",
-    "text": "Sussurra all'orecchio dell'altro una cosa che ti piace di lui o di lei."
+    "text": "Sussurra all'orecchio dell'altra persona una cosa che ti piace del suo modo di essere."
   },
   {
     "id": "B17",
     "type": "calm",
     "mode": "self",
-    "text": "Chiedi all'altro «Di cosa hai bisogno adesso?» e ascolta senza commentare."
+    "text": "Chiedi all'altra persona «Di cosa hai bisogno adesso?» e ascolta senza commentare."
   },
   {
     "id": "B18",
     "type": "calm",
     "mode": "together",
-    "text": "Una mano ciascuno sul petto: notate come respirate dopo questa domanda."
+    "text": "Una mano a testa sul petto: notate come respirate dopo questa domanda."
   },
   {
     "id": "B19",
     "type": "calm",
     "mode": "self",
-    "text": "Rassicura l'altro con una frase che inizia con «Io resto…»"
+    "text": "Rassicura l'altra persona con una frase che inizia con «Io resto…»"
   },
   {
     "id": "B20",
     "type": "calm",
     "mode": "together",
-    "text": "Ognuno dica: «La cosa che ho sentito di più da te è…»"
+    "text": "A turno, ditevi: «La cosa che ho sentito di più da te è…»"
   },
   {
     "id": "B21",
     "type": "calm",
     "mode": "self",
-    "text": "Ripeti con parole tue quello che l'altro ha appena detto. L'altro ti dice se hai capito bene."
+    "text": "Ripeti con parole tue quello che l'altra persona ha appena detto. Poi ti dice se hai capito bene."
   },
   {
     "id": "B22",
     "type": "calm",
     "mode": "self",
-    "text": "Di' all'altro: «Non devi spiegarmi niente adesso. Sono qui»."
+    "text": "Di' all'altra persona: «Non devi spiegarmi niente adesso. Sono qui»."
   },
   {
     "id": "B23",
@@ -147,7 +147,7 @@
     "id": "B25",
     "type": "calm",
     "mode": "self",
-    "text": "Prometti all'altro un piccolo gesto concreto per domani."
+    "text": "Prometti all'altra persona un piccolo gesto concreto per domani."
   },
   {
     "id": "B26",
@@ -159,7 +159,7 @@
     "id": "B27",
     "type": "breath",
     "mode": "self",
-    "text": "Imita l'altro mentre fa una cosa tipica sua. Con affetto."
+    "text": "Imita l'altra persona mentre fa una cosa tipica sua. Con affetto."
   },
   {
     "id": "B28",
@@ -177,7 +177,7 @@
     "id": "B30",
     "type": "breath",
     "mode": "self",
-    "text": "Fai una smorfia all'altro finché non sorride."
+    "text": "Fai una smorfia all'altra persona finché non sorride."
   },
   {
     "id": "B31",
@@ -189,19 +189,19 @@
     "id": "B32",
     "type": "breath",
     "mode": "self",
-    "text": "Racconta un episodio della tua infanzia che farebbe ridere l'altro."
+    "text": "Racconta un episodio della tua infanzia che farebbe ridere l'altra persona."
   },
   {
     "id": "B33",
     "type": "breath",
     "mode": "self",
-    "text": "Prepara qualcosa da bere per l'altro, poi tornate a giocare."
+    "text": "Prepara qualcosa da bere per l'altra persona, poi tornate a giocare."
   },
   {
     "id": "B34",
     "type": "breath",
     "mode": "together",
-    "text": "Alzatevi, sgranchitevi e tornate a sedervi più vicini."
+    "text": "Alzatevi, sgranchitevi e tornate a sedervi più vicino."
   },
   {
     "id": "B35",
@@ -213,19 +213,19 @@
     "id": "B36",
     "type": "breath",
     "mode": "together",
-    "text": "Ognuno dica una cosa per cui oggi è grato all'altro."
+    "text": "A turno, dite una cosa per cui oggi provate gratitudine verso l'altra persona."
   },
   {
     "id": "B37",
     "type": "breath",
     "mode": "self",
-    "text": "Ringrazia l'altro per una cosa che ha fatto questa settimana."
+    "text": "Ringrazia l'altra persona per una cosa che ha fatto questa settimana."
   },
   {
     "id": "B38",
     "type": "breath",
     "mode": "together",
-    "text": "Ognuno dica un momento di questa serata che vuole ricordare."
+    "text": "A turno, dite un momento di questa serata che volete ricordare."
   },
   {
     "id": "B39",
@@ -237,7 +237,7 @@
     "id": "B40",
     "type": "breath",
     "mode": "self",
-    "text": "Scrivi un biglietto di una riga e nascondilo dove l'altro lo troverà domani."
+    "text": "Scrivi un biglietto di una riga e nascondilo dove l'altra persona lo troverà domani."
   },
   {
     "id": "B41",
@@ -249,13 +249,13 @@
     "id": "B42",
     "type": "breath",
     "mode": "self",
-    "text": "Scrivi adesso all'altro un messaggio da leggere domani mattina."
+    "text": "Scrivi adesso all'altra persona un messaggio da leggere domani mattina."
   },
   {
     "id": "B43",
     "type": "breath",
     "mode": "self",
-    "text": "Disegna l'altro in trenta secondi, senza guardare il foglio."
+    "text": "Disegna l'altra persona in trenta secondi, senza guardare il foglio."
   },
   {
     "id": "B44",
@@ -267,31 +267,31 @@
     "id": "B45",
     "type": "breath",
     "mode": "self",
-    "text": "Descrivi l'altro come se fosse un paesaggio."
+    "text": "Descrivi l'altra persona come se fosse un paesaggio."
   },
   {
     "id": "B46",
     "type": "breath",
     "mode": "together",
-    "text": "Ognuno scelga un oggetto nella stanza che rappresenta l'altro e spieghi perché."
+    "text": "A turno, scegliete un oggetto nella stanza che rappresenta l'altra persona e spiegate perché."
   },
   {
     "id": "B47",
     "type": "breath",
     "mode": "together",
-    "text": "Al tre, ditevi insieme la prima parola che vi viene in mente sull'altro."
+    "text": "Al tre, ditevi insieme la prima parola che vi viene in mente sull'altra persona."
   },
   {
     "id": "B48",
     "type": "breath",
     "mode": "self",
-    "text": "Racconta all'altro come vi descriveresti a un vostro amico."
+    "text": "Racconta all'altra persona come vi descriveresti a qualcuno di cui ti fidi."
   },
   {
     "id": "B49",
     "type": "breath",
     "mode": "together",
-    "text": "Ognuno dica una qualità dell'altro che inizia con la propria iniziale."
+    "text": "A turno, dite una qualità dell'altra persona che inizia con la vostra iniziale."
   },
   {
     "id": "B50",

@@ -900,3 +900,71 @@ h2 {
   border: 2px solid var(--itemColor);
   box-shadow: 0 0 16px -6px var(--itemColor);
 }
+
+/* =========================================================
+   MENU "⋯ ALTRO"
+   ========================================================= */
+.moreMenu {
+  position: fixed;
+  inset: 0;
+  z-index: 10;
+  display: flex;
+  align-items: flex-end;          /* il pannello sta in basso, dove arriva il pollice */
+  justify-content: center;
+  padding: 16px;
+  background-color: rgba(5, 7, 26, 0.6);
+}
+
+.moreMenuPanel {
+  width: 100%;
+  max-width: 440px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  padding: 18px;
+  border-radius: 20px;
+  background: linear-gradient(160deg, var(--cardTop), var(--cardBottom));
+  border: 1px solid rgba(160, 140, 255, 0.35);
+  animation: menuSlideUp 0.25s ease;
+}
+
+@keyframes menuSlideUp {
+  from { transform: translateY(24px); opacity: 0; }
+  to   { transform: translateY(0); opacity: 1; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .moreMenuPanel {
+    animation: none;
+  }
+}
+
+/* =========================================================
+   A CHE PUNTO DELLA SERATA: una fila di puntini
+   ========================================================= */
+.eveningProgress {
+  position: absolute;
+  top: 31px;
+  left: 50%;
+  transform: translateX(-50%);   /* centrato orizzontalmente */
+  display: flex;
+  gap: 5px;
+}
+
+.progressDot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background-color: rgba(163, 166, 214, 0.25);
+}
+
+/* Le carte già giocate stasera */
+.progressDot--done {
+  background-color: rgba(163, 166, 214, 0.6);
+}
+
+/* La carta di adesso: nel colore di chi legge, con un piccolo alone */
+.progressDot--current {
+  background-color: var(--colorCurrentPlayer);
+  box-shadow: 0 0 6px var(--colorCurrentPlayer);
+}

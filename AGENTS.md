@@ -32,6 +32,7 @@ Queste regole valgono per qualsiasi agente che lavora in questa cartella (Antigr
 - `docs/` — GDD, piano di sviluppo, testo del mazzo
 
 ## Contenuto
+- **Linguaggio neutro e inclusivo**: Luna è per ogni coppia. Mai "lui/lei", mai maschili generici riferiti alle persone ("l'altro", "ognuno", "pronti", "tutti e due"). Usare "l'altra persona", "a turno", "voi due", "insieme", "ve la sentite".
 - Le carte sono testi originali scritti per questo progetto. Non inserire domande copiate da altri giochi.
 - Il testo delle carte si modifica in `data/*.json`, non nel codice.
 
