@@ -28,6 +28,9 @@ function showScreen(screenId) {
   // 4. Solo a lei rimettiamo la classe "attiva"
   targetScreen.classList.add("screen--active");
 
+  // Se c'era un fumetto di spiegazione aperto, lo chiudiamo
+  hideTooltip(); // sta in ui.js
+
   // 5. Le schermate partono sempre dall'alto (utile per gli elenchi lunghi)
   window.scrollTo(0, 0);
 
@@ -278,8 +281,8 @@ function displayCard(card) {
   updateReviewButton();
   showScreen("screenGame");
 
-  // La prima volta che compare un certo tipo di carta, un pop-up la spiega (ui.js)
-  showHints(getHintsToShow(card, currentCardKind));
+  // Una sola volta, alla primissima carta: un suggerimento discreto
+  showFirstTimeTip();
 }
 
 /**
@@ -882,6 +885,47 @@ function onNewEveningClick() {
 }
 
 // =========================================================
+// SPIEGAZIONI A RICHIESTA (fumetti)
+// =========================================================
+
+/**
+ * Si è toccata una scritta sulla carta: mostriamo il fumetto con la spiegazione.
+ * Funziona anche sulle carte precedenti che si stanno rivedendo.
+ * @param {string} part - "level", "intensity" o "mode"
+ * @param {HTMLElement} element - la scritta toccata
+ */
+function explainCardPart(part, element) {
+  const shownCard = getShownCard();
+  const shownKind = reviewIndex !== null ? evening.history[reviewIndex].kind : currentCardKind;
+
+  // Se la scritta è vuota (es. niente pallini sul riscaldamento) non c'è niente da spiegare
+  if (element.textContent.trim() === "") {
+    return;
+  }
+  showTooltip(element, getExplanation(part, shownCard, shownKind));
+}
+
+/**
+ * Alla primissima carta (una volta sola) un fumetto suggerisce
+ * che le scritte sulla carta si possono toccare.
+ */
+function showFirstTimeTip() {
+  if (seenHints.includes("tapTip") || currentCardSource !== "evening") {
+    return;
+  }
+  markHintAsSeen("tapTip"); // sta in storage.js
+
+  // Aspettiamo un attimo che la carta sia disegnata, poi mostriamo il fumetto
+  setTimeout(function () {
+    showTooltip(
+      document.getElementById("cardMode"),
+      "Suggerimento: toccate le scritte sulla carta per sapere cosa significano. " +
+      "Il «?» in alto riapre la guida."
+    );
+  }, 600);
+}
+
+// =========================================================
 // RIVEDERE LE CARTE PRECEDENTI DELLA SERATA
 // =========================================================
 
@@ -926,7 +970,7 @@ function showReviewCard() {
   document.getElementById("buttonHelp").hidden = true;
 
   document.getElementById("reviewLabel").textContent =
-    "Carta " + (reviewIndex + 1) + " di " + countPreviousCards() + " di stasera";
+    "Stasera · carta " + (reviewIndex + 1) + " di " + countPreviousCards();
   document.getElementById("reviewPrevious").disabled = reviewIndex === 0;
 }
 
@@ -1035,7 +1079,7 @@ function resetHints() {
   saveGame();
   showPrompt({
     title: "Fatto",
-    text: "I suggerimenti ricompariranno durante il gioco, uno alla volta, quando servono.",
+    text: "Il suggerimento iniziale ricomparirà alla prossima carta.",
     buttons: [
       { label: "Ok", style: "primary", onClick: function () { showScreen("screenSettings"); } },
     ],
@@ -1106,6 +1150,26 @@ document.getElementById("buttonRevealCard").addEventListener("click", revealCard
 document.getElementById("buttonSkipCovered").addEventListener("click", skipCardAndDrawAgain);
 document.getElementById("buttonGoDeeper").addEventListener("click", goDeeperFromButton);
 document.getElementById("buttonCloseEvening").addEventListener("click", closeEvening);
+
+// Fumetti: toccando le scritte della carta
+document.getElementById("cardLevel").addEventListener("click", function (event) {
+  explainCardPart("level", event.currentTarget);
+});
+document.getElementById("cardIntensity").addEventListener("click", function (event) {
+  explainCardPart("intensity", event.currentTarget);
+});
+document.getElementById("cardMode").addEventListener("click", function (event) {
+  explainCardPart("mode", event.currentTarget);
+});
+
+// Toccando un punto qualsiasi fuori dalle scritte, il fumetto si chiude.
+// closest() cerca se l'elemento toccato (o un suo "genitore") è una delle scritte.
+document.addEventListener("click", function (event) {
+  const tappedExplainable = event.target.closest("#cardLevel, #cardIntensity, #cardMode");
+  if (!tappedExplainable) {
+    hideTooltip();
+  }
+});
 
 // Carte precedenti
 document.getElementById("buttonReview").addEventListener("click", openReview);

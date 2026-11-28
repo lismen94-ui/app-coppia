@@ -96,6 +96,11 @@ Anche "Chiudi la serata" a metà porta al rituale di chiusura.
 - Ogni carta ●●● compare **coperta**, con "Carta intensa — siete pronti a scoprirla?" e due pulsanti: **Scopri** / **Mettila in sospeso**.
 - Dopo una ●●● arriva una carta bonus **🌙 Un momento di calma**, PRIMA di passare il telefono: la fa chi ha letto la domanda, cioè chi ha appena ascoltato la risposta.
 
+## 8b. Tornare indietro, pausa, impostazioni
+- **Carte precedenti**: con la freccia «‹» in alto a sinistra si rivedono le carte già giocate stasera (riscaldamento e domande, non le pause). La carta si rivede scoperta, nel colore di chi l'aveva letta, con il bordo tratteggiato; si possono mettere e togliere i cuori. «‹ Precedente» / «Successiva ›» / «Torna alla carta di adesso».
+- **⏸ Pausa**: una schermata con un cerchio che guida il respiro (4 secondi dentro, 6 fuori) e un testo: fermarsi va bene, il corpo ha bisogno di almeno venti minuti per calmarsi; ditevi quando riprendete. «Riprendiamo» torna alla stessa carta; «Chiudiamo per stasera» porta al rituale di chiusura.
+- **⚙️ Impostazioni** (dalla home): cambia i vostri colori · come si gioca · rivedi i suggerimenti · **zona delicata** con «Ricomincia da zero» (con conferma).
+
 ## 9. Domande in sospeso
 - Una carta saltata finisce nell'elenco **condiviso** "In sospeso" (dalla home).
 - Ogni carta ricorda **chi l'ha messa in sospeso** (chi la stava leggendo): nell'elenco ha il bordo del suo colore e la scritta "Messa in sospeso da [colore]".
@@ -112,7 +117,7 @@ Anche "Chiudi la serata" a metà porta al rituale di chiusura.
 - **Nessuna domanda si ripete** finché il mazzo non è finito.
 - Le carte di riscaldamento non si ripetono nella stessa serata né nelle ultime 5 serate.
 - Sulla home: "Siete in [livello] · N domande su 149".
-- "Ricomincia da zero" (con conferma) cancella tutto.
+- "Ricomincia da zero" (nelle Impostazioni, zona delicata, con conferma) cancella tutto.
 - A fine mazzo: "Avete completato il viaggio" → si può ricominciare (le preferite e le carte in sospeso restano).
 
 ## 12. Grafica

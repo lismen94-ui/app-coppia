@@ -168,7 +168,7 @@
     <div class="buttonGroup">
       <button id="settingsColors" class="button button--outline">🎨 Cambia i vostri colori</button>
       <button id="settingsTutorial" class="button button--outline">📖 Come si gioca</button>
-      <button id="settingsHints" class="button button--outline">💡 Rivedi i suggerimenti</button>
+      <button id="settingsHints" class="button button--outline">💡 Rivedi il suggerimento iniziale</button>
     </div>
 
     <!-- La zona delicata: separata e in fondo, per non toccarla per sbaglio -->
@@ -237,19 +237,12 @@
   </section>
 
   <!--
-    POP-UP "LA PRIMA VOLTA CHE…"
-    Un riquadro che compare SOPRA la schermata (la carta resta visibile dietro).
-    Testi e comportamento: FIRST_TIME_HINTS e showHints() in js/ui.js.
+    FUMETTO DI SPIEGAZIONE
+    Compare quando si tocca una scritta sulla carta (livello, pallini, etichetta).
+    Posizione e testo li decide showTooltip() in js/ui.js.
   -->
-  <div id="hintOverlay" class="hintOverlay" hidden>
-    <div class="hintBox" role="dialog" aria-labelledby="hintTitle">
-      <div class="hintHeader">
-        <p id="hintTitle" class="hintTitle"></p>
-        <p id="hintCounter" class="hintCounter"></p>
-      </div>
-      <p id="hintText" class="hintText"></p>
-      <button id="hintOkButton" class="button button--primary">Ho capito</button>
-    </div>
+  <div id="tooltip" class="tooltip" role="status" hidden>
+    <p id="tooltipText" class="tooltipText"></p>
   </div>
 
   <!--
