@@ -41,9 +41,10 @@
 
     <div class="buttonGroup">
       <!-- data-target dice a quale schermata porta il pulsante -->
-      <button class="button button--primary" data-target="screenSetup">Nuova serata</button>
+      <button id="buttonNewEvening" class="button button--primary">Nuova serata</button>
       <button id="buttonOpenSkipped" class="button">In sospeso</button>
       <button id="buttonOpenFavorites" class="button">Preferite</button>
+      <button id="buttonOpenTutorial" class="button button--ghost">Come si gioca</button>
     </div>
 
     <button id="buttonEraseData" class="button button--ghost button--small">Ricomincia da zero</button>
@@ -52,6 +53,10 @@
   <!-- SCHERMATA 2: Scelta dei colori -->
   <section id="screenSetup" class="screen">
     <h2>Scegliete i vostri colori</h2>
+    <p class="listIntro">
+      Durante il gioco la carta si illumina del colore di chi deve rispondere:
+      così sapete sempre a chi passare il telefono.
+    </p>
 
     <!-- I pallini colorati vengono creati dal JavaScript (funzione renderColorPickers in script.js) -->
     <div class="colorPicker">
@@ -75,6 +80,9 @@
 
   <!-- SCHERMATA 3: Gioco -->
   <section id="screenGame" class="screen">
+    <!-- Il "?" in alto a destra riapre la guida senza perdere la carta -->
+    <button id="buttonHelp" class="helpButton" aria-label="Come si gioca">?</button>
+
     <!-- La carta: i testi vengono riempiti dalla funzione renderCard() in js/ui.js -->
     <article id="card" class="card">
       <div class="cardHeader">
@@ -128,6 +136,24 @@
     <div id="promptButtons" class="buttonGroup"></div>
   </section>
 
+  <!--
+    GUIDA "COME SI GIOCA"
+    Una schermata a schede: il contenuto di ogni scheda sta in js/ui.js (TUTORIAL_STEPS)
+    e viene disegnato dalla funzione renderTutorialStep().
+  -->
+  <section id="screenTutorial" class="screen">
+    <p id="tutorialCounter" class="tutorialCounter"></p>
+    <h2 id="tutorialTitle"></h2>
+    <div id="tutorialVisual" class="tutorialVisual"></div>
+    <p id="tutorialText" class="tutorialText"></p>
+    <div id="tutorialDots" class="tutorialDots"></div>
+    <div class="buttonGroup buttonGroup--row">
+      <button id="tutorialBack" class="button button--ghost">Indietro</button>
+      <button id="tutorialNext" class="button button--primary">Avanti</button>
+    </div>
+    <button id="tutorialSkip" class="button button--ghost button--small">Salta la spiegazione</button>
+  </section>
+
   <!-- SCHERMATA 4: Domande in sospeso -->
   <section id="screenSkipped" class="screen screen--list">
     <h2>In sospeso</h2>
@@ -149,6 +175,19 @@
     <div id="favoritesList" class="cardList"></div>
     <button class="button button--ghost" data-target="screenHome">Indietro</button>
   </section>
+
+  <!--
+    POP-UP "LA PRIMA VOLTA CHE…"
+    Un riquadro che compare SOPRA la schermata (la carta resta visibile dietro).
+    Testi e comportamento: FIRST_TIME_HINTS e showHints() in js/ui.js.
+  -->
+  <div id="hintOverlay" class="hintOverlay" hidden>
+    <div class="hintBox" role="dialog" aria-labelledby="hintTitle">
+      <p id="hintTitle" class="hintTitle"></p>
+      <p id="hintText" class="hintText"></p>
+      <button id="hintOkButton" class="button button--primary">Ho capito</button>
+    </div>
+  </div>
 
   <!--
     "defer" vuol dire: carica lo script, ma eseguilo solo quando tutta la pagina HTML è pronta.

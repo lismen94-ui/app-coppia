@@ -2,7 +2,9 @@
 
 Testi originali. Legenda:
 - Intensità: ●○○ leggera · ●●○ media · ●●● intensa (compare coperta, con avvertimento)
-- 🎯 Tocca a te · 🤝 Insieme · 🔮 Indovina l'altro
+- Chi tiene il telefono LEGGE la carta all'altro.
+- 🎯 (🗣️ nell'app) risponde l'altra persona · 🤝 rispondete tutti e due · 🔮 l'altra persona indovina la risposta di chi legge
+- Nelle carte bonus invece 🎯 = lo fa chi tiene il telefono
 - Il numero è solo un codice: l'ordine di gioco lo decide l'app.
 
 ---
@@ -173,7 +175,7 @@ Testi originali. Legenda:
 R1. 🎯 Cosa ti è rimasto addosso della giornata di oggi?
 R2. 🤝 Ognuno dica, in una parola, con che umore arriva a questa serata.
 R3. 🎯 Qual è stata la cosa più bella, anche minuscola, di questa settimana?
-R4. 🔮 Che voto darei alla mia giornata, da 1 a 10? Poi l'altro dice il suo voto vero.
+R4. 🔮 Che voto darei alla mia giornata, da 1 a 10? Poi ti dico il mio voto vero.
 R5. 🎯 C'è qualcosa che ti porti dietro stasera e che vorresti lasciare da parte prima di cominciare?
 R6. 🤝 Respirate insieme tre volte, lentamente, prima della prossima carta.
 R7. 🎯 Oggi, quando hai pensato a me, a cosa stavi pensando?

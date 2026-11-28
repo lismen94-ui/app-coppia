@@ -8,10 +8,17 @@ Un'app per **ritrovarsi in coppia** attraverso domande profonde, con una base ps
 Si gioca in due su **un solo telefono Android**, passato di mano in mano.
 Non ci sono punteggi, vincitori o timer.
 
-## 2. Setup
+## 2. Spiegazioni: poco all'inizio, il resto quando serve
+- **La prima volta** che si preme "Nuova serata": solo **2 schede** (cos'è Luna; uno chiede, l'altro risponde) → poi la scelta dei colori.
+- **Pop-up "la prima volta che…"**: compaiono una volta sola, in basso, con "Ho capito", nel momento in cui serve:
+  primo riscaldamento · prima domanda "leggila all'altro" · prima carta "insieme" · prima carta 🔮 · prima carta intensa coperta · prima carta bonus · i cuori delle preferite.
+- **Guida completa (7 schede)**: pulsante "Come si gioca" sulla home e "?" durante il gioco (si torna alla stessa carta).
+- Sulle carte di riscaldamento: "Riscaldamento · 1 di 3".
+
+## 2b. Setup
 - Ognuno sceglie **un colore** da una palette di pastelli calmi (rosa cipria, azzurro polvere, salvia, lavanda, sabbia, pesca…). Due persone non possono avere lo stesso colore.
 - La coppia resta salvata sul telefono.
-- Il colore sostituisce il nome: il turno si capisce dal colore della carta.
+- Il colore sostituisce il nome: la carta si illumina del colore di **chi tiene il telefono e legge**.
 
 ## 3. Categorie
 | Categoria | Stato |
@@ -35,10 +42,11 @@ Ogni livello ha 50 domande e mescola un po' tutti e tre gli aspetti.
 Ogni carta domanda ha:
 - **codice** (es. `Q001`) — solo un identificativo, NON l'ordine di gioco
 - **categoria**, **livello** (1–3), **intensità** (1–3, mostrata come ●○○ / ●●○ / ●●●)
-- **chi risponde**:
-  - 🎯 *Tocca a te* — risponde chi ha il telefono
-  - 🤝 *Insieme* — rispondono entrambi
-  - 🔮 *Indovina l'altro* — rispondi come pensi che risponderebbe l'altro; l'altro conferma o corregge
+- **chi risponde**. Regola base: **chi tiene il telefono legge la carta ad alta voce all'altro** (le domande sono scritte in prima persona: "cosa hai notato *di me*?").
+  - 🗣️ *Leggila all'altro* — risponde l'altra persona (nei dati: `self`)
+  - 🤝 *Rispondete tutti e due* — chi legge e chi ascolta rispondono entrambi (`together`)
+  - 🔮 *Fallo indovinare* — l'altra persona indovina la risposta di chi legge, che poi dice se ci ha preso (`guessOther`)
+  - Nelle carte **bonus** invece l'azione la fa chi tiene il telefono (🎯 Tocca a te / 🤝 Insieme).
 - **testo**
 
 Altri mazzi:
@@ -81,7 +89,7 @@ Anche "Chiudi la serata" a metà porta al rituale di chiusura.
 ## 8. Carte intense (●●●)
 - Prima della prima carta di Radici compare la schermata **"Regole del cuore"**: ascolta senza difenderti · non esiste una risposta giusta · ogni carta si può mettere in sospeso · quello che viene detto qui, resta qui.
 - Ogni carta ●●● compare **coperta**, con "Carta intensa — siete pronti a scoprirla?" e due pulsanti: **Scopri** / **Mettila in sospeso**.
-- Dopo una ●●● a cui avete risposto arriva una carta bonus **🌙 Un momento di calma**, per chi ha ascoltato (il telefono è già passato).
+- Dopo una ●●● arriva una carta bonus **🌙 Un momento di calma**, PRIMA di passare il telefono: la fa chi ha letto la domanda, cioè chi ha appena ascoltato la risposta.
 
 ## 9. Domande in sospeso
 - Una carta saltata finisce nell'elenco **condiviso** "In sospeso" (dalla home).

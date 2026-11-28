@@ -19,6 +19,12 @@ const RECENT_WARMUPS_TO_REMEMBER = 15;
 // cioè: per ogni carta, chi l'ha messa tra le preferite.
 let favorites = {};
 
+// La guida "Come si gioca" è già stata vista? (La prima volta si apre da sola.)
+let tutorialSeen = false;
+
+// I pop-up "la prima volta che…" già visti, es. ["warmup", "readAloud"]
+let seenHints = [];
+
 // I riscaldamenti usciti nelle ultime serate
 let recentWarmupIds = [];
 
@@ -45,6 +51,8 @@ function saveGame() {
     favorites: favorites,
     recentWarmupIds: recentWarmupIds,
     recentBonusIds: recentBonusIds,
+    tutorialSeen: tutorialSeen,
+    seenHints: seenHints,
   };
 
   // try/catch: in rari casi (es. memoria piena, navigazione privata)
@@ -89,6 +97,8 @@ function loadGame() {
   favorites = savedData.favorites ?? {};
   recentWarmupIds = savedData.recentWarmupIds ?? [];
   recentBonusIds = savedData.recentBonusIds ?? [];
+  tutorialSeen = savedData.tutorialSeen ?? false;
+  seenHints = savedData.seenHints ?? [];
 
   // usedCardIds e skippedCardIds sono "const": non possiamo sostituirli,
   // ma possiamo svuotarli e riempirli di nuovo.
@@ -143,6 +153,17 @@ function rememberBonus(bonusId) {
   recentBonusIds.push(bonusId);
   if (recentBonusIds.length > RECENT_BONUSES_TO_REMEMBER) {
     recentBonusIds = recentBonusIds.slice(-RECENT_BONUSES_TO_REMEMBER);
+  }
+}
+
+/**
+ * Segna un pop-up come visto, così non compare più.
+ * @param {string} hintKey
+ */
+function markHintAsSeen(hintKey) {
+  if (!seenHints.includes(hintKey)) {
+    seenHints.push(hintKey);
+    saveGame();
   }
 }
 

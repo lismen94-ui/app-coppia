@@ -603,3 +603,156 @@ h2 {
   font-size: 1.25rem;
   font-style: italic;
 }
+
+/* =========================================================
+   GUIDA "COME SI GIOCA"
+   ========================================================= */
+.tutorialCounter {
+  margin: 0;
+  font-size: 0.8rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--colorTextSoft);
+}
+
+.tutorialText {
+  margin: 0;
+  width: 100%;
+  /* Le spiegazioni sono elenchi: allineate a sinistra si leggono meglio */
+  text-align: left;
+  color: var(--colorText);
+  /* pre-line: rispetta gli "a capo" (\n) scritti nel testo */
+  white-space: pre-line;
+}
+
+/* I puntini in basso: quante schede ci sono e a quale siete */
+.tutorialDots {
+  display: flex;
+  gap: 8px;
+}
+
+.tutorialDot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background-color: rgba(163, 166, 214, 0.35);
+}
+
+.tutorialDot--active {
+  background-color: var(--neonLilac);
+  box-shadow: 0 0 8px var(--neonLilac);
+}
+
+/* --- Le mini carte di esempio (scheda "I vostri colori") --- */
+.tutorialVisual {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  width: 100%;
+}
+
+.tutorialVisual:empty {
+  display: none;
+}
+
+.miniCard {
+  flex: 1;
+  max-width: 110px;
+  padding: 18px 6px;
+  border-radius: 14px;
+  border: 2px solid var(--miniColor);
+  background: linear-gradient(160deg, var(--cardTop), var(--cardBottom));
+  box-shadow: 0 0 14px -3px var(--miniColor);
+  font-size: 0.8rem;
+  text-align: center;
+  color: var(--colorText);
+}
+
+/* La mini carta "insieme": bordo sfumato tra i due colori (stesso trucco della carta vera) */
+.miniCard--together {
+  border-color: transparent;
+  background:
+    linear-gradient(160deg, var(--cardTop), var(--cardBottom)) padding-box,
+    linear-gradient(135deg, var(--miniColor), var(--miniColorOther)) border-box;
+  box-shadow:
+    -8px 0 16px -8px var(--miniColor),
+    8px 0 16px -8px var(--miniColorOther);
+}
+
+/* =========================================================
+   PULSANTE "?" NEL GIOCO
+   ========================================================= */
+
+/* La schermata deve essere "position: relative" perché il "?" si posizioni rispetto a lei */
+#screenGame {
+  position: relative;
+}
+
+.helpButton {
+  position: absolute;
+  top: 18px;
+  right: 18px;
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  border: 1px solid rgba(163, 166, 214, 0.5);
+  background: transparent;
+  color: var(--colorTextSoft);
+  font-size: 1rem;
+  cursor: pointer;
+}
+
+/* =========================================================
+   POP-UP "LA PRIMA VOLTA CHE…"
+   position: fixed + inset: 0 → copre tutto lo schermo.
+   Lo sfondo semitrasparente lascia intravedere la carta dietro.
+   ========================================================= */
+.hintOverlay {
+  position: fixed;
+  inset: 0;
+  z-index: 10;               /* sopra a tutto il resto */
+  display: flex;
+  align-items: flex-end;     /* il riquadro sta in basso, dove arriva il pollice */
+  justify-content: center;
+  padding: 20px;
+  background-color: rgba(5, 7, 26, 0.55);
+}
+
+.hintBox {
+  width: 100%;
+  max-width: 440px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  padding: 22px;
+  border-radius: 20px;
+  background: linear-gradient(160deg, var(--cardTop), var(--cardBottom));
+  border: 1px solid var(--neonAzure);
+  box-shadow: 0 0 24px -6px var(--neonAzure);
+  /* Entra dal basso con un piccolo movimento */
+  animation: hintSlideUp 0.3s ease;
+}
+
+@keyframes hintSlideUp {
+  from { transform: translateY(20px); opacity: 0; }
+  to   { transform: translateY(0); opacity: 1; }
+}
+
+.hintTitle {
+  margin: 0;
+  font-size: 1.15rem;
+  font-weight: 600;
+  color: var(--neonAzure);
+}
+
+.hintText {
+  margin: 0;
+  white-space: pre-line;
+  color: var(--colorText);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .hintBox {
+    animation: none;
+  }
+}

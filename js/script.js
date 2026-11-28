@@ -258,6 +258,9 @@ function displayCard(card) {
   updateGoDeeperButton();
   updateGameButtons();
   showScreen("screenGame");
+
+  // La prima volta che compare un certo tipo di carta, un pop-up la spiega (ui.js)
+  showHints(getHintsToShow(card, currentCardKind));
 }
 
 /**
@@ -436,16 +439,24 @@ function goToNextTurn() {
 
   markCurrentCardAsUsed();
 
-  // Operatore ternario: "se è first, diventa second; altrimenti diventa first"
-  currentPlayer = currentPlayer === "first" ? "second" : "first";
-  applyTurnColors();
-
-  // Dopo una carta intensa: una pausa di calma, poi si prosegue
+  // Dopo una carta intensa: una pausa di calma PRIMA di passare il telefono.
+  // La fa chi ha letto la domanda, cioè chi ha appena ascoltato la risposta
+  // (es. "Di' all'altro una cosa che ammiri di come ha appena risposto").
   if (wasIntense) {
-    showBonusCard("calm", continueEveningAfterTurn);
+    showBonusCard("calm", passPhoneAndContinue);
     return;
   }
 
+  passPhoneAndContinue();
+}
+
+/**
+ * Il telefono passa all'altra persona (cambia il colore) e la serata prosegue.
+ */
+function passPhoneAndContinue() {
+  // Operatore ternario: "se è first, diventa second; altrimenti diventa first"
+  currentPlayer = currentPlayer === "first" ? "second" : "first";
+  applyTurnColors();
   continueEveningAfterTurn();
 }
 
@@ -740,6 +751,88 @@ function arePlayersChosen() {
 }
 
 // =========================================================
+// GUIDA "COME SI GIOCA"
+// =========================================================
+
+// A che scheda siamo, quante schede ha la guida aperta, e dove tornare alla fine
+let tutorialStepIndex = 0;
+let tutorialTotalSteps = TUTORIAL_STEPS.length;
+let tutorialReturnScreen = "screenHome";
+
+/**
+ * Apre la guida dalla prima scheda.
+ * @param {string} returnScreen - la schermata da mostrare alla fine (es. "screenSetup")
+ * @param {boolean} introOnly - true = solo le prime 2 schede (la primissima volta)
+ */
+function openTutorial(returnScreen, introOnly) {
+  tutorialStepIndex = 0;
+  tutorialTotalSteps = introOnly ? INTRO_STEP_COUNT : TUTORIAL_STEPS.length;
+  tutorialReturnScreen = returnScreen;
+  showTutorialStep();
+  showScreen("screenTutorial");
+}
+
+/**
+ * Disegna la scheda attuale. L'ultimo pulsante cambia scritta
+ * a seconda di dove si torna: "Scegliamo i colori", "Torniamo a giocare"…
+ */
+function showTutorialStep() {
+  let lastButtonLabel = "Ho capito";
+  if (tutorialReturnScreen === "screenSetup") {
+    lastButtonLabel = "Scegliamo i colori";
+  } else if (tutorialReturnScreen === "screenGame") {
+    lastButtonLabel = "Torniamo a giocare";
+  }
+  renderTutorialStep(tutorialStepIndex, tutorialTotalSteps, lastButtonLabel); // sta in ui.js
+}
+
+/**
+ * "Avanti": scheda successiva, oppure fine della guida.
+ */
+function nextTutorialStep() {
+  const isLastStep = tutorialStepIndex === tutorialTotalSteps - 1;
+  if (isLastStep) {
+    closeTutorial();
+    return;
+  }
+  tutorialStepIndex = tutorialStepIndex + 1;
+  showTutorialStep();
+  window.scrollTo(0, 0);
+}
+
+/**
+ * "Indietro": scheda precedente.
+ */
+function previousTutorialStep() {
+  if (tutorialStepIndex > 0) {
+    tutorialStepIndex = tutorialStepIndex - 1;
+    showTutorialStep();
+    window.scrollTo(0, 0);
+  }
+}
+
+/**
+ * Fine della guida (o "Salta"): la segniamo come vista e torniamo dove serve.
+ * Se si torna al gioco, la carta è ancora lì, esattamente com'era.
+ */
+function closeTutorial() {
+  tutorialSeen = true;
+  saveGame();
+  showScreen(tutorialReturnScreen);
+}
+
+/**
+ * "Nuova serata": la primissima volta, prima la guida e poi la scelta dei colori.
+ */
+function onNewEveningClick() {
+  if (!tutorialSeen) {
+    openTutorial("screenSetup", true); // la prima volta: solo le 2 schede essenziali
+  } else {
+    showScreen("screenSetup");
+  }
+}
+
+// =========================================================
 // AVVIO
 // Grazie a "defer" nell'HTML, quando arriviamo qui la pagina è già pronta.
 // =========================================================
@@ -802,6 +895,18 @@ document.getElementById("buttonRevealCard").addEventListener("click", revealCard
 document.getElementById("buttonSkipCovered").addEventListener("click", skipCardAndDrawAgain);
 document.getElementById("buttonGoDeeper").addEventListener("click", goDeeperFromButton);
 document.getElementById("buttonCloseEvening").addEventListener("click", closeEvening);
+
+// Guida "Come si gioca"
+document.getElementById("buttonNewEvening").addEventListener("click", onNewEveningClick);
+document.getElementById("buttonOpenTutorial").addEventListener("click", function () {
+  openTutorial("screenHome");
+});
+document.getElementById("buttonHelp").addEventListener("click", function () {
+  openTutorial("screenGame");
+});
+document.getElementById("tutorialNext").addEventListener("click", nextTutorialStep);
+document.getElementById("tutorialBack").addEventListener("click", previousTutorialStep);
+document.getElementById("tutorialSkip").addEventListener("click", closeTutorial);
 
 // Cuori sulla carta
 document.getElementById("heartFirst").addEventListener("click", function () {
